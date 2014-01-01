@@ -27,20 +27,32 @@ namespace Ticker_BTC_e
         }
         void NewThread()
         {
+            Dictionary<string, object> dTmp = new Dictionary<string, object>();
             while (true)
             {
                 this.Invoke((MethodInvoker)delegate
                 {
-                    label1now.Text = GetTick("btc_usd");
-                    label2now.Text = GetTick("ltc_usd");
+                    dTmp = GetTick("btc_usd");
+                    label1now.Text = (string)dTmp["now"];
+                    label1change.Text = (string)dTmp["change"];
+
+                    dTmp = GetTick("ltc_usd");
+                    label2now.Text = (string)dTmp["now"];
+                    label2change.Text = (string)dTmp["change"];
                 });
                 System.Threading.Thread.Sleep(5000);
             }
         }
 
-        static string GetTick(string sPair)
+        static Dictionary<string, object> GetTick(string sPair)
         {
-            string sResult = "";
+            var dResult = new Dictionary<string, object>();
+            dResult["now"] = "Off";
+            dResult["change"] = "Off";
+
+            double dAvg;
+            double dLast;
+            string sPlus = "";
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://btc-e.com/api/2/" + sPair + "/ticker");
@@ -56,14 +68,26 @@ namespace Ticker_BTC_e
 
                 var dJson = Json.Deserialize(sResultTmp) as Dictionary<string, object>;
                 var dJsonTicker = dJson["ticker"] as Dictionary<string, object>;
-                sResult = ((double)dJsonTicker["last"]).ToString();
+
+                dAvg = Convert.ToDouble(dJsonTicker["avg"]);
+                dLast = Convert.ToDouble(dJsonTicker["last"]);
+
+                dResult["now"] = "$" + Math.Round(dLast, 2).ToString();
+
+                var dTmp = Math.Round(dLast - dAvg, 2);
+                if (dTmp > 0)
+                {
+                    sPlus = "+";
+                }
+                dResult["change"] = "Δ " + sPlus + Math.Round((dLast - dAvg) / dAvg * 100, 2)
+                    + "% <> $" + Math.Round(dAvg, 2);
             }
             catch (Exception e)
             {
 
             }
 
-            return sResult;
+            return dResult;
         }
     }
 }

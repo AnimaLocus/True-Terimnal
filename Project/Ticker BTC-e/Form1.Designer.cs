@@ -52,9 +52,9 @@
             this.label1now.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1now.Location = new System.Drawing.Point(85, 0);
             this.label1now.Name = "label1now";
-            this.label1now.Size = new System.Drawing.Size(76, 20);
+            this.label1now.Size = new System.Drawing.Size(85, 20);
             this.label1now.TabIndex = 1;
-            this.label1now.Text = "12834.21";
+            this.label1now.Text = "$12834.21";
             this.label1now.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label1change
@@ -63,9 +63,9 @@
             this.label1change.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1change.Location = new System.Drawing.Point(167, 0);
             this.label1change.Name = "label1change";
-            this.label1change.Size = new System.Drawing.Size(187, 20);
+            this.label1change.Size = new System.Drawing.Size(120, 20);
             this.label1change.TabIndex = 1;
-            this.label1change.Text = "+1.1 / +2.2 / +3.3 / +4.4 %";
+            this.label1change.Text = "<> $1231 / +1%";
             // 
             // label2
             // 
@@ -83,9 +83,9 @@
             this.label2now.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2now.Location = new System.Drawing.Point(85, 20);
             this.label2now.Name = "label2now";
-            this.label2now.Size = new System.Drawing.Size(58, 20);
+            this.label2now.Size = new System.Drawing.Size(67, 20);
             this.label2now.TabIndex = 1;
-            this.label2now.Text = "834.21";
+            this.label2now.Text = "$834.21";
             this.label2now.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // label2change
@@ -94,15 +94,15 @@
             this.label2change.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label2change.Location = new System.Drawing.Point(167, 20);
             this.label2change.Name = "label2change";
-            this.label2change.Size = new System.Drawing.Size(187, 20);
+            this.label2change.Size = new System.Drawing.Size(120, 20);
             this.label2change.TabIndex = 1;
-            this.label2change.Text = "+1.1 / +2.2 / +3.3 / +4.4 %";
+            this.label2change.Text = "<> $1231 / +1%";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(159, 39);
+            this.ClientSize = new System.Drawing.Size(324, 39);
             this.Controls.Add(this.label2change);
             this.Controls.Add(this.label1change);
             this.Controls.Add(this.label2now);
