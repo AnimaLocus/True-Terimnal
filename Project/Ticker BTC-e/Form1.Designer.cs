@@ -102,7 +102,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 39);
+            this.ClientSize = new System.Drawing.Size(159, 39);
             this.Controls.Add(this.label2change);
             this.Controls.Add(this.label1change);
             this.Controls.Add(this.label2now);
@@ -123,11 +123,11 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label1now;
         private System.Windows.Forms.Label label1change;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label2now;
         private System.Windows.Forms.Label label2change;
+        public System.Windows.Forms.Label label1now;
+        public System.Windows.Forms.Label label2now;
     }
 }
 
