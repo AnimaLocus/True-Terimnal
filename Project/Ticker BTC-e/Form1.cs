@@ -34,26 +34,27 @@ namespace Ticker_BTC_e
                     label1now.Text = GetTick("btc_usd");
                     label2now.Text = GetTick("ltc_usd");
                 });
-                System.Threading.Thread.Sleep(1000);
+                System.Threading.Thread.Sleep(5000);
             }
         }
 
         static string GetTick(string sPair)
         {
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://btc-e.com/api/2/" + sPair + "/ticker");
-            request.MaximumAutomaticRedirections = 4;
-            request.MaximumResponseHeadersLength = 4;
-            request.Credentials = CredentialCache.DefaultCredentials;
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-            Stream receiveStream = response.GetResponseStream();
-            StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-            var sResult = readStream.ReadToEnd();
-            response.Close();
-            readStream.Close();
-
+            string sResult = "";
             try
             {
-                var dJson = Json.Deserialize(sResult) as Dictionary<string, object>;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://btc-e.com/api/2/" + sPair + "/ticker");
+                request.MaximumAutomaticRedirections = 4;
+                request.MaximumResponseHeadersLength = 4;
+                request.Credentials = CredentialCache.DefaultCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                var sResultTmp = readStream.ReadToEnd();
+                response.Close();
+                readStream.Close();
+
+                var dJson = Json.Deserialize(sResultTmp) as Dictionary<string, object>;
                 var dJsonTicker = dJson["ticker"] as Dictionary<string, object>;
                 sResult = ((double)dJsonTicker["last"]).ToString();
             }
