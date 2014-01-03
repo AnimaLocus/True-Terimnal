@@ -64,7 +64,7 @@ namespace Ticker_BTC_e
 
                     DataManipulator myDataManip = chart1.DataManipulator;
                     myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
-                        (dtTick.AddMinutes(-10)).ToOADate(),
+                        (dtTick.AddMinutes(-30)).ToOADate(),
                         "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
 
                     chart1.Series[2].Points.AddXY(dTmp["updated"], dTmp["now"]);
@@ -72,7 +72,6 @@ namespace Ticker_BTC_e
                     chart1.Series[3].Points.AddXY(dTmp["updated"], 
                         Convert.ToDouble(dTmp["vol"]) / Convert.ToDouble(dTmp["vol_cur"]));
 
-                    ;
                     //myDataManip.FilterTopN(4, "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X", true);
                     //myDataManip.FilterTopN(4, "", "SeriesLineVol", "X"); 
                     /*
