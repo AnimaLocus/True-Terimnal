@@ -7,3 +7,5 @@ Windows only. Need .NET 4.5.
 Features:
 - All time window stay on top
 - Line chart and line volume
+
+![Alt text](Screenshot.png "Screenshot")
