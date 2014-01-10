@@ -14,8 +14,6 @@ ToDo:
 - Indicators: MA, MACD, Stoch, ROC
 - Volume
 - Order book
-- Add trading interface
--- Sell/Buy
--- Open orders
--- Tracking orders
+- Add trading interface (Sell/Buy, Open orders, Tracking orders)
 - Settings
+- Trading statistic
