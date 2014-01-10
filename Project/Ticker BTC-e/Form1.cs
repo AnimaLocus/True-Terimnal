@@ -52,6 +52,8 @@ namespace Ticker_BTC_e
             //return;
 
             Dictionary<string, object> dTmp = new Dictionary<string, object>();
+            dTmp["updated"] = 1;
+            Random rnd = new Random();
             while (true)
             {
                 try
@@ -61,6 +63,9 @@ namespace Ticker_BTC_e
                         dTmp = GetTick("btc_usd");
                         label1now.Text = (string)dTmp["nowt"];
                         label1change.Text = (string)dTmp["change"];
+
+                        //dTmp["now"] = rnd.Next(50, 150);
+                        //dTmp["updated"] = 20 + Convert.ToDouble(dTmp["updated"]);
 
                         DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
                         dTmp["updated"] = dtTick.ToOADate();
@@ -78,6 +83,11 @@ namespace Ticker_BTC_e
                             (dtTick.AddMinutes(-30)).ToOADate(),
                             "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
                         */
+
+                        if (dCandlestickData.Count > 60)
+                        {
+                            dCandlestickData.Remove(dCandlestickData.Keys.Min());
+                        }
                         if (dCandlestickData.ContainsKey(dDate))
                         {
                             dCandlestickData[dDate].Close = dPrice;
@@ -211,31 +221,14 @@ namespace Ticker_BTC_e
         }
         public void UpdateChartMain()
         {
-            //Series price = new Series("price"); // <<== make sure to name the series "price"
-            //chart1.Series.Add(price);
-
-            // Set series chart type
-            ChartMain.Series["Candlestick"].ChartType = SeriesChartType.Candlestick;
-
-            // Set the style of the open-close marks
-            //ChartMain.Series["Candlestick"]["OpenCloseStyle"] = "Triangle";
-
-            // Show both open and close marks
-            //ChartMain.Series["Candlestick"]["ShowOpenClose"] = "Both";
-
-            // Set point width
-            ChartMain.Series["Candlestick"]["PointWidth"] = "0.20";
-
-            // Set colors bars
-            //ChartMain.Series["Candlestick"]["PriceUpColor"] = "Green"; // <<== use text indexer for series
-            //ChartMain.Series["Candlestick"]["PriceDownColor"] = "Red"; // <<== use text indexer for series
-
             int i = 0;
             //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
+            ChartMain.Series["Line"].Points.Clear();
             ChartMain.Series["Candlestick"].Points.Clear();
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
                 // adding date and high
+                ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low)/2);
                 ChartMain.Series["Candlestick"].Points.AddXY(kv.Key, kv.Value.High);
                 // adding low
                 ChartMain.Series["Candlestick"].Points[i].YValues[1] = kv.Value.Low;
@@ -246,6 +239,24 @@ namespace Ticker_BTC_e
 
                 i++;
             }
+            /*
+            if (i > 5)
+            {
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "5", "Line:Y", "LineMA1:Y");
+            }
+            if (i > 10)
+            {
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "10", "Line:Y", "LineMA2:Y");
+            }
+            if (i > 20)
+            {
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "20", "Line:Y", "LineMA3:Y");
+            }
+            if (i > 40)
+            {
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "40", "Line:Y", "LineMA4:Y");
+            }
+             * */
         }
 
         private void label1change_Click(object sender, EventArgs e)
