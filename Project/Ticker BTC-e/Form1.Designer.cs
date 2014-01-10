@@ -105,6 +105,7 @@
             chartArea1.AxisY.MajorTickMark.Enabled = false;
             chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisY2.IsLabelAutoFit = false;
+            chartArea1.AxisY2.IsStartedFromZero = false;
             chartArea1.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             chartArea1.AxisY2.LineColor = System.Drawing.Color.Transparent;
             chartArea1.AxisY2.LineWidth = 0;
