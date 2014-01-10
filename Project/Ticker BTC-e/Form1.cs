@@ -13,6 +13,7 @@ using System.Net.Http;
 using System.IO;
 using MiniJSON;
 using System.Windows.Forms.DataVisualization.Charting;
+using System.Globalization;
 
 namespace Ticker_BTC_e
 {
@@ -40,54 +41,109 @@ namespace Ticker_BTC_e
             chart1.Series[0].Points.AddXY("6", "4");
             chart1.Series[0].Points.AddXY("7", "3");
             */
+
+            //UpdateChartMain();
             Thread t = new Thread(NewThread);
             t.IsBackground = true;
             t.Start();
         }
         void NewThread()
         {
-            this.Invoke((MethodInvoker)delegate
-            {
-            });
+            //return;
 
             Dictionary<string, object> dTmp = new Dictionary<string, object>();
             while (true)
             {
-                this.Invoke((MethodInvoker)delegate
+                try
                 {
-                    dTmp = GetTick("btc_usd");
-                    label1now.Text = (string)dTmp["now"];
-                    label1change.Text = (string)dTmp["change"];
+                    this.Invoke((MethodInvoker)delegate
+                    {
+                        dTmp = GetTick("btc_usd");
+                        label1now.Text = (string)dTmp["nowt"];
+                        label1change.Text = (string)dTmp["change"];
 
-                    DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
-                    dTmp["updated"] = dtTick.ToOADate();
+                        DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
+                        dTmp["updated"] = dtTick.ToOADate();
 
-                    DataManipulator myDataManip = chart1.DataManipulator;
-                    myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
-                        (dtTick.AddMinutes(-30)).ToOADate(),
-                        "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
+                        dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
+                        double dDate = dtTick.ToOADate();
+                        //double dPrice = 0;
+                        double dPrice = Convert.ToDouble(dTmp["now"]);
+                        //double.Parse((string)dTmp["now"], CultureInfo.InvariantCulture);
+                        //double dPrice = (double)dTmp["now"];
 
-                    chart1.Series[2].Points.AddXY(dTmp["updated"], dTmp["now"]);
+                        /*
+                        DataManipulator myDataManip = chart1.DataManipulator;
+                        myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
+                            (dtTick.AddMinutes(-30)).ToOADate(),
+                            "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
+                        */
+                        if (dCandlestickData.ContainsKey(dDate))
+                        {
+                            dCandlestickData[dDate].Close = dPrice;
+                            if (dCandlestickData[dDate].Low > dPrice)
+                            {
+                                dCandlestickData[dDate].Low = dPrice;
+                            }
+                            if (dCandlestickData[dDate].High < dPrice)
+                            {
+                                dCandlestickData[dDate].High = dPrice;
+                            }
+                        }
+                        else
+                        {
+                            dCandlestickData[dDate] = new CandlestickData(
+                                dDate,
+                                dPrice,
+                                dPrice,
+                                dPrice,
+                                dPrice
+                            );
+                        }
+                        //chart1.Series["SeriesLine"].Points.AddXY(dTmp["updated"], dTmp["now"]);
 
-                    chart1.Series[3].Points.AddXY(dTmp["updated"], 
-                        Convert.ToDouble(dTmp["vol"]) / Convert.ToDouble(dTmp["vol_cur"]));
+                        /*
+                        // adding date and high
+                        chart1.Series["SeriesChart"].Points.AddXY(dTmp["updated"], dTmp["now"]);
+                        // adding low
+                        chart1.Series["SeriesChart"].Points[0].YValues[1] = Convert.ToDouble(dTmp["now"]);
+                        //adding open
+                        chart1.Series["SeriesChart"].Points[0].YValues[2] = Convert.ToDouble(dTmp["now"]);
+                        // adding close
+                        chart1.Series["SeriesChart"].Points[0].YValues[3] = Convert.ToDouble(dTmp["now"]);
+                        */
 
-                    //myDataManip.FilterTopN(4, "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X", true);
-                    //myDataManip.FilterTopN(4, "", "SeriesLineVol", "X"); 
-                    /*
-                    */
-                    
-                    dTmp = GetTick("ltc_usd");
-                    label2now.Text = (string)dTmp["now"];
-                    label2change.Text = (string)dTmp["change"];
-                });
-                System.Threading.Thread.Sleep(5000);
+
+
+                        //chart1.Series[3].Points.AddXY(dTmp["updated"], 
+                        //    Convert.ToDouble(dTmp["vol"]) / Convert.ToDouble(dTmp["vol_cur"]));
+
+                        //myDataManip.FilterTopN(4, "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X", true);
+                        //myDataManip.FilterTopN(4, "", "SeriesLineVol", "X"); 
+                        /*
+                        dTmp = GetTick("ltc_usd");
+                        label2now.Text = (string)dTmp["now"];
+                        label2change.Text = (string)dTmp["change"];
+                        */
+
+                        UpdateChartMain();
+                    });
+                }
+                catch (Exception e)
+                {
+
+                }
+                System.Threading.Thread.Sleep(1000);
             }
         }
         static DateTime ConvertFromUnixTimestamp(double timestamp)
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(timestamp);
+        }
+        public static DateTime dtFloor(DateTime date, TimeSpan span) {
+            long ticks = (date.Ticks / span.Ticks);
+            return new DateTime(ticks * span.Ticks);
         }
         static Dictionary<string, object> GetTick(string sPair)
         {
@@ -123,7 +179,8 @@ namespace Ticker_BTC_e
                 dAvg = Convert.ToDouble(dJsonTicker["avg"]);
                 dLast = Convert.ToDouble(dJsonTicker["last"]);
 
-                dResult["now"] = "$" + Math.Round(dLast, 2).ToString();
+                dResult["now"] = dJsonTicker["last"];
+                dResult["nowt"] = "$" + Math.Round(dLast, 2).ToString();
 
                 var dTmp = Math.Round(dLast - dAvg, 2);
                 if (dTmp > 0)
@@ -141,12 +198,67 @@ namespace Ticker_BTC_e
             return dResult;
         }
 
+        public Dictionary<double, CandlestickData> dCandlestickData = new Dictionary<double, CandlestickData>();
+        public class CandlestickData
+        {
+            public double Date;
+            public double High;
+            public double Low;
+            public double Open;
+            public double Close;
+            public CandlestickData(double d, double h, double l, double o, double c) 
+                { Date = d; High = h; Low = l; Open = o; Close = c; }
+        }
+        public void UpdateChartMain()
+        {
+            //Series price = new Series("price"); // <<== make sure to name the series "price"
+            //chart1.Series.Add(price);
+
+            // Set series chart type
+            ChartMain.Series["Candlestick"].ChartType = SeriesChartType.Candlestick;
+
+            // Set the style of the open-close marks
+            //ChartMain.Series["Candlestick"]["OpenCloseStyle"] = "Triangle";
+
+            // Show both open and close marks
+            //ChartMain.Series["Candlestick"]["ShowOpenClose"] = "Both";
+
+            // Set point width
+            ChartMain.Series["Candlestick"]["PointWidth"] = "0.20";
+
+            // Set colors bars
+            //ChartMain.Series["Candlestick"]["PriceUpColor"] = "Green"; // <<== use text indexer for series
+            //ChartMain.Series["Candlestick"]["PriceDownColor"] = "Red"; // <<== use text indexer for series
+
+            int i = 0;
+            //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
+            ChartMain.Series["Candlestick"].Points.Clear();
+            foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
+            {
+                // adding date and high
+                ChartMain.Series["Candlestick"].Points.AddXY(kv.Key, kv.Value.High);
+                // adding low
+                ChartMain.Series["Candlestick"].Points[i].YValues[1] = kv.Value.Low;
+                //adding open
+                ChartMain.Series["Candlestick"].Points[i].YValues[2] = kv.Value.Open;
+                // adding close
+                ChartMain.Series["Candlestick"].Points[i].YValues[3] = kv.Value.Close;
+
+                i++;
+            }
+        }
+
         private void label1change_Click(object sender, EventArgs e)
         {
 
         }
 
         private void chart1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ChartMain_Click(object sender, EventArgs e)
         {
 
         }

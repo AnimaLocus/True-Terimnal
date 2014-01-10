@@ -34,6 +34,8 @@
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label1now = new System.Windows.Forms.Label();
             this.label1change = new System.Windows.Forms.Label();
@@ -41,7 +43,9 @@
             this.label2now = new System.Windows.Forms.Label();
             this.label2change = new System.Windows.Forms.Label();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.ChartMain = new System.Windows.Forms.DataVisualization.Charting.Chart();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -180,7 +184,7 @@
             series2.EmptyPointStyle.IsVisibleInLegend = false;
             series2.EmptyPointStyle.LabelBackColor = System.Drawing.Color.Transparent;
             series2.EmptyPointStyle.LabelBorderColor = System.Drawing.Color.Transparent;
-            series2.Enabled = false;
+            series2.IsXValueIndexed = true;
             series2.LabelBackColor = System.Drawing.Color.Transparent;
             series2.Legend = "Legend1";
             series2.Name = "SeriesChart";
@@ -191,10 +195,10 @@
             series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series3.Color = System.Drawing.Color.HotPink;
             series3.CustomProperties = "IsXAxisQuantitative=True";
+            series3.Enabled = false;
             series3.IsXValueIndexed = true;
             series3.Legend = "Legend1";
             series3.Name = "SeriesLine";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             series4.BorderColor = System.Drawing.Color.White;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -215,13 +219,39 @@
             this.chart1.Text = "chart1";
             this.chart1.Click += new System.EventHandler(this.chart1_Click);
             // 
+            // ChartMain
+            // 
+            chartArea2.AxisX.IsStartedFromZero = false;
+            chartArea2.AxisX.LineColor = System.Drawing.Color.Silver;
+            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            chartArea2.AxisY.IsStartedFromZero = false;
+            chartArea2.AxisY.LineColor = System.Drawing.Color.Silver;
+            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Silver;
+            chartArea2.Name = "ChartArea1";
+            this.ChartMain.ChartAreas.Add(chartArea2);
+            this.ChartMain.Location = new System.Drawing.Point(16, 147);
+            this.ChartMain.Name = "ChartMain";
+            this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series5.CustomProperties = "PriceDownColor=Red, PriceUpColor=0\\, 192\\, 0";
+            series5.Name = "Candlestick";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series5.YValuesPerPoint = 4;
+            this.ChartMain.Series.Add(series5);
+            this.ChartMain.Size = new System.Drawing.Size(476, 300);
+            this.ChartMain.TabIndex = 3;
+            this.ChartMain.Text = "ChartMain";
+            this.ChartMain.Click += new System.EventHandler(this.ChartMain_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-            this.ClientSize = new System.Drawing.Size(324, 145);
+            this.ClientSize = new System.Drawing.Size(504, 505);
+            this.Controls.Add(this.ChartMain);
             this.Controls.Add(this.chart1);
             this.Controls.Add(this.label2change);
             this.Controls.Add(this.label1change);
@@ -237,6 +267,7 @@
             this.Text = "Ticker BTC-e";
             this.TopMost = true;
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -251,6 +282,7 @@
         public System.Windows.Forms.Label label1now;
         public System.Windows.Forms.Label label2now;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart ChartMain;
     }
 }
 
