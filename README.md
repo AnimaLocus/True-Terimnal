@@ -6,14 +6,14 @@ Windows only. Need .NET 4.5.
 
 Features:
 - All time window stay on top with transparent
-- Candlestick chart and by min and last 60 min
+- Candlestick chart (candle = 1 min, last 60 minutes)
 
 ![Alt text](Screenshot.png "Screenshot")
 
 ToDo:
-- Indicators: MA, MACD, Stoch, ROC
 - Volume
-- Order book
-- Add trading interface (Sell/Buy, Open orders, Tracking orders)
 - Settings
+- Order book
+- Indicators: MA, MACD, Stoch, ROC
+- Trading interface (Sell/Buy, Open orders, Tracking orders)
 - Trading statistic
