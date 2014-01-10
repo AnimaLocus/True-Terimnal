@@ -225,10 +225,12 @@ namespace Ticker_BTC_e
             //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
             ChartMain.Series["Line"].Points.Clear();
             ChartMain.Series["Candlestick"].Points.Clear();
+
+            CandlestickData csdLast = new CandlestickData(0,0,0,0,0);
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
                 // adding date and high
-                ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low)/2);
+                ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low) / 2);
                 ChartMain.Series["Candlestick"].Points.AddXY(kv.Key, kv.Value.High);
                 // adding low
                 ChartMain.Series["Candlestick"].Points[i].YValues[1] = kv.Value.Low;
@@ -237,8 +239,13 @@ namespace Ticker_BTC_e
                 // adding close
                 ChartMain.Series["Candlestick"].Points[i].YValues[3] = kv.Value.Close;
 
+                csdLast = kv.Value;
+
                 i++;
             }
+            ChartMain.Series["LineNow"].Points.Clear();
+            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date, csdLast.Close);
+            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date-60, csdLast.Close);
             /*
             if (i > 5)
             {
