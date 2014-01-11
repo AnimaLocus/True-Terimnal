@@ -23,27 +23,7 @@ namespace Ticker_BTC_e
         public Form1()
         {
             InitializeComponent();
-            /*
-            chart1.Series[2].Points.AddXY("0", "723");
-            chart1.Series[2].Points.AddXY("1", "725");
-            chart1.Series[2].Points.AddXY("2", "722");
-            chart1.Series[2].Points.AddXY("3", "700");
-            chart1.Series[2].Points.AddXY("4", "715");
-            chart1.Series[2].Points.AddXY("5", "722");
-            chart1.Series[2].Points.AddXY("6", "730");
-            chart1.Series[2].Points.AddXY("7", "734");
 
-            chart1.Series[0].Points.AddXY("0", "1");
-            chart1.Series[0].Points.AddXY("1", "2");
-            chart1.Series[0].Points.AddXY("2", "3");
-            chart1.Series[0].Points.AddXY("3", "2");
-            chart1.Series[0].Points.AddXY("4", "1");
-            chart1.Series[0].Points.AddXY("5", "3");
-            chart1.Series[0].Points.AddXY("6", "4");
-            chart1.Series[0].Points.AddXY("7", "3");
-            */
-
-            //UpdateChartMain();
             Thread t = new Thread(NewThread);
             t.IsBackground = true;
             t.Start();
@@ -51,7 +31,8 @@ namespace Ticker_BTC_e
         void NewThread()
         {
             //return;
-            Random rnd = new Random(); 
+            Random rnd = new Random();
+            int i = 0;
 
             Dictionary<string, object> dTmp = new Dictionary<string, object>();
             if (Setting.DebugImitation)
@@ -68,13 +49,29 @@ namespace Ticker_BTC_e
                         {
                             dTmp["now"] = rnd.Next(50, 150);
                             dTmp["updated"] = 20 + Convert.ToDouble(dTmp["updated"]);
+
+                            //listViewAsk.BeginUpdate();
+                            //listViewAsk.EndUpdate();
+                            listViewAsk.Items.Add(rnd.Next(1, 150000000).ToString());
+                            listViewAsk.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
+                            listViewAsk.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
+
+                            listViewBid.Items.Add(rnd.Next(1, 150000000).ToString());
+                            listViewBid.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
+                            listViewBid.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
+
+                            i++;
                         }
                         else
                         {
                             dTmp = GetTick(Setting.TradingPair);
                             label1now.Text = (string)dTmp["nowt"];
                             label1change.Text = (string)dTmp["change"];
+
+                            dDepthData = GetDepth(Setting.TradingPair);
+                            UpdateDepth();
                         }
+                        
                         DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
                         if (!Setting.DebugImitation)
                         {
@@ -83,10 +80,7 @@ namespace Ticker_BTC_e
 
                         dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
                         double dDate = dtTick.ToOADate();
-                        //double dPrice = 0;
                         double dPrice = Convert.ToDouble(dTmp["now"]);
-                        //double.Parse((string)dTmp["now"], CultureInfo.InvariantCulture);
-                        //double dPrice = (double)dTmp["now"];
 
                         /*
                         DataManipulator myDataManip = chart1.DataManipulator;
@@ -95,7 +89,7 @@ namespace Ticker_BTC_e
                             "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
                         */
 
-                        if (dCandlestickData.Count > 60)
+                        if (dCandlestickData.Count > Setting.ShowInterval)
                         {
                             dCandlestickData.Remove(dCandlestickData.Keys.Min());
                         }
@@ -142,6 +136,101 @@ namespace Ticker_BTC_e
             long ticks = (date.Ticks / span.Ticks);
             return new DateTime(ticks * span.Ticks);
         }
+        static Dictionary<string, object> GetJson(string sUrl)
+        {
+            var dResult = new Dictionary<string, object>();
+            try
+            {
+                /*
+                 * https://btc-e.com/api/2/btc_usd/trades
+                 * https://btc-e.com/api/2/btc_usd/depth
+                 * https://btc-e.com/api/2/btc_usd/ticker
+                 */
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(sUrl);
+                request.MaximumAutomaticRedirections = 4;
+                request.MaximumResponseHeadersLength = 4;
+                request.Credentials = CredentialCache.DefaultCredentials;
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
+                var sResultTmp = readStream.ReadToEnd();
+                response.Close();
+                readStream.Close();
+
+                dResult = Json.Deserialize(sResultTmp) as Dictionary<string, object>;
+            }
+            catch (Exception e) { }
+
+            return dResult;
+        }
+        public Dictionary<string, object> dDepthData = new Dictionary<string, object>();
+        static Dictionary<string, object> GetDepth(string sPair)
+        {
+            var dResult = new Dictionary<string, object>();
+            try
+            {
+                dResult = GetJson("https://btc-e.com/api/2/" + sPair + "/depth");
+            }
+            catch (Exception e) { }
+
+            return dResult;
+        }
+        public void UpdateDepth()
+        {
+            double dDepth = 0;
+            listViewAsk.Items.Clear();
+            listViewAsk.BeginUpdate();
+            var lAsks = (List<object>)dDepthData["asks"];
+            for (int i = 0; i < lAsks.Count; i++)
+            {
+                dDepth += Convert.ToDouble
+                    (
+                        ((List<object>)lAsks[i])[1]
+                    );
+
+                listViewAsk.Items.Add(
+                    Convert.ToDouble
+                    (
+                        ((List<object>)lAsks[i])[0]
+                    ).ToString()
+                );
+                listViewAsk.Items[i].SubItems.Add(
+                    Convert.ToDouble
+                    (
+                        ((List<object>)lAsks[i])[1]
+                    ).ToString()
+                );
+                listViewAsk.Items[i].SubItems.Add(dDepth.ToString());
+            }
+            listViewAsk.EndUpdate();
+
+            dDepth = 0;
+            listViewBid.Items.Clear();
+            listViewBid.BeginUpdate();
+            var lBids = (List<object>)dDepthData["bids"];
+            for (int i = 0; i < lBids.Count; i++)
+            {
+                dDepth += Convert.ToDouble
+                    (
+                        ((List<object>)lBids[i])[1]
+                    );
+
+                listViewBid.Items.Add(
+                    Convert.ToDouble
+                    (
+                        ((List<object>)lBids[i])[0]
+                    ).ToString()
+                );
+                listViewBid.Items[i].SubItems.Add(
+                    Convert.ToDouble
+                    (
+                        ((List<object>)lBids[i])[1]
+                    ).ToString()
+                );
+                listViewBid.Items[i].SubItems.Add(dDepth.ToString());
+            }
+            listViewBid.EndUpdate();
+        }
         static Dictionary<string, object> GetTick(string sPair)
         {
             var dResult = new Dictionary<string, object>();
@@ -155,18 +244,7 @@ namespace Ticker_BTC_e
             string sPlus = "";
             try
             {
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://btc-e.com/api/2/" + sPair + "/ticker");
-                request.MaximumAutomaticRedirections = 4;
-                request.MaximumResponseHeadersLength = 4;
-                request.Credentials = CredentialCache.DefaultCredentials;
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                Stream receiveStream = response.GetResponseStream();
-                StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8);
-                var sResultTmp = readStream.ReadToEnd();
-                response.Close();
-                readStream.Close();
-
-                var dJson = Json.Deserialize(sResultTmp) as Dictionary<string, object>;
+                var dJson = GetJson("https://btc-e.com/api/2/" + sPair + "/ticker");
                 var dJsonTicker = dJson["ticker"] as Dictionary<string, object>;
 
                 dResult["updated"] = Convert.ToDouble(dJsonTicker["updated"]);
@@ -278,10 +356,16 @@ namespace Ticker_BTC_e
         {
 
         }
+
+        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
     public sealed class Setting
     {
         public static string TradingPair { get; set; }
+        public static int ShowInterval { get; set; }
         public static int UpdateInterval { get; set; }
         public static string APIKey { get; set; }
         public static string APISecret { get; set; }
