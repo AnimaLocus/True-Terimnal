@@ -14,7 +14,6 @@ namespace Ticker_BTC_e
 {
     static class Program
     {
-        public static string[] sTicks = new string[10];
         /// <summary>
         /// The main entry point for the application.
         /// </summary>

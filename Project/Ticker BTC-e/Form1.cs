@@ -14,6 +14,7 @@ using System.IO;
 using MiniJSON;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Globalization;
+using System.Reflection;
 
 namespace Ticker_BTC_e
 {
@@ -50,25 +51,35 @@ namespace Ticker_BTC_e
         void NewThread()
         {
             //return;
+            Random rnd = new Random(); 
 
             Dictionary<string, object> dTmp = new Dictionary<string, object>();
-            dTmp["updated"] = 1;
-            Random rnd = new Random();
+            if (Setting.DebugImitation)
+            {
+                dTmp["updated"] = 1;
+            }
             while (true)
             {
                 try
                 {
                     this.Invoke((MethodInvoker)delegate
                     {
-                        dTmp = GetTick("btc_usd");
-                        label1now.Text = (string)dTmp["nowt"];
-                        label1change.Text = (string)dTmp["change"];
-
-                        //dTmp["now"] = rnd.Next(50, 150);
-                        //dTmp["updated"] = 20 + Convert.ToDouble(dTmp["updated"]);
-
+                        if (Setting.DebugImitation)
+                        {
+                            dTmp["now"] = rnd.Next(50, 150);
+                            dTmp["updated"] = 20 + Convert.ToDouble(dTmp["updated"]);
+                        }
+                        else
+                        {
+                            dTmp = GetTick(Setting.TradingPair);
+                            label1now.Text = (string)dTmp["nowt"];
+                            label1change.Text = (string)dTmp["change"];
+                        }
                         DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
-                        dTmp["updated"] = dtTick.ToOADate();
+                        if (!Setting.DebugImitation)
+                        {
+                            dTmp["updated"] = dtTick.ToOADate();
+                        }
 
                         dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
                         double dDate = dtTick.ToOADate();
@@ -102,39 +113,8 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
-                            dCandlestickData[dDate] = new CandlestickData(
-                                dDate,
-                                dPrice,
-                                dPrice,
-                                dPrice,
-                                dPrice
-                            );
+                            dCandlestickData[dDate] = new CandlestickData(dDate, dPrice, dPrice, dPrice, dPrice);
                         }
-                        //chart1.Series["SeriesLine"].Points.AddXY(dTmp["updated"], dTmp["now"]);
-
-                        /*
-                        // adding date and high
-                        chart1.Series["SeriesChart"].Points.AddXY(dTmp["updated"], dTmp["now"]);
-                        // adding low
-                        chart1.Series["SeriesChart"].Points[0].YValues[1] = Convert.ToDouble(dTmp["now"]);
-                        //adding open
-                        chart1.Series["SeriesChart"].Points[0].YValues[2] = Convert.ToDouble(dTmp["now"]);
-                        // adding close
-                        chart1.Series["SeriesChart"].Points[0].YValues[3] = Convert.ToDouble(dTmp["now"]);
-                        */
-
-
-
-                        //chart1.Series[3].Points.AddXY(dTmp["updated"], 
-                        //    Convert.ToDouble(dTmp["vol"]) / Convert.ToDouble(dTmp["vol_cur"]));
-
-                        //myDataManip.FilterTopN(4, "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X", true);
-                        //myDataManip.FilterTopN(4, "", "SeriesLineVol", "X"); 
-                        /*
-                        dTmp = GetTick("ltc_usd");
-                        label2now.Text = (string)dTmp["now"];
-                        label2change.Text = (string)dTmp["change"];
-                        */
 
                         UpdateChartMain();
                     });
@@ -143,7 +123,14 @@ namespace Ticker_BTC_e
                 {
 
                 }
-                System.Threading.Thread.Sleep(1000);
+                if (Setting.DebugImitation)
+                {
+                    System.Threading.Thread.Sleep(100);
+                }
+                else
+                {
+                    System.Threading.Thread.Sleep(Setting.UpdateInterval);
+                }
             }
         }
         static DateTime ConvertFromUnixTimestamp(double timestamp)
@@ -229,14 +216,10 @@ namespace Ticker_BTC_e
             CandlestickData csdLast = new CandlestickData(0,0,0,0,0);
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
-                // adding date and high
                 ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low) / 2);
                 ChartMain.Series["Candlestick"].Points.AddXY(kv.Key, kv.Value.High);
-                // adding low
                 ChartMain.Series["Candlestick"].Points[i].YValues[1] = kv.Value.Low;
-                //adding open
                 ChartMain.Series["Candlestick"].Points[i].YValues[2] = kv.Value.Open;
-                // adding close
                 ChartMain.Series["Candlestick"].Points[i].YValues[3] = kv.Value.Close;
 
                 csdLast = kv.Value;
@@ -294,6 +277,48 @@ namespace Ticker_BTC_e
         private void textBox3_TextChanged(object sender, EventArgs e)
         {
 
+        }
+    }
+    public sealed class Setting
+    {
+        public static string TradingPair { get; set; }
+        public static int UpdateInterval { get; set; }
+        public static string APIKey { get; set; }
+        public static string APISecret { get; set; }
+        public static bool DebugImitation { get; set; }
+        static readonly string SETTINGS = "config.ini";
+        static readonly Setting instance = new Setting();
+        Setting() { }
+        static Setting()
+        {
+            string property = "";
+            string[] settings = File.ReadAllLines(SETTINGS);
+            foreach (string s in settings)
+                try
+                {
+                    string[] split = s.Split(new char[] { ':' }, 2);
+                    if (split.Length != 2)
+                        continue;
+                    property = split[0].Trim();
+                    string value = split[1].Trim();
+                    PropertyInfo propInfo = instance.GetType().GetProperty(property);
+                    switch (propInfo.PropertyType.Name)
+                    {
+                        case "Boolean":
+                            propInfo.SetValue(null, Convert.ToBoolean(value), null);
+                            break;
+                        case "Int32":
+                            propInfo.SetValue(null, Convert.ToInt32(value), null);
+                            break;
+                        case "String":
+                            propInfo.SetValue(null, value, null);
+                            break;
+                    }
+                }
+                catch
+                {
+                    throw new Exception("Invalid setting '" + property + "'");
+                }
         }
     }
 }
