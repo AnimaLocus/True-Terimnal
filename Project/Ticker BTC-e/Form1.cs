@@ -43,6 +43,11 @@ namespace Ticker_BTC_e
             {
                 try
                 {
+                    if (!Setting.DebugImitation)
+                    {
+                        dTmp = GetTick(Setting.TradingPair);
+                        dDepthData = GetDepth(Setting.TradingPair);
+                    }
                     this.Invoke((MethodInvoker)delegate
                     {
                         if (Setting.DebugImitation)
@@ -64,11 +69,9 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
-                            dTmp = GetTick(Setting.TradingPair);
                             label1now.Text = (string)dTmp["nowt"];
                             label1change.Text = (string)dTmp["change"];
 
-                            dDepthData = GetDepth(Setting.TradingPair);
                             UpdateDepth();
                         }
                         
@@ -178,8 +181,8 @@ namespace Ticker_BTC_e
         public void UpdateDepth()
         {
             double dDepth = 0;
-            listViewAsk.Items.Clear();
             listViewAsk.BeginUpdate();
+            listViewAsk.Items.Clear();
             var lAsks = (List<object>)dDepthData["asks"];
             for (int i = 0; i < lAsks.Count; i++)
             {
@@ -205,8 +208,8 @@ namespace Ticker_BTC_e
             listViewAsk.EndUpdate();
 
             dDepth = 0;
-            listViewBid.Items.Clear();
             listViewBid.BeginUpdate();
+            listViewBid.Items.Clear();
             var lBids = (List<object>)dDepthData["bids"];
             for (int i = 0; i < lBids.Count; i++)
             {
