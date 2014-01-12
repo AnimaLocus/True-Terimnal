@@ -28,13 +28,13 @@ namespace Ticker_BTC_e
             t.IsBackground = true;
             t.Start();
         }
+        public Dictionary<string, object> dTmp = new Dictionary<string, object>();
         void NewThread()
         {
             //return;
             Random rnd = new Random();
             int i = 0;
 
-            Dictionary<string, object> dTmp = new Dictionary<string, object>();
             if (Setting.DebugImitation)
             {
                 dTmp["updated"] = 1;
@@ -112,6 +112,11 @@ namespace Ticker_BTC_e
                         {
                             dCandlestickData[dDate] = new CandlestickData(dDate, dPrice, dPrice, dPrice, dPrice);
                         }
+
+                        labelBuyHave.Text = "$" + Convert.ToDouble(dBalance1) + " (" +
+                            Math.Round(Convert.ToDouble(dBalance1) / Convert.ToDouble(dTmp["now"]), 2) + " BTC)";
+                        labelSellHave.Text = Convert.ToDouble(dBalance2) + " BTC ($" +
+                            Math.Round(Convert.ToDouble(dBalance2) * Convert.ToDouble(dTmp["now"]), 2) + ")";
 
                         UpdateChartMain();
                     });
@@ -364,6 +369,12 @@ namespace Ticker_BTC_e
         {
 
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
         private void Form1_Activated(object sender, EventArgs e)
         {
             this.Opacity = Setting.OpacityWithFocus;
@@ -375,10 +386,75 @@ namespace Ticker_BTC_e
             Size = new Size(311, 163);
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
 
+        double dBalance1 = 1000;
+        double dBalance2 = 1000;
+
+        // BUY Block /START
+        private void buttonBuyV11_Click(object sender, EventArgs e)
+        {
+            textBoxBuyV.Text = Convert.ToDouble(dBalance1).ToString();
         }
+        private void buttonBuyV12_Click(object sender, EventArgs e)
+        {
+            textBoxBuyV.Text = Convert.ToDouble(dBalance1 / 2).ToString();
+        }
+        private void buttonBuyV14_Click(object sender, EventArgs e)
+        {
+            textBoxBuyV.Text = Convert.ToDouble(dBalance1 / 4).ToString();
+        }
+        private void buttonBuyPL_Click(object sender, EventArgs e)
+        {
+            textBoxBuyP.Text = Convert.ToDouble(dTmp["now"]).ToString();
+        }
+        private void buttonBuyPM_Click(object sender, EventArgs e)
+        {
+            textBoxBuyP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["asks"])[0])[0]).ToString();
+        }
+        private void textBoxP_TextChanged(object sender, EventArgs e)
+        {
+            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+        }
+        private void textBoxV_TextChanged(object sender, EventArgs e)
+        {
+            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+        }
+        private void buttonBuy_Click(object sender, EventArgs e)
+        {
+            
+        }
+        // BUY Block END/
+
+        // SELL Block /START
+        private void buttonSellV11_Click(object sender, EventArgs e)
+        {
+            textBoxSellV.Text = Convert.ToDouble(dBalance2).ToString();
+        }
+        private void buttonSellV12_Click(object sender, EventArgs e)
+        {
+            textBoxSellV.Text = Convert.ToDouble(dBalance2 / 2).ToString();
+        }
+        private void buttonSellV14_Click(object sender, EventArgs e)
+        {
+            textBoxSellV.Text = Convert.ToDouble(dBalance2 / 4).ToString();
+        }
+        private void buttonSellL_Click(object sender, EventArgs e)
+        {
+            textBoxSellP.Text = Convert.ToDouble(dTmp["now"]).ToString();
+        }
+        private void buttonSellM_Click(object sender, EventArgs e)
+        {
+            textBoxSellP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["bids"])[0])[0]).ToString();
+        }
+        private void textBoxSellP_TextChanged(object sender, EventArgs e)
+        {
+            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * Convert.ToDouble(textBoxSellP.Text), 2);
+        }
+        private void textBoxSellV_TextChanged(object sender, EventArgs e)
+        {
+            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * Convert.ToDouble(textBoxSellP.Text), 2);
+        }
+        // SELL Block END/
     }
     public sealed class Setting
     {
