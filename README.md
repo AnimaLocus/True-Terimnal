@@ -3,6 +3,8 @@ True Terminal
 Ticker/Terminal for BTC-e. (changing pairs in config)
 Windows only. Need .NET 4.5.
 
+Rename config.ini_example to config.ini and add you APIKey/Secret.
+
 Features:
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
 - Window stay on top with transparent, on focus opacity changing
