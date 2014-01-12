@@ -111,7 +111,8 @@ namespace Ticker_BTC_e
 
 
                             i = 0;
-                            listViewHistory.Items.Clear();
+                            listViewHistory.BeginUpdate();
+                            //listViewHistory.Items.Clear();
                             foreach (KeyValuePair<string, object> kv in dTradeHistory)
                             {
                                 var dTmp2 = (Dictionary<string, object>)kv.Value;
@@ -126,7 +127,7 @@ namespace Ticker_BTC_e
                                 }
 
                                 listViewHistory.Items.Add(
-                                    (string)dTmp2["pair"]
+                                    (string)dTmp2["pair"], i
                                 );
                                 listViewHistory.Items[i].SubItems.Add(
                                     (string)dTmp2["type"]
@@ -143,9 +144,11 @@ namespace Ticker_BTC_e
 
                                 i++;
                             }
+                            listViewHistory.EndUpdate();
 
 
                             i = 0;
+                            listViewOpenOrders.BeginUpdate();
                             listViewOpenOrders.Items.Clear();
                             foreach (KeyValuePair<string, object> kv in dOpenOrders)
                             {
@@ -161,7 +164,7 @@ namespace Ticker_BTC_e
                                 }
 
                                 listViewOpenOrders.Items.Add(
-                                    (string)dTmp2["pair"]
+                                    (string)dTmp2["pair"], i
                                 );
                                 listViewOpenOrders.Items[i].SubItems.Add(
                                     (string)dTmp2["type"]
@@ -178,6 +181,7 @@ namespace Ticker_BTC_e
 
                                 i++;
                             }
+                            listViewOpenOrders.EndUpdate();
 
                         }
                         
@@ -417,6 +421,8 @@ namespace Ticker_BTC_e
         public void UpdateDepth()
         {
             double dDepth = 0;
+
+            //listViewAsk.DoubleBuffered = true;
             listViewAsk.BeginUpdate();
             listViewAsk.Items.Clear();
             var lAsks = (List<object>)dDepthData["asks"];

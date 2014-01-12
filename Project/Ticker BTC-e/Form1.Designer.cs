@@ -61,29 +61,30 @@
             this.textBoxSellV = new System.Windows.Forms.TextBox();
             this.labelSellHave = new System.Windows.Forms.Label();
             this.labelSellV = new System.Windows.Forms.Label();
-            this.listViewAsk = new System.Windows.Forms.ListView();
+            this.listViewAsk = new ListViewNF();
             this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewBid = new System.Windows.Forms.ListView();
+            this.listViewBid = new ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewHistory = new System.Windows.Forms.ListView();
+            this.listViewHistory = new ListViewNF();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewOpenOrders = new System.Windows.Forms.ListView();
+            this.listViewOpenOrders = new ListViewNF();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -448,6 +449,7 @@
             // 
             // listViewAsk
             // 
+            this.listViewAsk.BackColor = System.Drawing.SystemColors.Window;
             this.listViewAsk.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeaderPrice,
             this.columnHeaderVolume,
@@ -531,24 +533,25 @@
             // 
             this.columnHeader7.Text = "Pair";
             // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "T";
+            this.columnHeader16.Width = 20;
+            // 
             // columnHeader8
             // 
-            this.columnHeader8.DisplayIndex = 2;
             this.columnHeader8.Text = "Price";
             // 
             // columnHeader9
             // 
-            this.columnHeader9.DisplayIndex = 3;
             this.columnHeader9.Text = "Volume";
             // 
             // columnHeader10
             // 
-            this.columnHeader10.DisplayIndex = 4;
             this.columnHeader10.Text = "Volume";
             // 
             // columnHeader11
             // 
-            this.columnHeader11.DisplayIndex = 5;
             this.columnHeader11.Text = "Profit";
             this.columnHeader11.Width = 50;
             // 
@@ -577,43 +580,41 @@
             // 
             this.columnHeader4.Text = "Pair";
             // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "T";
+            this.columnHeader15.Width = 20;
+            // 
             // columnHeader5
             // 
-            this.columnHeader5.DisplayIndex = 2;
             this.columnHeader5.Text = "Price";
             // 
             // columnHeader6
             // 
-            this.columnHeader6.DisplayIndex = 3;
             this.columnHeader6.Text = "Volume";
             // 
             // columnHeader12
             // 
-            this.columnHeader12.DisplayIndex = 4;
             this.columnHeader12.Text = "Volume";
             // 
             // columnHeader13
             // 
-            this.columnHeader13.DisplayIndex = 5;
             this.columnHeader13.Text = "Profit";
             // 
             // columnHeader14
             // 
-            this.columnHeader14.DisplayIndex = 6;
             this.columnHeader14.Text = "X";
             this.columnHeader14.Width = 20;
             // 
-            // columnHeader15
+            // buttonCancel
             // 
-            this.columnHeader15.DisplayIndex = 1;
-            this.columnHeader15.Text = "T";
-            this.columnHeader15.Width = 20;
-            // 
-            // columnHeader16
-            // 
-            this.columnHeader16.DisplayIndex = 1;
-            this.columnHeader16.Text = "T";
-            this.columnHeader16.Width = 20;
+            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancel.Location = new System.Drawing.Point(314, 266);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(58, 26);
+            this.buttonCancel.TabIndex = 9;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -622,6 +623,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(737, 526);
+            this.Controls.Add(this.buttonCancel);
             this.Controls.Add(this.listViewBid);
             this.Controls.Add(this.listViewOpenOrders);
             this.Controls.Add(this.listViewHistory);
@@ -692,7 +694,7 @@
         private System.Windows.Forms.TextBox textBoxSellV;
         private System.Windows.Forms.Label labelSellHave;
         private System.Windows.Forms.Label labelSellV;
-        private System.Windows.Forms.ListView listViewAsk;
+        private ListViewNF listViewAsk;
         private System.Windows.Forms.ColumnHeader columnHeaderPrice;
         private System.Windows.Forms.ColumnHeader columnHeaderVolume;
         private System.Windows.Forms.ColumnHeader columnHeaderDepth;
@@ -715,6 +717,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.Button buttonCancel;
     }
 }
 
