@@ -1,0 +1,11 @@
+TradingPair: btc_usd
+
+ShowInterval : 60
+UpdateInterval : 5000
+
+APIKey : XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX
+APISecret : XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+OpacityWithFocus : 1
+OpacityWithoutFocus : 0.69
+DebugImitation : false
