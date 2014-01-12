@@ -1,7 +1,6 @@
 True Terminal
 ===========
-Ticker/Terminal for BTC-e. (changing pairs in config)
-Windows only. Need .NET 4.5.
+Ticker/Terminal for BTC-e.
 
 Rename config.ini_example to config.ini and add you APIKey/Secret.
 
@@ -12,6 +11,7 @@ Features:
 - Order book (price, volume, depth)
 - Open orders
 - Settings (config.ini file)
+- Changing pairs in config
 
 ![Alt text](Screenshot.png "Screenshot")
 
