@@ -527,6 +527,9 @@
             this.ShowInTaskbar = false;
             this.Text = "Ticker BTC-e";
             this.TopMost = true;
+            this.Activated += new System.EventHandler(this.Form1_Activated);
+            this.Deactivate += new System.EventHandler(this.Form1_Deactivate);
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

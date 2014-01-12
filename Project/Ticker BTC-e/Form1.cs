@@ -364,6 +364,19 @@ namespace Ticker_BTC_e
         {
 
         }
+        private void Form1_Activated(object sender, EventArgs e)
+        {
+            this.Opacity = Setting.OpacityWithFocus;
+        }
+        private void Form1_Deactivate(object sender, EventArgs e)
+        {
+            this.Opacity = Setting.OpacityWithoutFocus;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
     public sealed class Setting
     {
@@ -373,6 +386,8 @@ namespace Ticker_BTC_e
         public static string APIKey { get; set; }
         public static string APISecret { get; set; }
         public static bool DebugImitation { get; set; }
+        public static double OpacityWithFocus { get; set; }
+        public static double OpacityWithoutFocus { get; set; }
         static readonly string SETTINGS = "config.ini";
         static readonly Setting instance = new Setting();
         Setting() { }
@@ -396,6 +411,9 @@ namespace Ticker_BTC_e
                             break;
                         case "Int32":
                             propInfo.SetValue(null, Convert.ToInt32(value), null);
+                            break;
+                        case "Double":
+                            propInfo.SetValue(null, Convert.ToDouble(value), null);
                             break;
                         case "String":
                             propInfo.SetValue(null, value, null);
