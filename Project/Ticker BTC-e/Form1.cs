@@ -15,6 +15,8 @@ using MiniJSON;
 using System.Windows.Forms.DataVisualization.Charting;
 using System.Globalization;
 using System.Reflection;
+using System.Security.Cryptography;
+using System.Web;
 
 namespace Ticker_BTC_e
 {
@@ -22,18 +24,49 @@ namespace Ticker_BTC_e
     {
         public Form1()
         {
+            APISecretHash = new HMACSHA512(Encoding.ASCII.GetBytes(Setting.APISecret));
+            nonce = UnixTime.Now;
+
             InitializeComponent();
 
             Thread t = new Thread(NewThread);
             t.IsBackground = true;
             t.Start();
         }
+        public HMACSHA512 APISecretHash;
+        public UInt32 nonce;
         public Dictionary<string, object> dTmp = new Dictionary<string, object>();
+        public Dictionary<string, object> dUserInfo = new Dictionary<string, object>();
+        public Dictionary<string, object> dTradeHistory = new Dictionary<string, object>();
+        public Dictionary<string, object> dOpenOrders = new Dictionary<string, object>();
         void NewThread()
         {
             //return;
             Random rnd = new Random();
             int i = 0;
+
+            dUserInfo = GetInfo();
+
+            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["usd"]);
+            if (dBalance1 < 0.0001) dBalance1 = 0;
+            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["btc"]);
+            if (dBalance2 < 0.0001) dBalance1 = 0;
+
+
+            /*
+            MessageBox.Show((
+
+                (double)
+                (
+                    (Dictionary<string, object>)
+                    (
+                        (Dictionary<string, object>)dUserInfo["return"]
+                    )
+                ["funds"]
+                )["btc"]
+
+            ).ToString());
+            */
 
             if (Setting.DebugImitation)
             {
@@ -47,6 +80,8 @@ namespace Ticker_BTC_e
                     {
                         dTmp = GetTick(Setting.TradingPair);
                         dDepthData = GetDepth(Setting.TradingPair);
+                        dOpenOrders = GetOpenOrders();
+                        dTradeHistory = GetTradeHistory();
                     }
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -73,6 +108,77 @@ namespace Ticker_BTC_e
                             label1change.Text = (string)dTmp["change"];
 
                             UpdateDepth();
+
+
+                            i = 0;
+                            listViewHistory.Items.Clear();
+                            foreach (KeyValuePair<string, object> kv in dTradeHistory)
+                            {
+                                var dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                if ((string)dTmp2["type"] == "buy")
+                                {
+                                    dTmp2["type"] = "B";
+                                }
+                                else if ((string)dTmp2["type"] == "sell")
+                                {
+                                    dTmp2["type"] = "S";
+                                }
+
+                                listViewHistory.Items.Add(
+                                    (string)dTmp2["pair"]
+                                );
+                                listViewHistory.Items[i].SubItems.Add(
+                                    (string)dTmp2["type"]
+                                );
+                                listViewHistory.Items[i].SubItems.Add(
+                                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                                );
+                                listViewHistory.Items[i].SubItems.Add(
+                                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                                );
+                                listViewHistory.Items[i].SubItems.Add(
+                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                );
+
+                                i++;
+                            }
+
+
+                            i = 0;
+                            listViewOpenOrders.Items.Clear();
+                            foreach (KeyValuePair<string, object> kv in dOpenOrders)
+                            {
+                                var dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                if ((string)dTmp2["type"] == "buy")
+                                {
+                                    dTmp2["type"] = "B";
+                                }
+                                else if ((string)dTmp2["type"] == "sell")
+                                {
+                                    dTmp2["type"] = "S";
+                                }
+
+                                listViewOpenOrders.Items.Add(
+                                    (string)dTmp2["pair"]
+                                );
+                                listViewOpenOrders.Items[i].SubItems.Add(
+                                    (string)dTmp2["type"]
+                                );
+                                listViewOpenOrders.Items[i].SubItems.Add(
+                                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                                );
+                                listViewOpenOrders.Items[i].SubItems.Add(
+                                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                                );
+                                listViewOpenOrders.Items[i].SubItems.Add(
+                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                );
+
+                                i++;
+                            }
+
                         }
                         
                         DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
@@ -113,9 +219,9 @@ namespace Ticker_BTC_e
                             dCandlestickData[dDate] = new CandlestickData(dDate, dPrice, dPrice, dPrice, dPrice);
                         }
 
-                        labelBuyHave.Text = "$" + Convert.ToDouble(dBalance1) + " (" +
+                        labelBuyHave.Text = "$" + Math.Round(Convert.ToDouble(dBalance1), 2) + " (" +
                             Math.Round(Convert.ToDouble(dBalance1) / Convert.ToDouble(dTmp["now"]), 2) + " BTC)";
-                        labelSellHave.Text = Convert.ToDouble(dBalance2) + " BTC ($" +
+                        labelSellHave.Text = Math.Round(Convert.ToDouble(dBalance2), 2) + " BTC ($" +
                             Math.Round(Convert.ToDouble(dBalance2) * Convert.ToDouble(dTmp["now"]), 2) + ")";
 
                         UpdateChartMain();
@@ -143,6 +249,11 @@ namespace Ticker_BTC_e
         public static DateTime dtFloor(DateTime date, TimeSpan span) {
             long ticks = (date.Ticks / span.Ticks);
             return new DateTime(ticks * span.Ticks);
+        }
+        static long GetTimestampNow()
+        {
+            //ticks /= 10000000; //Convert windows ticks to seconds
+            return DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks;
         }
         static Dictionary<string, object> GetJson(string sUrl)
         {
@@ -182,6 +293,126 @@ namespace Ticker_BTC_e
             catch (Exception e) { }
 
             return dResult;
+        }
+        public Dictionary<string, object> GetInfo()
+        {
+            var sResultTmp = Query(new Dictionary<string, string>()
+            {
+                { "method", "getInfo" }
+            });
+            var result = Json.Deserialize(sResultTmp) as Dictionary<string, object>;
+            if ((long)result["success"] == 0)
+                throw new Exception((string)result["error"]);
+            return (Dictionary<string, object>)result["return"];
+        }
+        public Dictionary<string, object> GetTradeHistory(
+            int? from = null,
+            int? count = null,
+            int? fromId = null,
+            int? endId = null,
+            bool? orderAsc = null,
+            DateTime? since = null,
+            DateTime? end = null
+            )
+        {
+            var args = new Dictionary<string, string>()
+            {
+                { "method", "TradeHistory" }
+            };
+
+            if (from != null) args.Add("from", from.Value.ToString());
+            if (count != null) args.Add("count", count.Value.ToString());
+            if (fromId != null) args.Add("from_id", fromId.Value.ToString());
+            if (endId != null) args.Add("end_id", endId.Value.ToString());
+            if (orderAsc != null) args.Add("order", orderAsc.Value ? "ASC" : "DESC");
+            if (since != null) args.Add("since", UnixTime.GetFromDateTime(since.Value).ToString());
+            if (end != null) args.Add("end", UnixTime.GetFromDateTime(end.Value).ToString());
+
+            var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
+            if ((long)result["success"] == 0)
+                throw new Exception((string)result["error"]);
+            return (Dictionary<string, object>)result["return"];
+        }
+        public Dictionary<string, object> GetOpenOrders(
+            int? from = null,
+            int? count = null,
+            int? fromId = null,
+            int? endId = null,
+            bool? orderAsc = null,
+            DateTime? since = null,
+            DateTime? end = null,
+            //BtcePair? pair = null,
+            bool? active = null
+            )
+        {
+            var args = new Dictionary<string, string>()
+            {
+                { "method", "ActiveOrders" }
+            };
+
+            if (from != null) args.Add("from", from.Value.ToString());
+            if (count != null) args.Add("count", count.Value.ToString());
+            if (fromId != null) args.Add("from_id", fromId.Value.ToString());
+            if (endId != null) args.Add("end_id", endId.Value.ToString());
+            if (orderAsc != null) args.Add("order", orderAsc.Value ? "ASC" : "DESC");
+            if (since != null) args.Add("since", UnixTime.GetFromDateTime(since.Value).ToString());
+            if (end != null) args.Add("end", UnixTime.GetFromDateTime(end.Value).ToString());
+            //if (pair != null) args.Add("pair", BtcePairHelper.ToString(pair.Value));
+            if (active != null) args.Add("active", active.Value ? "1" : "0");
+
+            var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
+            if ((long)result["success"] == 0)
+            {
+                if ((string)result["error"] == "no orders")
+                {
+                    return new Dictionary<string, object>();
+                }
+                else
+                throw new Exception((string)result["error"]);
+            }
+            return (Dictionary<string, object>)result["return"];
+        }
+        static string ByteArrayToString(byte[] ba)
+        {
+            return BitConverter.ToString(ba).Replace("-", "");
+        }
+        static string BuildPostData(Dictionary<string, string> d)
+        {
+            StringBuilder s = new StringBuilder();
+            foreach (var item in d)
+            {
+                s.AppendFormat("{0}={1}", item.Key, HttpUtility.UrlEncode(item.Value));
+                s.Append("&");
+            }
+            if (s.Length > 0) s.Remove(s.Length - 1, 1);
+            return s.ToString();
+        }
+        UInt32 GetNonce()
+        {
+            return nonce++;
+        }
+        string Query(Dictionary<string, string> args)
+        {
+            args.Add("nonce", GetNonce().ToString());
+
+            var dataStr = BuildPostData(args);
+            var data = Encoding.ASCII.GetBytes(dataStr);
+
+            var request = WebRequest.Create(new Uri("https://btc-e.com/tapi")) as HttpWebRequest;
+            if (request == null)
+                throw new Exception("Non HTTP WebRequest");
+
+            request.Method = "POST";
+            request.Timeout = 15000;
+            request.ContentType = "application/x-www-form-urlencoded";
+            request.ContentLength = data.Length;
+
+            request.Headers.Add("Key", Setting.APIKey);
+            request.Headers.Add("Sign", ByteArrayToString(APISecretHash.ComputeHash(data)).ToLower());
+            var reqStream = request.GetRequestStream();
+            reqStream.Write(data, 0, data.Length);
+            reqStream.Close();
+            return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
         }
         public void UpdateDepth()
         {
@@ -456,6 +687,18 @@ namespace Ticker_BTC_e
         }
         // SELL Block END/
     }
+    public class WebApi
+    {
+        public static string Query(string url)
+        {
+            var request = WebRequest.Create(url);
+            request.Proxy = WebRequest.DefaultWebProxy;
+            request.Proxy.Credentials = System.Net.CredentialCache.DefaultCredentials;
+            if (request == null)
+                throw new Exception("Non HTTP WebRequest");
+            return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
+        }
+    }
     public sealed class Setting
     {
         public static string TradingPair { get; set; }
@@ -503,5 +746,17 @@ namespace Ticker_BTC_e
                     throw new Exception("Invalid setting '" + property + "'");
                 }
         }
+    }
+    public static class UnixTime
+    {
+        static DateTime unixEpoch;
+        static UnixTime()
+        {
+            unixEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        }
+
+        public static UInt32 Now { get { return GetFromDateTime(DateTime.UtcNow); } }
+        public static UInt32 GetFromDateTime(DateTime d) { return (UInt32)(d - unixEpoch).TotalSeconds; }
+        public static DateTime ConvertToDateTime(UInt32 unixtime) { return unixEpoch.AddSeconds(unixtime); }
     }
 }
