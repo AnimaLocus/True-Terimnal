@@ -376,6 +376,23 @@ namespace Ticker_BTC_e
             }
             return (Dictionary<string, object>)result["return"];
         }
+        public Dictionary<string, object> Trade(string pair, string type, double rate, double amount)
+        {
+            var args = new Dictionary<string, string>()
+            {
+                { "method", "Trade" },
+                { "pair", pair },
+                { "type", type },
+                { "rate", rate.ToString() },
+                { "amount", amount.ToString() }
+            };
+            MessageBox.Show(rate.ToString());
+            MessageBox.Show(amount.ToString());
+            var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
+            if ((long)result["success"] == 0)
+                throw new Exception((string)result["error"]);
+            return (Dictionary<string, object>)result["return"];
+        }
         static string ByteArrayToString(byte[] ba)
         {
             return BitConverter.ToString(ba).Replace("-", "");
@@ -624,8 +641,8 @@ namespace Ticker_BTC_e
         }
 
 
-        double dBalance1 = 1000;
-        double dBalance2 = 1000;
+        double dBalance1 = 0;
+        double dBalance2 = 0;
 
         // BUY Block /START
         private void buttonBuyV11_Click(object sender, EventArgs e)
@@ -658,7 +675,8 @@ namespace Ticker_BTC_e
         }
         private void buttonBuy_Click(object sender, EventArgs e)
         {
-            
+            Trade(Setting.TradingPair, "buy", Convert.ToDouble(textBoxBuyP.Text),
+                Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text));
         }
         // BUY Block END/
 
@@ -691,7 +709,23 @@ namespace Ticker_BTC_e
         {
             labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * Convert.ToDouble(textBoxSellP.Text), 2);
         }
+        private void buttonSell_Click(object sender, EventArgs e)
+        {
+            Trade(Setting.TradingPair, "sell", Convert.ToDouble(textBoxSellP.Text),
+                Convert.ToDouble(textBoxSellV.Text));
+        }
         // SELL Block END/
+
+        // CANCEL Order Block /START
+        private void buttonCancelS_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void buttonCancelA_Click(object sender, EventArgs e)
+        {
+
+        }
+        // CANCEL Orde Block END/
     }
     public class WebApi
     {

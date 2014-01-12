@@ -61,21 +61,11 @@
             this.textBoxSellV = new System.Windows.Forms.TextBox();
             this.labelSellHave = new System.Windows.Forms.Label();
             this.labelSellV = new System.Windows.Forms.Label();
-            this.listViewAsk = new Ticker_BTC_e.ListViewNF();
-            this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonCancelA = new System.Windows.Forms.Button();
             this.listViewBid = new Ticker_BTC_e.ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.listViewHistory = new Ticker_BTC_e.ListViewNF();
-            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewOpenOrders = new Ticker_BTC_e.ListViewNF();
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -84,7 +74,18 @@
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonCancel = new System.Windows.Forms.Button();
+            this.listViewHistory = new Ticker_BTC_e.ListViewNF();
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.listViewAsk = new Ticker_BTC_e.ListViewNF();
+            this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.buttonCancelS = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -346,6 +347,7 @@
             this.buttonSell.TabIndex = 4;
             this.buttonSell.Text = "SELL";
             this.buttonSell.UseVisualStyleBackColor = true;
+            this.buttonSell.Click += new System.EventHandler(this.buttonSell_Click);
             // 
             // buttonSellV11
             // 
@@ -447,36 +449,16 @@
             this.labelSellV.Text = "$0";
             this.labelSellV.Click += new System.EventHandler(this.label2_Click);
             // 
-            // listViewAsk
+            // buttonCancelA
             // 
-            this.listViewAsk.BackColor = System.Drawing.SystemColors.Window;
-            this.listViewAsk.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeaderPrice,
-            this.columnHeaderVolume,
-            this.columnHeaderDepth});
-            this.listViewAsk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listViewAsk.Location = new System.Drawing.Point(314, 0);
-            this.listViewAsk.MultiSelect = false;
-            this.listViewAsk.Name = "listViewAsk";
-            this.listViewAsk.ShowGroups = false;
-            this.listViewAsk.Size = new System.Drawing.Size(208, 260);
-            this.listViewAsk.TabIndex = 8;
-            this.listViewAsk.UseCompatibleStateImageBehavior = false;
-            this.listViewAsk.View = System.Windows.Forms.View.Details;
-            this.listViewAsk.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-            // 
-            // columnHeaderPrice
-            // 
-            this.columnHeaderPrice.Text = "Price";
-            // 
-            // columnHeaderVolume
-            // 
-            this.columnHeaderVolume.Text = "Volume";
-            this.columnHeaderVolume.Width = 63;
-            // 
-            // columnHeaderDepth
-            // 
-            this.columnHeaderDepth.Text = "Depth";
+            this.buttonCancelA.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelA.Location = new System.Drawing.Point(342, 266);
+            this.buttonCancelA.Name = "buttonCancelA";
+            this.buttonCancelA.Size = new System.Drawing.Size(30, 26);
+            this.buttonCancelA.TabIndex = 9;
+            this.buttonCancelA.Text = "A";
+            this.buttonCancelA.UseVisualStyleBackColor = true;
+            this.buttonCancelA.Click += new System.EventHandler(this.buttonCancelA_Click);
             // 
             // listViewBid
             // 
@@ -507,53 +489,6 @@
             // columnHeader3
             // 
             this.columnHeader3.Text = "Depth";
-            // 
-            // listViewHistory
-            // 
-            this.listViewHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader7,
-            this.columnHeader16,
-            this.columnHeader8,
-            this.columnHeader9,
-            this.columnHeader10,
-            this.columnHeader11});
-            this.listViewHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listViewHistory.Location = new System.Drawing.Point(378, 266);
-            this.listViewHistory.MaximumSize = new System.Drawing.Size(1000, 700);
-            this.listViewHistory.MultiSelect = false;
-            this.listViewHistory.Name = "listViewHistory";
-            this.listViewHistory.ShowGroups = false;
-            this.listViewHistory.Size = new System.Drawing.Size(358, 260);
-            this.listViewHistory.TabIndex = 8;
-            this.listViewHistory.UseCompatibleStateImageBehavior = false;
-            this.listViewHistory.View = System.Windows.Forms.View.Details;
-            this.listViewHistory.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Pair";
-            // 
-            // columnHeader16
-            // 
-            this.columnHeader16.Text = "T";
-            this.columnHeader16.Width = 20;
-            // 
-            // columnHeader8
-            // 
-            this.columnHeader8.Text = "Price";
-            // 
-            // columnHeader9
-            // 
-            this.columnHeader9.Text = "Volume";
-            // 
-            // columnHeader10
-            // 
-            this.columnHeader10.Text = "Volume";
-            // 
-            // columnHeader11
-            // 
-            this.columnHeader11.Text = "Profit";
-            this.columnHeader11.Width = 50;
             // 
             // listViewOpenOrders
             // 
@@ -606,15 +541,94 @@
             this.columnHeader14.Text = "X";
             this.columnHeader14.Width = 20;
             // 
-            // buttonCancel
+            // listViewHistory
             // 
-            this.buttonCancel.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancel.Location = new System.Drawing.Point(314, 266);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(58, 26);
-            this.buttonCancel.TabIndex = 9;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
+            this.listViewHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader7,
+            this.columnHeader16,
+            this.columnHeader8,
+            this.columnHeader9,
+            this.columnHeader10,
+            this.columnHeader11});
+            this.listViewHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewHistory.Location = new System.Drawing.Point(378, 266);
+            this.listViewHistory.MaximumSize = new System.Drawing.Size(1000, 700);
+            this.listViewHistory.MultiSelect = false;
+            this.listViewHistory.Name = "listViewHistory";
+            this.listViewHistory.ShowGroups = false;
+            this.listViewHistory.Size = new System.Drawing.Size(358, 260);
+            this.listViewHistory.TabIndex = 8;
+            this.listViewHistory.UseCompatibleStateImageBehavior = false;
+            this.listViewHistory.View = System.Windows.Forms.View.Details;
+            this.listViewHistory.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Pair";
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "T";
+            this.columnHeader16.Width = 20;
+            // 
+            // columnHeader8
+            // 
+            this.columnHeader8.Text = "Price";
+            // 
+            // columnHeader9
+            // 
+            this.columnHeader9.Text = "Volume";
+            // 
+            // columnHeader10
+            // 
+            this.columnHeader10.Text = "Volume";
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Profit";
+            this.columnHeader11.Width = 50;
+            // 
+            // listViewAsk
+            // 
+            this.listViewAsk.BackColor = System.Drawing.SystemColors.Window;
+            this.listViewAsk.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeaderPrice,
+            this.columnHeaderVolume,
+            this.columnHeaderDepth});
+            this.listViewAsk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewAsk.Location = new System.Drawing.Point(314, 0);
+            this.listViewAsk.MultiSelect = false;
+            this.listViewAsk.Name = "listViewAsk";
+            this.listViewAsk.ShowGroups = false;
+            this.listViewAsk.Size = new System.Drawing.Size(208, 260);
+            this.listViewAsk.TabIndex = 8;
+            this.listViewAsk.UseCompatibleStateImageBehavior = false;
+            this.listViewAsk.View = System.Windows.Forms.View.Details;
+            this.listViewAsk.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
+            // 
+            // columnHeaderPrice
+            // 
+            this.columnHeaderPrice.Text = "Price";
+            // 
+            // columnHeaderVolume
+            // 
+            this.columnHeaderVolume.Text = "Volume";
+            this.columnHeaderVolume.Width = 63;
+            // 
+            // columnHeaderDepth
+            // 
+            this.columnHeaderDepth.Text = "Depth";
+            // 
+            // buttonCancelS
+            // 
+            this.buttonCancelS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelS.Location = new System.Drawing.Point(314, 266);
+            this.buttonCancelS.Name = "buttonCancelS";
+            this.buttonCancelS.Size = new System.Drawing.Size(30, 26);
+            this.buttonCancelS.TabIndex = 9;
+            this.buttonCancelS.Text = "S";
+            this.buttonCancelS.UseVisualStyleBackColor = true;
+            this.buttonCancelS.Click += new System.EventHandler(this.buttonCancelS_Click);
             // 
             // Form1
             // 
@@ -623,7 +637,8 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(737, 526);
-            this.Controls.Add(this.buttonCancel);
+            this.Controls.Add(this.buttonCancelS);
+            this.Controls.Add(this.buttonCancelA);
             this.Controls.Add(this.listViewBid);
             this.Controls.Add(this.listViewOpenOrders);
             this.Controls.Add(this.listViewHistory);
@@ -714,10 +729,11 @@
         private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.ColumnHeader columnHeader15;
-        private System.Windows.Forms.Button buttonCancel;
+        private System.Windows.Forms.Button buttonCancelA;
         private ListViewNF listViewBid;
         private ListViewNF listViewHistory;
         private ListViewNF listViewOpenOrders;
+        private System.Windows.Forms.Button buttonCancelS;
     }
 }
 
