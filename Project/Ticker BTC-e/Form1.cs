@@ -367,10 +367,12 @@ namespace Ticker_BTC_e
         private void Form1_Activated(object sender, EventArgs e)
         {
             this.Opacity = Setting.OpacityWithFocus;
+            Size = new Size(745, 557);
         }
         private void Form1_Deactivate(object sender, EventArgs e)
         {
             this.Opacity = Setting.OpacityWithoutFocus;
+            Size = new Size(311, 163);
         }
 
         private void Form1_Load(object sender, EventArgs e)
