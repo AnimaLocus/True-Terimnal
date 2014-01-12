@@ -1,6 +1,6 @@
 True Terminal
 ===========
-Ticker/Terminal for BTC-e.
+Ticker/Terminal for BTC-e (Bitcoin market).
 
 Rename config.ini_example to config.ini and add you APIKey/Secret.
 
