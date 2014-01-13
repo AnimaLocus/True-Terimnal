@@ -17,6 +17,7 @@ using System.Globalization;
 using System.Reflection;
 using System.Security.Cryptography;
 using System.Web;
+using System.Windows.Controls;
 
 namespace Ticker_BTC_e
 {
@@ -752,13 +753,43 @@ namespace Ticker_BTC_e
         {
             textBoxBuyP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["asks"])[0])[0]).ToString();
         }
+        private string oldTextBoxBuyP = String.Empty;
         private void textBoxP_TextChanged(object sender, EventArgs e)
         {
-            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+            double val;
+            if (!Double.TryParse(textBoxBuyP.Text, out val))
+            {
+                textBoxBuyP.TextChanged -= textBoxP_TextChanged;
+                textBoxBuyP.Text = oldTextBoxBuyP;
+
+                //textBoxBuyP.CaretIndex = oldIndex;
+                textBoxBuyP.TextChanged += textBoxP_TextChanged;
+            }
+
+            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val, 2) + " BTC";
         }
+        private void textBoxBuyP_KeyDown(object sender, KeyEventArgs e)
+        {
+            oldTextBoxBuyP = textBoxBuyP.Text;
+        }
+        private string oldTextBoxBuyV = String.Empty;
         private void textBoxV_TextChanged(object sender, EventArgs e)
         {
-            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+            double val;
+            if (!Double.TryParse(textBoxBuyV.Text, out val))
+            {
+                textBoxBuyV.TextChanged -= textBoxV_TextChanged;
+                textBoxBuyV.Text = oldTextBoxBuyV;
+
+                //textBoxBuyV.CaretIndex = oldIndex;
+                textBoxBuyV.TextChanged += textBoxV_TextChanged;
+            }
+
+            labeBuyV.Text = Math.Round(val / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+        }
+        private void textBoxBuyV_KeyDown(object sender, KeyEventArgs e)
+        {
+            oldTextBoxBuyV = textBoxBuyV.Text;
         }
         private void buttonBuy_Click(object sender, EventArgs e)
         {
@@ -788,13 +819,46 @@ namespace Ticker_BTC_e
         {
             textBoxSellP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["bids"])[0])[0]).ToString();
         }
+        //private int oldIndexBoxSellP = 0;
+        private string oldTextBoxSellP = String.Empty;
         private void textBoxSellP_TextChanged(object sender, EventArgs e)
         {
-            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * Convert.ToDouble(textBoxSellP.Text), 2);
+            double val;
+            if (!Double.TryParse(textBoxSellP.Text, out val))
+            {
+                textBoxSellP.TextChanged -= textBoxSellP_TextChanged;
+                textBoxSellP.Text = oldTextBoxSellP;
+
+                //textBoxSellP.CaretIndex = oldIndexBoxSellP;
+                textBoxSellP.TextChanged += textBoxSellP_TextChanged;
+            }
+
+            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * val, 2);
         }
+        private void textBoxSellP_KeyDown(object sender, KeyEventArgs e)
+        {
+            //oldIndexBoxSellP = textBoxSellP.CaretIndex;
+            oldTextBoxSellP = textBoxSellP.Text;
+        }
+        private string oldTextBoxSellV = String.Empty;
         private void textBoxSellV_TextChanged(object sender, EventArgs e)
         {
-            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * Convert.ToDouble(textBoxSellP.Text), 2);
+            double val;
+            if (!Double.TryParse(textBoxSellV.Text, out val))
+            {
+                textBoxSellV.TextChanged -= textBoxSellV_TextChanged;
+                textBoxSellV.Text = oldTextBoxSellV;
+
+                //textBoxSellV.CaretIndex = oldIndex;
+                textBoxSellV.TextChanged += textBoxSellV_TextChanged;
+            }
+
+            labelSellV.Text = "$" + Math.Round(val * Convert.ToDouble(textBoxSellP.Text), 2);
+        }
+        private void textBoxSellV_KeyDown(object sender, KeyEventArgs e)
+        {
+            //oldIndex = textBoxSellV.CaretIndex;
+            oldTextBoxSellV = textBoxSellV.Text;
         }
         private void buttonSell_Click(object sender, EventArgs e)
         {
@@ -812,6 +876,8 @@ namespace Ticker_BTC_e
         {
 
         }
+
+
         // CANCEL Orde Block END/
     }
     public class WebApi
