@@ -2,7 +2,7 @@ True Terminal
 ===========
 Ticker/Terminal for BTC-e (Bitcoin market).
 
-Rename config.ini_example to config.ini and add you APIKey/Secret.
+Rename config.ini_example to config.ini and add you APIKey/Secret (if you want trading).
 
 Features:
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
@@ -15,10 +15,15 @@ Features:
 - Settings (config.ini file)
 - Changing pairs in config
 
-![Alt text](Screenshot.png "Screenshot")
+On top (ticker):
+
+![Alt text](ScreenshotMin.png "Screenshot")
+
+And on focus:
+
+![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
-- Catching errors
 - Indicators: MA, MACD, Stoch, ROC
 - Tracking orders
 - Trading statistic
