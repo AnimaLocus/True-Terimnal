@@ -39,6 +39,9 @@ namespace Ticker_BTC_e
         public Dictionary<string, object> dUserInfo = new Dictionary<string, object>();
         public Dictionary<string, object> dTradeHistory = new Dictionary<string, object>();
         public Dictionary<string, object> dOpenOrders = new Dictionary<string, object>();
+        public double dLastPrice = 0;
+        public double dBalance1 = 0;
+        public double dBalance2 = 0;
         void NewThread()
         {
             //return;
@@ -99,15 +102,14 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
-                            //label1now.Text = (string)dTmp["nowt"];
-                            //label1change.Text = (string)dTmp["change"];
+                            label1now.Text = "$"+dLastPrice;
 
                             UpdateDepth();
 
                             dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["usd"]);
                             if (dBalance1 < 0.0001) dBalance1 = 0;
                             dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["btc"]);
-                            if (dBalance2 < 0.0001) dBalance1 = 0;
+                            if (dBalance2 < 0.0001) dBalance2 = 0;
 
                             i = 0;
                             listViewHistory.BeginUpdate();
@@ -225,13 +227,14 @@ namespace Ticker_BTC_e
                         {
                             dCandlestickData[dDate] = new CandlestickData(dDate, dPrice, dPrice, dPrice, dPrice);
                         }
-
-                        labelBuyHave.Text = "$" + Math.Round(Convert.ToDouble(dBalance1), 2) + " (" +
-                            Math.Round(Convert.ToDouble(dBalance1) / Convert.ToDouble(dTmp["now"]), 2) + " BTC)";
-                        labelSellHave.Text = Math.Round(Convert.ToDouble(dBalance2), 2) + " BTC ($" +
-                            Math.Round(Convert.ToDouble(dBalance2) * Convert.ToDouble(dTmp["now"]), 2) + ")";
                         
                          */
+
+                        labelBuyHave.Text = "$" + Math.Round(dBalance1, 2) + " (" +
+                            Math.Round(dBalance1 / dLastPrice, 2) + " BTC)";
+                        labelSellHave.Text = Math.Round(dBalance2, 2) + " BTC ($" +
+                            Math.Round(dBalance2 * dLastPrice, 2) + ")";
+                        
                         UpdateChartMain();
                     });
                 }
@@ -539,6 +542,7 @@ namespace Ticker_BTC_e
         public void UpdateHistory(string sPair, int iLimit)
         {
             double dLastTimestamp = 0;
+            double dLastLastTimestamp = 0;
             double dPrice = 0;
             Dictionary<string, object> dTmp;
             DateTime dtTick;
@@ -547,6 +551,7 @@ namespace Ticker_BTC_e
                 var dJson = GetJson("https://btc-e.com/api/3/trades/" + sPair + "?ignore_invalid=1&limit=" + iLimit);
                 var dJsonHistory = dJson[sPair] as List<object>;
                 dJsonHistory.Reverse();
+                int i = 0;
                 foreach (object obj in dJsonHistory)
                 {
                     dTmp = (Dictionary<string, object>)obj;
@@ -555,6 +560,22 @@ namespace Ticker_BTC_e
                     dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["timestamp"]));
                     dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
                     dLastTimestamp = dtTick.ToOADate();
+
+                    if (dLastLastTimestamp != dLastTimestamp)
+                    {
+                        if (!dVolumeDataLocked.ContainsKey(dLastTimestamp))
+                        {
+                            dVolumeData[dLastTimestamp] = 0;
+                        }
+                        dVolumeDataLocked[dLastLastTimestamp] = true;
+                    }
+
+                    dLastLastTimestamp = dLastTimestamp;
+
+                    if (dVolumeDataLocked.ContainsKey(dLastTimestamp))
+                    {
+                        continue;
+                    }
 
                     if (dCandlestickData.Count > Setting.ShowInterval)
                     {
@@ -590,12 +611,16 @@ namespace Ticker_BTC_e
                     {
                         dVolumeData[dLastTimestamp] = 0;
                     }
+
+                    i++;
                 }
+                dLastPrice = dPrice;
             }
             catch (Exception e){}
         }
 
         public Dictionary<double, double> dVolumeData = new Dictionary<double, double>();
+        public Dictionary<double, bool> dVolumeDataLocked = new Dictionary<double, bool>();
         public Dictionary<double, CandlestickData> dCandlestickData = new Dictionary<double, CandlestickData>();
         public class CandlestickData
         {
@@ -706,26 +731,22 @@ namespace Ticker_BTC_e
             Size = new Size(311, 163);
         }
 
-
-        double dBalance1 = 0;
-        double dBalance2 = 0;
-
         // BUY Block /START
         private void buttonBuyV11_Click(object sender, EventArgs e)
         {
-            textBoxBuyV.Text = Convert.ToDouble(dBalance1).ToString();
+            textBoxBuyV.Text = dBalance1.ToString();
         }
         private void buttonBuyV12_Click(object sender, EventArgs e)
         {
-            textBoxBuyV.Text = Convert.ToDouble(dBalance1 / 2).ToString();
+            textBoxBuyV.Text = (dBalance1 / 2).ToString();
         }
         private void buttonBuyV14_Click(object sender, EventArgs e)
         {
-            textBoxBuyV.Text = Convert.ToDouble(dBalance1 / 4).ToString();
+            textBoxBuyV.Text = (dBalance1 / 4).ToString();
         }
         private void buttonBuyPL_Click(object sender, EventArgs e)
         {
-            textBoxBuyP.Text = Convert.ToDouble(dTmp["now"]).ToString();
+            textBoxBuyP.Text = (dLastPrice).ToString();
         }
         private void buttonBuyPM_Click(object sender, EventArgs e)
         {
@@ -749,19 +770,19 @@ namespace Ticker_BTC_e
         // SELL Block /START
         private void buttonSellV11_Click(object sender, EventArgs e)
         {
-            textBoxSellV.Text = Convert.ToDouble(dBalance2).ToString();
+            textBoxSellV.Text = dBalance2.ToString();
         }
         private void buttonSellV12_Click(object sender, EventArgs e)
         {
-            textBoxSellV.Text = Convert.ToDouble(dBalance2 / 2).ToString();
+            textBoxSellV.Text = (dBalance2 / 2).ToString();
         }
         private void buttonSellV14_Click(object sender, EventArgs e)
         {
-            textBoxSellV.Text = Convert.ToDouble(dBalance2 / 4).ToString();
+            textBoxSellV.Text = (dBalance2 / 4).ToString();
         }
         private void buttonSellL_Click(object sender, EventArgs e)
         {
-            textBoxSellP.Text = Convert.ToDouble(dTmp["now"]).ToString();
+            textBoxSellP.Text = (dLastPrice).ToString();
         }
         private void buttonSellM_Click(object sender, EventArgs e)
         {

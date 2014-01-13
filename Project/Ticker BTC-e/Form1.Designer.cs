@@ -39,7 +39,6 @@
             System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1 = new System.Windows.Forms.Label();
             this.label1now = new System.Windows.Forms.Label();
-            this.label1change = new System.Windows.Forms.Label();
             this.ChartMain = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonBuy = new System.Windows.Forms.Button();
             this.textBoxBuyP = new System.Windows.Forms.TextBox();
@@ -110,17 +109,6 @@
             this.label1now.Text = "$0";
             this.label1now.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label1change
-            // 
-            this.label1change.AutoSize = true;
-            this.label1change.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1change.Location = new System.Drawing.Point(167, 0);
-            this.label1change.Name = "label1change";
-            this.label1change.Size = new System.Drawing.Size(91, 20);
-            this.label1change.TabIndex = 1;
-            this.label1change.Text = "Δ 0% <> $0";
-            this.label1change.Click += new System.EventHandler(this.label1change_Click);
-            // 
             // ChartMain
             // 
             this.ChartMain.BorderlineColor = System.Drawing.Color.Gainsboro;
@@ -139,9 +127,8 @@
             chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
             chartArea1.AxisX2.IsStartedFromZero = false;
-            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.IsStartedFromZero = false;
             chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
             chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
@@ -163,8 +150,7 @@
             this.ChartMain.Name = "ChartMain";
             this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
-            series1.Color = System.Drawing.Color.Thistle;
+            series1.Color = System.Drawing.Color.Lavender;
             series1.Name = "Area";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             series1.YValuesPerPoint = 2;
@@ -665,7 +651,6 @@
             this.Controls.Add(this.buttonBuyV11);
             this.Controls.Add(this.buttonBuy);
             this.Controls.Add(this.ChartMain);
-            this.Controls.Add(this.label1change);
             this.Controls.Add(this.label1now);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
@@ -687,7 +672,6 @@
         #endregion
 
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label1change;
         public System.Windows.Forms.Label label1now;
         private System.Windows.Forms.DataVisualization.Charting.Chart ChartMain;
         private System.Windows.Forms.Button buttonBuy;
