@@ -43,13 +43,21 @@ namespace Ticker_BTC_e
         public double dLastPrice = 0;
         public double dBalance1 = 0;
         public double dBalance2 = 0;
+        public string sBalance1 = "usd";
+        public string sBalance2 = "btc";
+        public string sBalanceUp1 = "USD";
+        public string sBalanceUp2 = "BTC";
         void NewThread()
         {
             //return;
             Random rnd = new Random();
             int i = 0;
+            Dictionary<string, object> dTmp2;
 
+            Setting.TradingPair = "btc_usd";
+            comboBoxPair.SelectedIndex = 0;
 
+            UpdateHistory(Setting.TradingPair, 2000);
             /*
             MessageBox.Show((
 
@@ -76,7 +84,7 @@ namespace Ticker_BTC_e
                     if (!Setting.DebugImitation)
                     {
                         //dTmp = GetTick(Setting.TradingPair);
-                        UpdateHistory(Setting.TradingPair, 2000);
+                        UpdateHistory(Setting.TradingPair, 500);
                         dDepthData = GetDepth(Setting.TradingPair);
                         dOpenOrders = GetOpenOrders();
                         dTradeHistory = GetTradeHistory();
@@ -103,13 +111,13 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
-                            label1now.Text = "$"+dLastPrice;
+                            label1now.Text = dLastPrice + " " + sBalanceUp1;
 
                             UpdateDepth();
 
-                            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["usd"]);
+                            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
                             if (dBalance1 < 0.0001) dBalance1 = 0;
-                            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["btc"]);
+                            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
                             if (dBalance2 < 0.0001) dBalance2 = 0;
 
                             i = 0;
@@ -117,7 +125,7 @@ namespace Ticker_BTC_e
                             //listViewHistory.Items.Clear();
                             foreach (KeyValuePair<string, object> kv in dTradeHistory)
                             {
-                                var dTmp2 = (Dictionary<string, object>)kv.Value;
+                                dTmp2 = (Dictionary<string, object>)kv.Value;
 
                                 if ((string)dTmp2["type"] == "buy")
                                 {
@@ -154,7 +162,7 @@ namespace Ticker_BTC_e
                             listViewOpenOrders.Items.Clear();
                             foreach (KeyValuePair<string, object> kv in dOpenOrders)
                             {
-                                var dTmp2 = (Dictionary<string, object>)kv.Value;
+                                dTmp2 = (Dictionary<string, object>)kv.Value;
 
                                 if ((string)dTmp2["type"] == "buy")
                                 {
@@ -231,10 +239,10 @@ namespace Ticker_BTC_e
                         
                          */
 
-                        labelBuyHave.Text = "$" + Math.Round(dBalance1, 2) + " (" +
-                            Math.Round(dBalance1 / dLastPrice, 2) + " BTC)";
-                        labelSellHave.Text = Math.Round(dBalance2, 2) + " BTC ($" +
-                            Math.Round(dBalance2 * dLastPrice, 2) + ")";
+                        labelBuyHave.Text = Math.Round(dBalance1, 2) + " " + sBalanceUp1 + " (" +
+                            Math.Round(dBalance1 / dLastPrice, 2) + " " + sBalanceUp2 + ")";
+                        labelSellHave.Text = Math.Round(dBalance2, 2) + " " + sBalanceUp2 + " (" +
+                            Math.Round(dBalance2 * dLastPrice, 2) + " "+sBalanceUp1 + ")";
                         
                         UpdateChartMain();
                     });
@@ -659,8 +667,8 @@ namespace Ticker_BTC_e
                 i++;
             }
             ChartMain.Series["LineNow"].Points.Clear();
-            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date, csdLast.Close);
-            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date-60, csdLast.Close);
+            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date, dLastPrice);
+            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date - 60, dLastPrice);
             /*
             if (i > 5)
             {
@@ -879,6 +887,28 @@ namespace Ticker_BTC_e
 
 
         // CANCEL Orde Block END/
+
+
+        private void comboBoxPair_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string sSelected = comboBoxPair.SelectedItem.ToString();
+
+            string[] saPair = sSelected.Split('/');
+
+            sBalance2 = saPair[0].ToLower();
+            sBalance1 = saPair[1].ToLower();
+
+            Setting.TradingPair = sBalance2 + "_" + sBalance1;
+
+            sBalanceUp2 = saPair[0];
+            sBalanceUp1 = saPair[1];
+
+            dVolumeData = new Dictionary<double, double>();
+            dVolumeDataLocked = new Dictionary<double, bool>();
+            dCandlestickData = new Dictionary<double, CandlestickData>();
+
+            UpdateHistory(Setting.TradingPair, 2000);
+        }
     }
     public class WebApi
     {

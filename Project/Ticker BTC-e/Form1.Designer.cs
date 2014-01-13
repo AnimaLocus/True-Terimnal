@@ -28,16 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series13 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series15 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series16 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.label1 = new System.Windows.Forms.Label();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1now = new System.Windows.Forms.Label();
             this.ChartMain = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonBuy = new System.Windows.Forms.Button();
@@ -62,6 +61,7 @@
             this.labelSellV = new System.Windows.Forms.Label();
             this.buttonCancelA = new System.Windows.Forms.Button();
             this.buttonCancelS = new System.Windows.Forms.Button();
+            this.comboBoxPair = new System.Windows.Forms.ComboBox();
             this.listViewBid = new Ticker_BTC_e.ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -88,124 +88,114 @@
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(79, 20);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "BTC/USD";
-            // 
             // label1now
             // 
             this.label1now.AutoSize = true;
             this.label1now.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1now.Location = new System.Drawing.Point(85, 0);
+            this.label1now.Location = new System.Drawing.Point(85, 1);
             this.label1now.Name = "label1now";
-            this.label1now.Size = new System.Drawing.Size(27, 20);
+            this.label1now.Size = new System.Drawing.Size(57, 20);
             this.label1now.TabIndex = 1;
-            this.label1now.Text = "$0";
+            this.label1now.Text = "0 USD";
             this.label1now.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // ChartMain
             // 
             this.ChartMain.BorderlineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea2.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea2.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea2.AxisX.IsLabelAutoFit = false;
-            chartArea2.AxisX.IsStartedFromZero = false;
-            chartArea2.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea2.AxisX.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX.LineWidth = 0;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea2.AxisX2.IsStartedFromZero = false;
-            chartArea2.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea2.AxisY.IsLabelAutoFit = false;
-            chartArea2.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea2.AxisY.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea2.AxisY.LineWidth = 0;
-            chartArea2.AxisY.MajorGrid.Enabled = false;
-            chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea2.AxisY2.IsLabelAutoFit = false;
-            chartArea2.AxisY2.IsStartedFromZero = false;
-            chartArea2.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea2.AxisY2.LineColor = System.Drawing.Color.Transparent;
-            chartArea2.AxisY2.LineWidth = 0;
-            chartArea2.AxisY2.MajorGrid.Enabled = false;
-            chartArea2.AxisY2.MajorTickMark.Enabled = false;
-            chartArea2.Name = "ChartArea1";
-            this.ChartMain.ChartAreas.Add(chartArea2);
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.IsStartedFromZero = false;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.LineWidth = 0;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisX2.IsStartedFromZero = false;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisY.LineWidth = 0;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.IsLabelAutoFit = false;
+            chartArea1.AxisY2.IsStartedFromZero = false;
+            chartArea1.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisY2.LineWidth = 0;
+            chartArea1.AxisY2.MajorGrid.Enabled = false;
+            chartArea1.AxisY2.MajorTickMark.Enabled = false;
+            chartArea1.Name = "ChartArea1";
+            this.ChartMain.ChartAreas.Add(chartArea1);
             this.ChartMain.Location = new System.Drawing.Point(-3, 20);
             this.ChartMain.Name = "ChartMain";
             this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series9.ChartArea = "ChartArea1";
-            series9.Color = System.Drawing.Color.Lavender;
-            series9.Name = "Area";
-            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series9.YValuesPerPoint = 2;
-            series10.ChartArea = "ChartArea1";
-            series10.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series10.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
-            series10.Name = "Candlestick";
-            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series10.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series10.YValuesPerPoint = 4;
-            series11.ChartArea = "ChartArea1";
-            series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series11.Enabled = false;
-            series11.Name = "Line";
-            series11.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series11.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series12.Enabled = false;
-            series12.Name = "LineMA1";
-            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series13.ChartArea = "ChartArea1";
-            series13.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series13.Enabled = false;
-            series13.Name = "LineMA2";
-            series13.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series14.ChartArea = "ChartArea1";
-            series14.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series14.Enabled = false;
-            series14.Name = "LineMA3";
-            series14.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series15.ChartArea = "ChartArea1";
-            series15.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series15.Enabled = false;
-            series15.Name = "LineMA4";
-            series15.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series16.BorderColor = System.Drawing.Color.Transparent;
-            series16.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            series16.BorderWidth = 2;
-            series16.ChartArea = "ChartArea1";
-            series16.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series16.Color = System.Drawing.Color.Gray;
-            series16.CustomProperties = "IsXAxisQuantitative=True";
-            series16.Name = "LineNow";
-            series16.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series16.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series16.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.ChartMain.Series.Add(series9);
-            this.ChartMain.Series.Add(series10);
-            this.ChartMain.Series.Add(series11);
-            this.ChartMain.Series.Add(series12);
-            this.ChartMain.Series.Add(series13);
-            this.ChartMain.Series.Add(series14);
-            this.ChartMain.Series.Add(series15);
-            this.ChartMain.Series.Add(series16);
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.Lavender;
+            series1.Name = "Area";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series1.YValuesPerPoint = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
+            series2.Name = "Candlestick";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series2.YValuesPerPoint = 4;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Enabled = false;
+            series3.Name = "Line";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series3.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Enabled = false;
+            series4.Name = "LineMA1";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Enabled = false;
+            series5.Name = "LineMA2";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Enabled = false;
+            series6.Name = "LineMA3";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Enabled = false;
+            series7.Name = "LineMA4";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.BorderColor = System.Drawing.Color.Transparent;
+            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series8.BorderWidth = 2;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Color = System.Drawing.Color.Gray;
+            series8.CustomProperties = "IsXAxisQuantitative=True";
+            series8.Name = "LineNow";
+            series8.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.ChartMain.Series.Add(series1);
+            this.ChartMain.Series.Add(series2);
+            this.ChartMain.Series.Add(series3);
+            this.ChartMain.Series.Add(series4);
+            this.ChartMain.Series.Add(series5);
+            this.ChartMain.Series.Add(series6);
+            this.ChartMain.Series.Add(series7);
+            this.ChartMain.Series.Add(series8);
             this.ChartMain.Size = new System.Drawing.Size(319, 118);
             this.ChartMain.TabIndex = 3;
             this.ChartMain.Text = "ChartMain";
@@ -215,9 +205,9 @@
             // 
             this.buttonBuy.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonBuy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.buttonBuy.Location = new System.Drawing.Point(222, 170);
+            this.buttonBuy.Location = new System.Drawing.Point(237, 185);
             this.buttonBuy.Name = "buttonBuy";
-            this.buttonBuy.Size = new System.Drawing.Size(86, 25);
+            this.buttonBuy.Size = new System.Drawing.Size(71, 25);
             this.buttonBuy.TabIndex = 4;
             this.buttonBuy.Text = "BUY";
             this.buttonBuy.UseVisualStyleBackColor = true;
@@ -226,7 +216,7 @@
             // textBoxBuyP
             // 
             this.textBoxBuyP.ImeMode = System.Windows.Forms.ImeMode.NoControl;
-            this.textBoxBuyP.Location = new System.Drawing.Point(4, 170);
+            this.textBoxBuyP.Location = new System.Drawing.Point(4, 187);
             this.textBoxBuyP.Name = "textBoxBuyP";
             this.textBoxBuyP.Size = new System.Drawing.Size(75, 20);
             this.textBoxBuyP.TabIndex = 5;
@@ -237,7 +227,7 @@
             // buttonBuyV11
             // 
             this.buttonBuyV11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonBuyV11.Location = new System.Drawing.Point(82, 142);
+            this.buttonBuyV11.Location = new System.Drawing.Point(82, 159);
             this.buttonBuyV11.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyV11.Name = "buttonBuyV11";
             this.buttonBuyV11.Size = new System.Drawing.Size(30, 25);
@@ -249,7 +239,7 @@
             // buttonBuyV12
             // 
             this.buttonBuyV12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonBuyV12.Location = new System.Drawing.Point(112, 142);
+            this.buttonBuyV12.Location = new System.Drawing.Point(112, 159);
             this.buttonBuyV12.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyV12.Name = "buttonBuyV12";
             this.buttonBuyV12.Size = new System.Drawing.Size(30, 25);
@@ -261,7 +251,7 @@
             // buttonBuyPL
             // 
             this.buttonBuyPL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonBuyPL.Location = new System.Drawing.Point(82, 168);
+            this.buttonBuyPL.Location = new System.Drawing.Point(82, 185);
             this.buttonBuyPL.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyPL.Name = "buttonBuyPL";
             this.buttonBuyPL.Size = new System.Drawing.Size(30, 25);
@@ -273,7 +263,7 @@
             // buttonBuyPM
             // 
             this.buttonBuyPM.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonBuyPM.Location = new System.Drawing.Point(112, 168);
+            this.buttonBuyPM.Location = new System.Drawing.Point(112, 185);
             this.buttonBuyPM.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyPM.Name = "buttonBuyPM";
             this.buttonBuyPM.Size = new System.Drawing.Size(30, 25);
@@ -286,17 +276,17 @@
             // 
             this.labelBuyHave.AutoSize = true;
             this.labelBuyHave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelBuyHave.Location = new System.Drawing.Point(175, 145);
+            this.labelBuyHave.Location = new System.Drawing.Point(2, 141);
             this.labelBuyHave.Name = "labelBuyHave";
-            this.labelBuyHave.Size = new System.Drawing.Size(77, 17);
+            this.labelBuyHave.Size = new System.Drawing.Size(102, 17);
             this.labelBuyHave.TabIndex = 6;
-            this.labelBuyHave.Text = "$0 (0 BTC)";
+            this.labelBuyHave.Text = "0 USD (0 BTC)";
             this.labelBuyHave.Click += new System.EventHandler(this.label2_Click);
             // 
             // buttonBuyV14
             // 
             this.buttonBuyV14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonBuyV14.Location = new System.Drawing.Point(142, 142);
+            this.buttonBuyV14.Location = new System.Drawing.Point(142, 159);
             this.buttonBuyV14.Margin = new System.Windows.Forms.Padding(0);
             this.buttonBuyV14.Name = "buttonBuyV14";
             this.buttonBuyV14.Size = new System.Drawing.Size(30, 25);
@@ -309,7 +299,7 @@
             // 
             this.labeBuyV.AutoSize = true;
             this.labeBuyV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labeBuyV.Location = new System.Drawing.Point(145, 173);
+            this.labeBuyV.Location = new System.Drawing.Point(145, 190);
             this.labeBuyV.Name = "labeBuyV";
             this.labeBuyV.Size = new System.Drawing.Size(47, 17);
             this.labeBuyV.TabIndex = 6;
@@ -318,7 +308,7 @@
             // 
             // textBoxBuyV
             // 
-            this.textBoxBuyV.Location = new System.Drawing.Point(4, 144);
+            this.textBoxBuyV.Location = new System.Drawing.Point(4, 161);
             this.textBoxBuyV.Name = "textBoxBuyV";
             this.textBoxBuyV.Size = new System.Drawing.Size(75, 20);
             this.textBoxBuyV.TabIndex = 5;
@@ -330,9 +320,9 @@
             // 
             this.buttonSell.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.buttonSell.ForeColor = System.Drawing.Color.Red;
-            this.buttonSell.Location = new System.Drawing.Point(222, 235);
+            this.buttonSell.Location = new System.Drawing.Point(237, 272);
             this.buttonSell.Name = "buttonSell";
-            this.buttonSell.Size = new System.Drawing.Size(86, 25);
+            this.buttonSell.Size = new System.Drawing.Size(71, 25);
             this.buttonSell.TabIndex = 4;
             this.buttonSell.Text = "SELL";
             this.buttonSell.UseVisualStyleBackColor = true;
@@ -341,7 +331,7 @@
             // buttonSellV11
             // 
             this.buttonSellV11.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSellV11.Location = new System.Drawing.Point(82, 207);
+            this.buttonSellV11.Location = new System.Drawing.Point(82, 246);
             this.buttonSellV11.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSellV11.Name = "buttonSellV11";
             this.buttonSellV11.Size = new System.Drawing.Size(30, 25);
@@ -353,7 +343,7 @@
             // buttonSellL
             // 
             this.buttonSellL.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSellL.Location = new System.Drawing.Point(82, 233);
+            this.buttonSellL.Location = new System.Drawing.Point(82, 272);
             this.buttonSellL.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSellL.Name = "buttonSellL";
             this.buttonSellL.Size = new System.Drawing.Size(30, 25);
@@ -365,7 +355,7 @@
             // buttonSellM
             // 
             this.buttonSellM.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSellM.Location = new System.Drawing.Point(112, 233);
+            this.buttonSellM.Location = new System.Drawing.Point(112, 272);
             this.buttonSellM.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSellM.Name = "buttonSellM";
             this.buttonSellM.Size = new System.Drawing.Size(30, 25);
@@ -377,7 +367,7 @@
             // buttonSellV12
             // 
             this.buttonSellV12.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSellV12.Location = new System.Drawing.Point(112, 207);
+            this.buttonSellV12.Location = new System.Drawing.Point(112, 246);
             this.buttonSellV12.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSellV12.Name = "buttonSellV12";
             this.buttonSellV12.Size = new System.Drawing.Size(30, 25);
@@ -389,7 +379,7 @@
             // buttonSellV14
             // 
             this.buttonSellV14.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonSellV14.Location = new System.Drawing.Point(142, 207);
+            this.buttonSellV14.Location = new System.Drawing.Point(142, 246);
             this.buttonSellV14.Margin = new System.Windows.Forms.Padding(0);
             this.buttonSellV14.Name = "buttonSellV14";
             this.buttonSellV14.Size = new System.Drawing.Size(30, 25);
@@ -400,7 +390,7 @@
             // 
             // textBoxSellP
             // 
-            this.textBoxSellP.Location = new System.Drawing.Point(4, 235);
+            this.textBoxSellP.Location = new System.Drawing.Point(4, 274);
             this.textBoxSellP.Name = "textBoxSellP";
             this.textBoxSellP.Size = new System.Drawing.Size(75, 20);
             this.textBoxSellP.TabIndex = 5;
@@ -410,7 +400,7 @@
             // 
             // textBoxSellV
             // 
-            this.textBoxSellV.Location = new System.Drawing.Point(4, 209);
+            this.textBoxSellV.Location = new System.Drawing.Point(4, 248);
             this.textBoxSellV.Name = "textBoxSellV";
             this.textBoxSellV.Size = new System.Drawing.Size(75, 20);
             this.textBoxSellV.TabIndex = 5;
@@ -422,28 +412,28 @@
             // 
             this.labelSellHave.AutoSize = true;
             this.labelSellHave.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSellHave.Location = new System.Drawing.Point(175, 210);
+            this.labelSellHave.Location = new System.Drawing.Point(2, 228);
             this.labelSellHave.Name = "labelSellHave";
-            this.labelSellHave.Size = new System.Drawing.Size(77, 17);
+            this.labelSellHave.Size = new System.Drawing.Size(102, 17);
             this.labelSellHave.TabIndex = 6;
-            this.labelSellHave.Text = "0 BTC ($0)";
+            this.labelSellHave.Text = "0 BTC (0 USD)";
             this.labelSellHave.Click += new System.EventHandler(this.label2_Click);
             // 
             // labelSellV
             // 
             this.labelSellV.AutoSize = true;
             this.labelSellV.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSellV.Location = new System.Drawing.Point(145, 238);
+            this.labelSellV.Location = new System.Drawing.Point(145, 277);
             this.labelSellV.Name = "labelSellV";
-            this.labelSellV.Size = new System.Drawing.Size(24, 17);
+            this.labelSellV.Size = new System.Drawing.Size(49, 17);
             this.labelSellV.TabIndex = 6;
-            this.labelSellV.Text = "$0";
+            this.labelSellV.Text = "0 USD";
             this.labelSellV.Click += new System.EventHandler(this.label2_Click);
             // 
             // buttonCancelA
             // 
             this.buttonCancelA.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelA.Location = new System.Drawing.Point(342, 266);
+            this.buttonCancelA.Location = new System.Drawing.Point(342, 316);
             this.buttonCancelA.Name = "buttonCancelA";
             this.buttonCancelA.Size = new System.Drawing.Size(30, 26);
             this.buttonCancelA.TabIndex = 9;
@@ -454,13 +444,43 @@
             // buttonCancelS
             // 
             this.buttonCancelS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelS.Location = new System.Drawing.Point(314, 266);
+            this.buttonCancelS.Location = new System.Drawing.Point(314, 316);
             this.buttonCancelS.Name = "buttonCancelS";
             this.buttonCancelS.Size = new System.Drawing.Size(30, 26);
             this.buttonCancelS.TabIndex = 9;
             this.buttonCancelS.Text = "S";
             this.buttonCancelS.UseVisualStyleBackColor = true;
             this.buttonCancelS.Click += new System.EventHandler(this.buttonCancelS_Click);
+            // 
+            // comboBoxPair
+            // 
+            this.comboBoxPair.BackColor = System.Drawing.SystemColors.Window;
+            this.comboBoxPair.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxPair.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.comboBoxPair.Items.AddRange(new object[] {
+            "BTC/USD",
+            "BTC/RUR",
+            "BTC/EUR",
+            "LTC/BTC",
+            "LTC/USD",
+            "LTC/RUR",
+            "LTC/EUR",
+            "NMC/BTC",
+            "NMC/USD",
+            "NVC/BTC",
+            "NVC/USD",
+            "USD/RUR",
+            "EUR/USD",
+            "TRC/BTC",
+            "PPC/BTC",
+            "PPC/USD",
+            "FTC/BTC",
+            "XPM/BTC"});
+            this.comboBoxPair.Location = new System.Drawing.Point(4, 0);
+            this.comboBoxPair.Name = "comboBoxPair";
+            this.comboBoxPair.Size = new System.Drawing.Size(75, 21);
+            this.comboBoxPair.TabIndex = 10;
+            this.comboBoxPair.SelectedIndexChanged += new System.EventHandler(this.comboBoxPair_SelectedIndexChanged);
             // 
             // listViewBid
             // 
@@ -473,7 +493,7 @@
             this.listViewBid.MultiSelect = false;
             this.listViewBid.Name = "listViewBid";
             this.listViewBid.ShowGroups = false;
-            this.listViewBid.Size = new System.Drawing.Size(208, 260);
+            this.listViewBid.Size = new System.Drawing.Size(208, 310);
             this.listViewBid.TabIndex = 8;
             this.listViewBid.UseCompatibleStateImageBehavior = false;
             this.listViewBid.View = System.Windows.Forms.View.Details;
@@ -503,11 +523,11 @@
             this.columnHeader13,
             this.columnHeader14});
             this.listViewOpenOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listViewOpenOrders.Location = new System.Drawing.Point(4, 266);
+            this.listViewOpenOrders.Location = new System.Drawing.Point(4, 316);
             this.listViewOpenOrders.MultiSelect = false;
             this.listViewOpenOrders.Name = "listViewOpenOrders";
             this.listViewOpenOrders.ShowGroups = false;
-            this.listViewOpenOrders.Size = new System.Drawing.Size(368, 260);
+            this.listViewOpenOrders.Size = new System.Drawing.Size(368, 210);
             this.listViewOpenOrders.TabIndex = 8;
             this.listViewOpenOrders.UseCompatibleStateImageBehavior = false;
             this.listViewOpenOrders.View = System.Windows.Forms.View.Details;
@@ -553,12 +573,12 @@
             this.columnHeader10,
             this.columnHeader11});
             this.listViewHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.listViewHistory.Location = new System.Drawing.Point(378, 266);
+            this.listViewHistory.Location = new System.Drawing.Point(378, 316);
             this.listViewHistory.MaximumSize = new System.Drawing.Size(1000, 700);
             this.listViewHistory.MultiSelect = false;
             this.listViewHistory.Name = "listViewHistory";
             this.listViewHistory.ShowGroups = false;
-            this.listViewHistory.Size = new System.Drawing.Size(358, 260);
+            this.listViewHistory.Size = new System.Drawing.Size(358, 210);
             this.listViewHistory.TabIndex = 8;
             this.listViewHistory.UseCompatibleStateImageBehavior = false;
             this.listViewHistory.View = System.Windows.Forms.View.Details;
@@ -602,7 +622,7 @@
             this.listViewAsk.MultiSelect = false;
             this.listViewAsk.Name = "listViewAsk";
             this.listViewAsk.ShowGroups = false;
-            this.listViewAsk.Size = new System.Drawing.Size(208, 260);
+            this.listViewAsk.Size = new System.Drawing.Size(208, 310);
             this.listViewAsk.TabIndex = 8;
             this.listViewAsk.UseCompatibleStateImageBehavior = false;
             this.listViewAsk.View = System.Windows.Forms.View.Details;
@@ -628,6 +648,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(737, 526);
+            this.Controls.Add(this.comboBoxPair);
             this.Controls.Add(this.buttonCancelS);
             this.Controls.Add(this.buttonCancelA);
             this.Controls.Add(this.listViewBid);
@@ -656,7 +677,6 @@
             this.Controls.Add(this.buttonBuy);
             this.Controls.Add(this.ChartMain);
             this.Controls.Add(this.label1now);
-            this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "Form1";
             this.Opacity = 0.7D;
@@ -675,7 +695,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         public System.Windows.Forms.Label label1now;
         private System.Windows.Forms.DataVisualization.Charting.Chart ChartMain;
         private System.Windows.Forms.Button buttonBuy;
@@ -723,6 +742,7 @@
         private ListViewNF listViewHistory;
         private ListViewNF listViewOpenOrders;
         private System.Windows.Forms.Button buttonCancelS;
+        private System.Windows.Forms.ComboBox comboBoxPair;
     }
 }
 

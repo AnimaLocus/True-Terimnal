@@ -1,5 +1,3 @@
-TradingPair: btc_usd
-
 ShowInterval : 60
 UpdateInterval : 5000
 
