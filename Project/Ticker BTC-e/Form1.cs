@@ -25,6 +25,10 @@ namespace Ticker_BTC_e
     {
         public Form1()
         {
+            if (Setting.APIKey == "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX") {
+                bOnlyTicker = true;
+            }
+
             APISecretHash = new HMACSHA512(Encoding.ASCII.GetBytes(Setting.APISecret));
             nonce = UnixTime.Now;
 
@@ -34,6 +38,7 @@ namespace Ticker_BTC_e
             t.IsBackground = true;
             t.Start();
         }
+        public bool bOnlyTicker = false;
         public HMACSHA512 APISecretHash;
         public UInt32 nonce;
         public Dictionary<string, object> dTmp = new Dictionary<string, object>();
@@ -86,9 +91,16 @@ namespace Ticker_BTC_e
                         //dTmp = GetTick(Setting.TradingPair);
                         UpdateHistory(Setting.TradingPair, 500);
                         dDepthData = GetDepth(Setting.TradingPair);
-                        dOpenOrders = GetOpenOrders();
-                        dTradeHistory = GetTradeHistory();
-                        dUserInfo = GetInfo();
+
+                        if (bOnlyTicker)
+                        {
+                        }
+                        else
+                        {
+                            dOpenOrders = GetOpenOrders();
+                            dTradeHistory = GetTradeHistory();
+                            dUserInfo = GetInfo();
+                        }
                     }
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -115,84 +127,86 @@ namespace Ticker_BTC_e
 
                             UpdateDepth();
 
-                            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
-                            if (dBalance1 < 0.0001) dBalance1 = 0;
-                            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
-                            if (dBalance2 < 0.0001) dBalance2 = 0;
-
-                            i = 0;
-                            listViewHistory.BeginUpdate();
-                            //listViewHistory.Items.Clear();
-                            foreach (KeyValuePair<string, object> kv in dTradeHistory)
+                            if (!bOnlyTicker)
                             {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
+                                dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
+                                if (dBalance1 < 0.0001) dBalance1 = 0;
+                                dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
+                                if (dBalance2 < 0.0001) dBalance2 = 0;
 
-                                if ((string)dTmp2["type"] == "buy")
+                                i = 0;
+                                listViewHistory.BeginUpdate();
+                                //listViewHistory.Items.Clear();
+                                foreach (KeyValuePair<string, object> kv in dTradeHistory)
                                 {
-                                    dTmp2["type"] = "B";
+                                    dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                    if ((string)dTmp2["type"] == "buy")
+                                    {
+                                        dTmp2["type"] = "B";
+                                    }
+                                    else if ((string)dTmp2["type"] == "sell")
+                                    {
+                                        dTmp2["type"] = "S";
+                                    }
+
+                                    listViewHistory.Items.Add(
+                                        (string)dTmp2["pair"], i
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        (string)dTmp2["type"]
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["rate"]).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["amount"]).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                    );
+
+                                    i++;
                                 }
-                                else if ((string)dTmp2["type"] == "sell")
+                                listViewHistory.EndUpdate();
+
+
+                                i = 0;
+                                listViewOpenOrders.BeginUpdate();
+                                listViewOpenOrders.Items.Clear();
+                                foreach (KeyValuePair<string, object> kv in dOpenOrders)
                                 {
-                                    dTmp2["type"] = "S";
+                                    dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                    if ((string)dTmp2["type"] == "buy")
+                                    {
+                                        dTmp2["type"] = "B";
+                                    }
+                                    else if ((string)dTmp2["type"] == "sell")
+                                    {
+                                        dTmp2["type"] = "S";
+                                    }
+
+                                    listViewOpenOrders.Items.Add(
+                                        (string)dTmp2["pair"], i
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        (string)dTmp2["type"]
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["rate"]).ToString()
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["amount"]).ToString()
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                    );
+
+                                    i++;
                                 }
-
-                                listViewHistory.Items.Add(
-                                    (string)dTmp2["pair"], i
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (string)dTmp2["type"]
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["rate"]).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["amount"]).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
-                                );
-
-                                i++;
+                                listViewOpenOrders.EndUpdate();
                             }
-                            listViewHistory.EndUpdate();
-
-
-                            i = 0;
-                            listViewOpenOrders.BeginUpdate();
-                            listViewOpenOrders.Items.Clear();
-                            foreach (KeyValuePair<string, object> kv in dOpenOrders)
-                            {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
-
-                                if ((string)dTmp2["type"] == "buy")
-                                {
-                                    dTmp2["type"] = "B";
-                                }
-                                else if ((string)dTmp2["type"] == "sell")
-                                {
-                                    dTmp2["type"] = "S";
-                                }
-
-                                listViewOpenOrders.Items.Add(
-                                    (string)dTmp2["pair"], i
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    (string)dTmp2["type"]
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["rate"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["amount"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
-                                );
-
-                                i++;
-                            }
-                            listViewOpenOrders.EndUpdate();
-
                         }
                         
                         /*
