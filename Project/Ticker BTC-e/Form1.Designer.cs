@@ -62,6 +62,7 @@
             this.labelSellHave = new System.Windows.Forms.Label();
             this.labelSellV = new System.Windows.Forms.Label();
             this.buttonCancelA = new System.Windows.Forms.Button();
+            this.buttonCancelS = new System.Windows.Forms.Button();
             this.listViewBid = new Ticker_BTC_e.ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -85,7 +86,6 @@
             this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.buttonCancelS = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.SuspendLayout();
             // 
@@ -164,10 +164,9 @@
             this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Area;
-            series1.Color = System.Drawing.Color.WhiteSmoke;
+            series1.Color = System.Drawing.Color.Thistle;
             series1.Name = "Area";
             series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series1.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series1.YValuesPerPoint = 2;
             series2.ChartArea = "ChartArea1";
             series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
@@ -181,6 +180,7 @@
             series3.Enabled = false;
             series3.Name = "Line";
             series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series3.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series4.ChartArea = "ChartArea1";
             series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series4.Enabled = false;
@@ -211,6 +211,7 @@
             series8.Name = "LineNow";
             series8.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             this.ChartMain.Series.Add(series1);
             this.ChartMain.Series.Add(series2);
             this.ChartMain.Series.Add(series3);
@@ -460,6 +461,17 @@
             this.buttonCancelA.UseVisualStyleBackColor = true;
             this.buttonCancelA.Click += new System.EventHandler(this.buttonCancelA_Click);
             // 
+            // buttonCancelS
+            // 
+            this.buttonCancelS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonCancelS.Location = new System.Drawing.Point(314, 266);
+            this.buttonCancelS.Name = "buttonCancelS";
+            this.buttonCancelS.Size = new System.Drawing.Size(30, 26);
+            this.buttonCancelS.TabIndex = 9;
+            this.buttonCancelS.Text = "S";
+            this.buttonCancelS.UseVisualStyleBackColor = true;
+            this.buttonCancelS.Click += new System.EventHandler(this.buttonCancelS_Click);
+            // 
             // listViewBid
             // 
             this.listViewBid.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -618,17 +630,6 @@
             // columnHeaderDepth
             // 
             this.columnHeaderDepth.Text = "Depth";
-            // 
-            // buttonCancelS
-            // 
-            this.buttonCancelS.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonCancelS.Location = new System.Drawing.Point(314, 266);
-            this.buttonCancelS.Name = "buttonCancelS";
-            this.buttonCancelS.Size = new System.Drawing.Size(30, 26);
-            this.buttonCancelS.TabIndex = 9;
-            this.buttonCancelS.Text = "S";
-            this.buttonCancelS.UseVisualStyleBackColor = true;
-            this.buttonCancelS.Click += new System.EventHandler(this.buttonCancelS_Click);
             // 
             // Form1
             // 

@@ -45,13 +45,6 @@ namespace Ticker_BTC_e
             Random rnd = new Random();
             int i = 0;
 
-            dUserInfo = GetInfo();
-
-            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["usd"]);
-            if (dBalance1 < 0.0001) dBalance1 = 0;
-            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["btc"]);
-            if (dBalance2 < 0.0001) dBalance1 = 0;
-
 
             /*
             MessageBox.Show((
@@ -78,10 +71,12 @@ namespace Ticker_BTC_e
                 {
                     if (!Setting.DebugImitation)
                     {
-                        dTmp = GetTick(Setting.TradingPair);
+                        //dTmp = GetTick(Setting.TradingPair);
+                        UpdateHistory(Setting.TradingPair, 2000);
                         dDepthData = GetDepth(Setting.TradingPair);
                         dOpenOrders = GetOpenOrders();
                         dTradeHistory = GetTradeHistory();
+                        dUserInfo = GetInfo();
                     }
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -104,11 +99,15 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
-                            label1now.Text = (string)dTmp["nowt"];
-                            label1change.Text = (string)dTmp["change"];
+                            //label1now.Text = (string)dTmp["nowt"];
+                            //label1change.Text = (string)dTmp["change"];
 
                             UpdateDepth();
 
+                            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["usd"]);
+                            if (dBalance1 < 0.0001) dBalance1 = 0;
+                            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])["btc"]);
+                            if (dBalance2 < 0.0001) dBalance1 = 0;
 
                             i = 0;
                             listViewHistory.BeginUpdate();
@@ -185,6 +184,7 @@ namespace Ticker_BTC_e
 
                         }
                         
+                        /*
                         DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
                         if (!Setting.DebugImitation)
                         {
@@ -195,6 +195,8 @@ namespace Ticker_BTC_e
                         double dDate = dtTick.ToOADate();
                         double dPrice = Convert.ToDouble(dTmp["now"]);
 
+                         */
+                          
                         /*
                         DataManipulator myDataManip = chart1.DataManipulator;
                         myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
@@ -202,6 +204,7 @@ namespace Ticker_BTC_e
                             "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
                         */
 
+                        /*
                         if (dCandlestickData.Count > Setting.ShowInterval)
                         {
                             dCandlestickData.Remove(dCandlestickData.Keys.Min());
@@ -227,7 +230,8 @@ namespace Ticker_BTC_e
                             Math.Round(Convert.ToDouble(dBalance1) / Convert.ToDouble(dTmp["now"]), 2) + " BTC)";
                         labelSellHave.Text = Math.Round(Convert.ToDouble(dBalance2), 2) + " BTC ($" +
                             Math.Round(Convert.ToDouble(dBalance2) * Convert.ToDouble(dTmp["now"]), 2) + ")";
-
+                        
+                         */
                         UpdateChartMain();
                     });
                 }
@@ -386,8 +390,6 @@ namespace Ticker_BTC_e
                 { "rate", rate.ToString() },
                 { "amount", amount.ToString() }
             };
-            MessageBox.Show(rate.ToString());
-            MessageBox.Show(amount.ToString());
             var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
             if ((long)result["success"] == 0)
                 throw new Exception((string)result["error"]);
@@ -534,7 +536,66 @@ namespace Ticker_BTC_e
 
             return dResult;
         }
+        public void UpdateHistory(string sPair, int iLimit)
+        {
+            double dLastTimestamp = 0;
+            double dPrice = 0;
+            Dictionary<string, object> dTmp;
+            DateTime dtTick;
+            try
+            {
+                var dJson = GetJson("https://btc-e.com/api/3/trades/" + sPair + "?ignore_invalid=1&limit=" + iLimit);
+                var dJsonHistory = dJson[sPair] as List<object>;
+                dJsonHistory.Reverse();
+                foreach (object obj in dJsonHistory)
+                {
+                    dTmp = (Dictionary<string, object>)obj;
 
+                    dPrice = Convert.ToDouble(dTmp["price"]);
+                    dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["timestamp"]));
+                    dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
+                    dLastTimestamp = dtTick.ToOADate();
+
+                    if (dCandlestickData.Count > Setting.ShowInterval)
+                    {
+                        dCandlestickData.Remove(dCandlestickData.Keys.Min());
+                    }
+                    if (dCandlestickData.ContainsKey(dLastTimestamp))
+                    {
+                        dCandlestickData[dLastTimestamp].Close = dPrice;
+                        if (dCandlestickData[dLastTimestamp].Low > dPrice)
+                        {
+                            dCandlestickData[dLastTimestamp].Low = dPrice;
+                        }
+                        if (dCandlestickData[dLastTimestamp].High < dPrice)
+                        {
+                            dCandlestickData[dLastTimestamp].High = dPrice;
+                        }
+                    }
+                    else
+                    {
+                        dCandlestickData[dLastTimestamp] = 
+                            new CandlestickData(dLastTimestamp, dPrice, dPrice, dPrice, dPrice);
+                    }
+
+                    if (dVolumeData.Count > Setting.ShowInterval)
+                    {
+                        dVolumeData.Remove(dVolumeData.Keys.Min());
+                    }
+                    if (dVolumeData.ContainsKey(dLastTimestamp))
+                    {
+                        dVolumeData[dLastTimestamp] += Convert.ToDouble(dTmp["amount"]);
+                    }
+                    else
+                    {
+                        dVolumeData[dLastTimestamp] = 0;
+                    }
+                }
+            }
+            catch (Exception e){}
+        }
+
+        public Dictionary<double, double> dVolumeData = new Dictionary<double, double>();
         public Dictionary<double, CandlestickData> dCandlestickData = new Dictionary<double, CandlestickData>();
         public class CandlestickData
         {
@@ -552,7 +613,12 @@ namespace Ticker_BTC_e
             //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
             ChartMain.Series["Line"].Points.Clear();
             ChartMain.Series["Candlestick"].Points.Clear();
+            ChartMain.Series["Area"].Points.Clear();
 
+            foreach (KeyValuePair<double, double> kv in dVolumeData)
+            {
+                ChartMain.Series["Area"].Points.AddXY(kv.Key, kv.Value);
+            }
             CandlestickData csdLast = new CandlestickData(0,0,0,0,0);
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
