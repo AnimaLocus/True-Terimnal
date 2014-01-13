@@ -16,8 +16,11 @@ Features:
 - Changing pairs in config
 
 On top (ticker):
+
 ![Alt text](ScreenshotMin.png "Screenshot")
+
 And on focus:
+
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
