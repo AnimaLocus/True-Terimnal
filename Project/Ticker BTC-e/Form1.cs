@@ -34,6 +34,11 @@ namespace Ticker_BTC_e
 
             InitializeComponent();
 
+            Setting.TradingPair = "btc_usd";
+            comboBoxPair.SelectedIndex = 0;
+
+            UpdateHistory(Setting.TradingPair, 2000);
+
             Thread t = new Thread(NewThread);
             t.IsBackground = true;
             t.Start();
@@ -54,41 +59,14 @@ namespace Ticker_BTC_e
         public string sBalanceUp2 = "BTC";
         void NewThread()
         {
-            //return;
             Random rnd = new Random();
             int i = 0;
             Dictionary<string, object> dTmp2;
 
-            Setting.TradingPair = "btc_usd";
-            comboBoxPair.SelectedIndex = 0;
-
-            UpdateHistory(Setting.TradingPair, 2000);
-            /*
-            MessageBox.Show((
-
-                (double)
-                (
-                    (Dictionary<string, object>)
-                    (
-                        (Dictionary<string, object>)dUserInfo["return"]
-                    )
-                ["funds"]
-                )["btc"]
-
-            ).ToString());
-            */
-
-            if (Setting.DebugImitation)
-            {
-                dTmp["updated"] = 1;
-            }
             while (true)
             {
                 try
                 {
-                    if (!Setting.DebugImitation)
-                    {
-                        //dTmp = GetTick(Setting.TradingPair);
                         UpdateHistory(Setting.TradingPair, 500);
                         dDepthData = GetDepth(Setting.TradingPair);
 
@@ -101,28 +79,8 @@ namespace Ticker_BTC_e
                             dTradeHistory = GetTradeHistory();
                             dUserInfo = GetInfo();
                         }
-                    }
                     this.Invoke((MethodInvoker)delegate
                     {
-                        if (Setting.DebugImitation)
-                        {
-                            dTmp["now"] = rnd.Next(50, 150);
-                            dTmp["updated"] = 20 + Convert.ToDouble(dTmp["updated"]);
-
-                            //listViewAsk.BeginUpdate();
-                            //listViewAsk.EndUpdate();
-                            listViewAsk.Items.Add(rnd.Next(1, 150000000).ToString());
-                            listViewAsk.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
-                            listViewAsk.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
-
-                            listViewBid.Items.Add(rnd.Next(1, 150000000).ToString());
-                            listViewBid.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
-                            listViewBid.Items[i].SubItems.Add(rnd.Next(1, 150000000).ToString());
-
-                            i++;
-                        }
-                        else
-                        {
                             label1now.Text = dLastPrice + " " + sBalanceUp1;
 
                             UpdateDepth();
@@ -136,7 +94,7 @@ namespace Ticker_BTC_e
 
                                 i = 0;
                                 listViewHistory.BeginUpdate();
-                                //listViewHistory.Items.Clear();
+                                listViewHistory.Items.Clear();
                                 foreach (KeyValuePair<string, object> kv in dTradeHistory)
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
@@ -207,51 +165,13 @@ namespace Ticker_BTC_e
                                 }
                                 listViewOpenOrders.EndUpdate();
                             }
-                        }
                         
-                        /*
-                        DateTime dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["updated"]));
-                        if (!Setting.DebugImitation)
-                        {
-                            dTmp["updated"] = dtTick.ToOADate();
-                        }
-
-                        dtTick = dtFloor(dtTick, new TimeSpan(0, 1, 0));
-                        double dDate = dtTick.ToOADate();
-                        double dPrice = Convert.ToDouble(dTmp["now"]);
-
-                         */
-                          
                         /*
                         DataManipulator myDataManip = chart1.DataManipulator;
                         myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
                             (dtTick.AddMinutes(-30)).ToOADate(),
                             "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
                         */
-
-                        /*
-                        if (dCandlestickData.Count > Setting.ShowInterval)
-                        {
-                            dCandlestickData.Remove(dCandlestickData.Keys.Min());
-                        }
-                        if (dCandlestickData.ContainsKey(dDate))
-                        {
-                            dCandlestickData[dDate].Close = dPrice;
-                            if (dCandlestickData[dDate].Low > dPrice)
-                            {
-                                dCandlestickData[dDate].Low = dPrice;
-                            }
-                            if (dCandlestickData[dDate].High < dPrice)
-                            {
-                                dCandlestickData[dDate].High = dPrice;
-                            }
-                        }
-                        else
-                        {
-                            dCandlestickData[dDate] = new CandlestickData(dDate, dPrice, dPrice, dPrice, dPrice);
-                        }
-                        
-                         */
 
                         labelBuyHave.Text = Math.Round(dBalance1, 2) + " " + sBalanceUp1 + " (" +
                             Math.Round(dBalance1 / dLastPrice, 2) + " " + sBalanceUp2 + ")";
@@ -265,14 +185,7 @@ namespace Ticker_BTC_e
                 {
 
                 }
-                if (Setting.DebugImitation)
-                {
-                    System.Threading.Thread.Sleep(100);
-                }
-                else
-                {
                     System.Threading.Thread.Sleep(Setting.UpdateInterval);
-                }
             }
         }
         static DateTime ConvertFromUnixTimestamp(double timestamp)
@@ -286,7 +199,6 @@ namespace Ticker_BTC_e
         }
         static long GetTimestampNow()
         {
-            //ticks /= 10000000; //Convert windows ticks to seconds
             return DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks;
         }
         static Dictionary<string, object> GetJson(string sUrl)
@@ -467,7 +379,6 @@ namespace Ticker_BTC_e
         {
             double dDepth = 0;
 
-            //listViewAsk.DoubleBuffered = true;
             listViewAsk.BeginUpdate();
             listViewAsk.Items.Clear();
             var lAsks = (List<object>)dDepthData["asks"];
@@ -943,7 +854,7 @@ namespace Ticker_BTC_e
         public static int UpdateInterval { get; set; }
         public static string APIKey { get; set; }
         public static string APISecret { get; set; }
-        public static bool DebugImitation { get; set; }
+        //public static bool DebugImitation { get; set; }
         public static double OpacityWithFocus { get; set; }
         public static double OpacityWithoutFocus { get; set; }
         static readonly string SETTINGS = "config.ini";
