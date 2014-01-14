@@ -28,6 +28,8 @@ And on focus:
 ToDo:
 - Log file
 - Editing open orders
+- Group in history orders with one price
+- Alert if buy/sell price divergence with last price on more than 1%
 - Indicators: Depth, MA, MACD, Stoch, ROC
 - Tracking orders
 - Trading statistic
