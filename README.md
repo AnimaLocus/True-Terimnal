@@ -26,6 +26,8 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
+- Generate config.ini
+- Log file
 - Editing open orders
 - Indicators: Depth, MA, MACD, Stoch, ROC
 - Tracking orders
