@@ -101,18 +101,20 @@ namespace Ticker_BTC_e
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
 
+                                    listViewHistory.Items.Add(
+                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                                    );
+
                                     if ((string)dTmp2["type"] == "buy")
                                     {
+                                        listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
                                         dTmp2["type"] = "B";
                                     }
                                     else if ((string)dTmp2["type"] == "sell")
                                     {
+                                        listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
                                         dTmp2["type"] = "S";
                                     }
-
-                                    listViewHistory.Items.Add(
-                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                                    );
                                     listViewHistory.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
                                     );
@@ -127,19 +129,19 @@ namespace Ticker_BTC_e
                                     );
                                     double dTmpRate = Convert.ToDouble(dTmp2["rate"]);
                                     listViewHistory.Items[i].SubItems.Add(
-                                        Math.Round(dTmpRate * (1 + dFee + dFee), 3).ToString()
+                                        (dTmpRate * (1 + dFee + dFee)).ToString()
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
-                                        Math.Round(dTmpRate * (1.01 + dFee + dFee), 3).ToString()
+                                        (dTmpRate * (1.01 + dFee + dFee)).ToString()
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
-                                        Math.Round(dTmpRate * (1.02 + dFee + dFee), 3).ToString()
+                                        (dTmpRate * (1.02 + dFee + dFee)).ToString()
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
-                                        Math.Round(dTmpRate * (1.04 + dFee + dFee), 3).ToString()
+                                        (dTmpRate * (1.04 + dFee + dFee)).ToString()
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
-                                        Math.Round(dTmpRate * (1.08 + dFee + dFee), 3).ToString()
+                                        (dTmpRate * (1.08 + dFee + dFee)).ToString()
                                     );
 
                                     i++;
@@ -157,18 +159,19 @@ namespace Ticker_BTC_e
 
                                     lOpenOrdersIndex.Add(kv.Key);
 
+                                    listViewOpenOrders.Items.Add(
+                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                                    );
                                     if ((string)dTmp2["type"] == "buy")
                                     {
+                                        listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
                                         dTmp2["type"] = "B";
                                     }
                                     else if ((string)dTmp2["type"] == "sell")
                                     {
+                                        listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
                                         dTmp2["type"] = "S";
                                     }
-
-                                    listViewOpenOrders.Items.Add(
-                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                                    );
                                     listViewOpenOrders.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
                                     );
@@ -408,6 +411,9 @@ namespace Ticker_BTC_e
             reqStream.Close();
             return new StreamReader(request.GetResponse().GetResponseStream()).ReadToEnd();
         }
+
+        public double dDepthMinBold = 9999999999999999999;
+        public double dLastDepth = 9999999999999999999;
         public void UpdateDepth()
         {
             double dDepth = 0;
@@ -415,6 +421,7 @@ namespace Ticker_BTC_e
             listViewAsk.BeginUpdate();
             listViewAsk.Items.Clear();
             var lAsks = (List<object>)dDepthData["asks"];
+            dDepthMinBold = dLastDepth / lAsks.Count;
             for (int i = 0; i < lAsks.Count; i++)
             {
                 dDepth += Convert.ToDouble
@@ -428,6 +435,8 @@ namespace Ticker_BTC_e
                         ((List<object>)lAsks[i])[0]
                     ).ToString()
                 );
+                if (Convert.ToDouble(((List<object>)lAsks[i])[1]) > dDepthMinBold)
+                    listViewAsk.Items[i].Font = new Font(listViewAsk.Items[i].Font, FontStyle.Bold);
                 listViewAsk.Items[i].SubItems.Add(
                     Convert.ToDouble
                     (
@@ -455,6 +464,8 @@ namespace Ticker_BTC_e
                         ((List<object>)lBids[i])[0]
                     ).ToString()
                 );
+                if (Convert.ToDouble(((List<object>)lBids[i])[1]) > dDepthMinBold)
+                    listViewBid.Items[i].Font = new Font(listViewBid.Items[i].Font, FontStyle.Bold);
                 listViewBid.Items[i].SubItems.Add(
                     Convert.ToDouble
                     (
@@ -464,6 +475,8 @@ namespace Ticker_BTC_e
                 listViewBid.Items[i].SubItems.Add(dDepth.ToString());
             }
             listViewBid.EndUpdate();
+
+            dLastDepth = dDepth;
         }
         static Dictionary<string, object> GetTick(string sPair)
         {
