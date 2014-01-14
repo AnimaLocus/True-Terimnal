@@ -727,7 +727,7 @@ namespace Ticker_BTC_e
         private void buttonBuy_Click(object sender, EventArgs e)
         {
             Trade(Setting.TradingPair, "buy", Convert.ToDouble(textBoxBuyP.Text),
-                Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text));
+                Math.Floor(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text) * 100000000) / 100000000);
         }
         // BUY Block END/
 
