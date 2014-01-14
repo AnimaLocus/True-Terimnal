@@ -950,6 +950,12 @@ namespace Ticker_BTC_e
             textBoxSellP.Text = listViewOpenOrders.SelectedItems[0].SubItems[2].Text;
         }
 
+        private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textBoxBuyP.Text = "0";
+            textBoxSellP.Text = "0";
+        }
+
 
     }
     public class WebApi
