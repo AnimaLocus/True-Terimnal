@@ -10,7 +10,7 @@ Features:
 - Volumes
 - Trading interface
 - Order book (price, volume, depth)
-- Open orders
+- Open orders, cancellation
 - Changing pairs
 - Window stay on top with transparent, on focus opacity changing
 - Settings (config.ini file)
