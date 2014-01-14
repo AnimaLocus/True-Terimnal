@@ -24,8 +24,10 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
+- Profit steps
+- Editing open orders
 - Buttons for size, opacity, always top
-- Indicators: MA, MACD, Stoch, ROC
+- Indicators: Depth, MA, MACD, Stoch, ROC
 - Tracking orders
 - Trading statistic
 
