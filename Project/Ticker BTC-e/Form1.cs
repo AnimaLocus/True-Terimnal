@@ -749,6 +749,7 @@ namespace Ticker_BTC_e
                 textBoxBuyP.TextChanged += textBoxP_TextChanged;
             }
 
+            if (val != 0)
             labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val * (1 - dFee), 2) + " " + sBalanceUp2;
         }
         private void textBoxBuyP_KeyDown(object sender, KeyEventArgs e)
@@ -768,6 +769,7 @@ namespace Ticker_BTC_e
                 textBoxBuyV.TextChanged += textBoxV_TextChanged;
             }
 
+            if (textBoxBuyP.Text != "0")
             labeBuyV.Text = Math.Round(val / Convert.ToDouble(textBoxBuyP.Text) * (1 - dFee), 2) + " " + sBalanceUp2;
         }
         private void textBoxBuyV_KeyDown(object sender, KeyEventArgs e)
@@ -955,8 +957,6 @@ namespace Ticker_BTC_e
             textBoxBuyP.Text = "0";
             textBoxSellP.Text = "0";
         }
-
-
     }
     public class WebApi
     {
