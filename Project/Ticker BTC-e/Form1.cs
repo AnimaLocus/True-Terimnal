@@ -58,6 +58,7 @@ namespace Ticker_BTC_e
         public string sBalance2 = "btc";
         public string sBalanceUp1 = "USD";
         public string sBalanceUp2 = "BTC";
+        public double dFee = 0.002;
         void NewThread()
         {
             Random rnd = new Random();
@@ -110,7 +111,7 @@ namespace Ticker_BTC_e
                                     }
 
                                     listViewHistory.Items.Add(
-                                        (string)dTmp2["pair"], i
+                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
@@ -123,6 +124,22 @@ namespace Ticker_BTC_e
                                     );
                                     listViewHistory.Items[i].SubItems.Add(
                                         (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                    );
+                                    double dTmpRate = Convert.ToDouble(dTmp2["rate"]);
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Math.Round(dTmpRate * (1 + dFee + dFee), 3).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Math.Round(dTmpRate * (1.01 + dFee + dFee), 3).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Math.Round(dTmpRate * (1.02 + dFee + dFee), 3).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Math.Round(dTmpRate * (1.04 + dFee + dFee), 3).ToString()
+                                    );
+                                    listViewHistory.Items[i].SubItems.Add(
+                                        Math.Round(dTmpRate * (1.08 + dFee + dFee), 3).ToString()
                                     );
 
                                     i++;
@@ -150,7 +167,7 @@ namespace Ticker_BTC_e
                                     }
 
                                     listViewOpenOrders.Items.Add(
-                                        (string)dTmp2["pair"], i
+                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
                                     );
                                     listViewOpenOrders.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
@@ -694,6 +711,10 @@ namespace Ticker_BTC_e
         {
             textBoxBuyV.Text = (dBalance1 / 4).ToString();
         }
+        private void buttonBuyV18_Click(object sender, EventArgs e)
+        {
+            textBoxBuyV.Text = (dBalance1 / 8).ToString();
+        }
         private void buttonBuyPL_Click(object sender, EventArgs e)
         {
             textBoxBuyP.Text = (dLastPrice).ToString();
@@ -761,6 +782,10 @@ namespace Ticker_BTC_e
         private void buttonSellV14_Click(object sender, EventArgs e)
         {
             textBoxSellV.Text = (dBalance2 / 4).ToString();
+        }
+        private void buttonSellV18_Click(object sender, EventArgs e)
+        {
+            textBoxSellV.Text = (dBalance2 / 8).ToString();
         }
         private void buttonSellL_Click(object sender, EventArgs e)
         {
@@ -863,6 +888,8 @@ namespace Ticker_BTC_e
 
             UpdateHistory(Setting.TradingPair, 2000);
         }
+
+
     }
     public class WebApi
     {
