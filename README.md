@@ -15,6 +15,7 @@ Features:
 - Changing pairs
 - Window stay on top with transparent, on focus opacity changing
 - Settings (config.ini file)
+- Checkboxes for resize, opacity, top
 
 On top (ticker):
 
@@ -26,7 +27,6 @@ And on focus:
 
 ToDo:
 - Editing open orders
-- Buttons for size, opacity, always top
 - Indicators: Depth, MA, MACD, Stoch, ROC
 - Tracking orders
 - Trading statistic
