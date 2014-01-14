@@ -703,12 +703,12 @@ namespace Ticker_BTC_e
         private void Form1_Activated(object sender, EventArgs e)
         {
             this.Opacity = Setting.OpacityWithFocus;
-            Size = new Size(745, 557);
+            Size = new Size(745, 578);
         }
         private void Form1_Deactivate(object sender, EventArgs e)
         {
-            this.Opacity = Setting.OpacityWithoutFocus;
-            Size = new Size(311, 163);
+            if (checkBoxOpacity.Checked) this.Opacity = Setting.OpacityWithoutFocus;
+            if (checkBoxResize.Checked) Size = new Size(311, 163);
         }
 
         // BUY Block /START
@@ -899,7 +899,31 @@ namespace Ticker_BTC_e
             dVolumeDataLocked = new Dictionary<double, bool>();
             dCandlestickData = new Dictionary<double, CandlestickData>();
 
+            ChartMain.Focus();
+
             UpdateHistory(Setting.TradingPair, 2000);
+        }
+
+        private void checkBoxResize_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxOpacity_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBoxTop_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBoxTop.Checked)
+            {
+                TopMost = true;
+            }
+            else
+            {
+                TopMost = false;
+            }
         }
 
 
