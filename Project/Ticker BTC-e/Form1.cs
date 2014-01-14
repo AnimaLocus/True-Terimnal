@@ -736,7 +736,7 @@ namespace Ticker_BTC_e
                 textBoxBuyP.TextChanged += textBoxP_TextChanged;
             }
 
-            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val, 2) + " BTC";
+            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val, 2) + " " + sBalanceUp2;
         }
         private void textBoxBuyP_KeyDown(object sender, KeyEventArgs e)
         {
@@ -755,7 +755,7 @@ namespace Ticker_BTC_e
                 textBoxBuyV.TextChanged += textBoxV_TextChanged;
             }
 
-            labeBuyV.Text = Math.Round(val / Convert.ToDouble(textBoxBuyP.Text), 2) + " BTC";
+            labeBuyV.Text = Math.Round(val / Convert.ToDouble(textBoxBuyP.Text), 2) + " " + sBalanceUp2;
         }
         private void textBoxBuyV_KeyDown(object sender, KeyEventArgs e)
         {
@@ -809,7 +809,7 @@ namespace Ticker_BTC_e
                 textBoxSellP.TextChanged += textBoxSellP_TextChanged;
             }
 
-            labelSellV.Text = "$" + Math.Round(Convert.ToDouble(textBoxSellV.Text) * val, 2);
+            labelSellV.Text = Math.Round(Convert.ToDouble(textBoxSellV.Text) * val, 2) + " " + sBalanceUp1;
         }
         private void textBoxSellP_KeyDown(object sender, KeyEventArgs e)
         {
@@ -829,7 +829,7 @@ namespace Ticker_BTC_e
                 textBoxSellV.TextChanged += textBoxSellV_TextChanged;
             }
 
-            labelSellV.Text = "$" + Math.Round(val * Convert.ToDouble(textBoxSellP.Text), 2);
+            labelSellV.Text = Math.Round(val * Convert.ToDouble(textBoxSellP.Text), 2) + " " + sBalanceUp1;
         }
         private void textBoxSellV_KeyDown(object sender, KeyEventArgs e)
         {
