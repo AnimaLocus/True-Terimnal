@@ -971,18 +971,20 @@ namespace Ticker_BTC_e
         public static int UpdateInterval { get; set; }
         public static string APIKey { get; set; }
         public static string APISecret { get; set; }
-        //public static bool DebugImitation { get; set; }
         public static double OpacityWithFocus { get; set; }
         public static double OpacityWithoutFocus { get; set; }
         static readonly string SETTINGS = "config.ini";
         static readonly Setting instance = new Setting();
-        Setting() { }
+        Setting()
+        {
+        }
         static Setting()
         {
             string property = "";
-            string[] settings = File.ReadAllLines(SETTINGS);
-            foreach (string s in settings)
-                try
+            try
+            {
+                string[] settings = File.ReadAllLines(SETTINGS);
+                foreach (string s in settings)
                 {
                     string[] split = s.Split(new char[] { ':' }, 2);
                     if (split.Length != 2)
@@ -1006,10 +1008,18 @@ namespace Ticker_BTC_e
                             break;
                     }
                 }
-                catch
-                {
-                    throw new Exception("Invalid setting '" + property + "'");
-                }
+            }
+            catch
+            {
+                Setting.ShowInterval = 60;
+                Setting.UpdateInterval = 5000;
+                Setting.TradingPair = "btc_usd";
+                Setting.APIKey = "XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX";
+                Setting.APISecret = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+                Setting.OpacityWithFocus = 1;
+                Setting.OpacityWithoutFocus = 0.69;
+                //throw new Exception("Invalid setting '" + property + "'");
+            }
         }
     }
     public static class UnixTime
