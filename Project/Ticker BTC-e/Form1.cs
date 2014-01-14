@@ -49,6 +49,7 @@ namespace Ticker_BTC_e
         public Dictionary<string, object> dTmp = new Dictionary<string, object>();
         public Dictionary<string, object> dUserInfo = new Dictionary<string, object>();
         public Dictionary<string, object> dTradeHistory = new Dictionary<string, object>();
+        public List<string> lOpenOrdersIndex = new List<string>();
         public Dictionary<string, object> dOpenOrders = new Dictionary<string, object>();
         public double dLastPrice = 0;
         public double dBalance1 = 0;
@@ -132,9 +133,12 @@ namespace Ticker_BTC_e
                                 i = 0;
                                 listViewOpenOrders.BeginUpdate();
                                 listViewOpenOrders.Items.Clear();
+                                lOpenOrdersIndex = new List<string>();
                                 foreach (KeyValuePair<string, object> kv in dOpenOrders)
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                    lOpenOrdersIndex.Add(kv.Key);
 
                                     if ((string)dTmp2["type"] == "buy")
                                     {
@@ -316,6 +320,18 @@ namespace Ticker_BTC_e
                 else
                 throw new Exception((string)result["error"]);
             }
+            return (Dictionary<string, object>)result["return"];
+        }
+        public Dictionary<string, object> CancelOrder(string orderId)
+        {
+            var args = new Dictionary<string, string>()
+            {
+                { "method", "CancelOrder" },
+                { "order_id", orderId }
+            };
+            var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
+            if ((long)result["success"] == 0)
+                throw new Exception((string)result["error"]);
             return (Dictionary<string, object>)result["return"];
         }
         public Dictionary<string, object> Trade(string pair, string type, double rate, double amount)
@@ -728,6 +744,8 @@ namespace Ticker_BTC_e
         {
             Trade(Setting.TradingPair, "buy", Convert.ToDouble(textBoxBuyP.Text),
                 Math.Floor(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text) * 100000000) / 100000000);
+            textBoxBuyV.Text = "0";
+            textBoxBuyP.Text = "0";
         }
         // BUY Block END/
 
@@ -797,17 +815,28 @@ namespace Ticker_BTC_e
         {
             Trade(Setting.TradingPair, "sell", Convert.ToDouble(textBoxSellP.Text),
                 Convert.ToDouble(textBoxSellV.Text));
+            textBoxSellP.Text = "0";
+            textBoxSellV.Text = "0";
         }
         // SELL Block END/
 
         // CANCEL Order Block /START
         private void buttonCancelS_Click(object sender, EventArgs e)
         {
-
+            System.Windows.Forms.ListView.SelectedListViewItemCollection lvTmp = listViewOpenOrders.SelectedItems;
+            if (lvTmp.Count > 0)
+            {
+                string sSelected = lOpenOrdersIndex[lvTmp[0].Index];
+                CancelOrder(sSelected);
+                //MessageBox.Show(sSelected);
+            }
         }
         private void buttonCancelA_Click(object sender, EventArgs e)
         {
-
+            foreach (string sSelected in lOpenOrdersIndex)
+            {
+                CancelOrder(sSelected);
+            }
         }
 
 

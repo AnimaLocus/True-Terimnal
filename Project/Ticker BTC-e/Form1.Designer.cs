@@ -73,7 +73,6 @@
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.listViewHistory = new Ticker_BTC_e.ListViewNF();
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -489,6 +488,8 @@
             this.columnHeader2,
             this.columnHeader3});
             this.listViewBid.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewBid.FullRowSelect = true;
+            this.listViewBid.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewBid.Location = new System.Drawing.Point(528, 0);
             this.listViewBid.MultiSelect = false;
             this.listViewBid.Name = "listViewBid";
@@ -520,13 +521,13 @@
             this.columnHeader5,
             this.columnHeader6,
             this.columnHeader12,
-            this.columnHeader13,
-            this.columnHeader14});
+            this.columnHeader13});
             this.listViewOpenOrders.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewOpenOrders.FullRowSelect = true;
+            this.listViewOpenOrders.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewOpenOrders.Location = new System.Drawing.Point(4, 316);
             this.listViewOpenOrders.MultiSelect = false;
             this.listViewOpenOrders.Name = "listViewOpenOrders";
-            this.listViewOpenOrders.ShowGroups = false;
             this.listViewOpenOrders.Size = new System.Drawing.Size(368, 210);
             this.listViewOpenOrders.TabIndex = 8;
             this.listViewOpenOrders.UseCompatibleStateImageBehavior = false;
@@ -553,15 +554,11 @@
             // columnHeader12
             // 
             this.columnHeader12.Text = "Volume";
+            this.columnHeader12.Width = 72;
             // 
             // columnHeader13
             // 
             this.columnHeader13.Text = "Profit";
-            // 
-            // columnHeader14
-            // 
-            this.columnHeader14.Text = "X";
-            this.columnHeader14.Width = 20;
             // 
             // listViewHistory
             // 
@@ -573,6 +570,8 @@
             this.columnHeader10,
             this.columnHeader11});
             this.listViewHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewHistory.FullRowSelect = true;
+            this.listViewHistory.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewHistory.Location = new System.Drawing.Point(378, 316);
             this.listViewHistory.MaximumSize = new System.Drawing.Size(1000, 700);
             this.listViewHistory.MultiSelect = false;
@@ -618,6 +617,8 @@
             this.columnHeaderVolume,
             this.columnHeaderDepth});
             this.listViewAsk.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.listViewAsk.FullRowSelect = true;
+            this.listViewAsk.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.listViewAsk.Location = new System.Drawing.Point(314, 0);
             this.listViewAsk.MultiSelect = false;
             this.listViewAsk.Name = "listViewAsk";
@@ -734,7 +735,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader12;
         private System.Windows.Forms.ColumnHeader columnHeader13;
-        private System.Windows.Forms.ColumnHeader columnHeader14;
         private System.Windows.Forms.ColumnHeader columnHeader16;
         private System.Windows.Forms.ColumnHeader columnHeader15;
         private System.Windows.Forms.Button buttonCancelA;
