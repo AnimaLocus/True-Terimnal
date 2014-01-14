@@ -8,6 +8,7 @@ Features:
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
 - Candlestick chart (candle = 1 min, last 60 minutes)
 - Volumes
+- Profit steps
 - Trading interface
 - Order book (price, volume, depth)
 - Open orders, cancellation
@@ -24,7 +25,6 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
-- Profit steps
 - Editing open orders
 - Buttons for size, opacity, always top
 - Indicators: Depth, MA, MACD, Stoch, ROC
