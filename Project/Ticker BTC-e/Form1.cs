@@ -926,6 +926,30 @@ namespace Ticker_BTC_e
             }
         }
 
+        private void listViewAsk_DoubleClick(object sender, EventArgs e)
+        {
+            textBoxBuyP.Text = listViewAsk.SelectedItems[0].Text;
+            textBoxSellP.Text = listViewAsk.SelectedItems[0].Text;
+        }
+
+        private void listViewBid_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textBoxBuyP.Text = listViewBid.SelectedItems[0].Text;
+            textBoxSellP.Text = listViewBid.SelectedItems[0].Text;
+        }
+
+        private void listViewHistory_DoubleClick(object sender, EventArgs e)
+        {
+            textBoxBuyP.Text = listViewHistory.SelectedItems[0].SubItems[2].Text;
+            textBoxSellP.Text = listViewHistory.SelectedItems[0].SubItems[2].Text;
+        }
+
+        private void listViewOpenOrders_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            textBoxBuyP.Text = listViewOpenOrders.SelectedItems[0].SubItems[2].Text;
+            textBoxSellP.Text = listViewOpenOrders.SelectedItems[0].SubItems[2].Text;
+        }
+
 
     }
     public class WebApi
