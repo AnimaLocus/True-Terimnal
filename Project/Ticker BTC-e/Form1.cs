@@ -1065,10 +1065,33 @@ namespace Ticker_BTC_e
 
         }
 
+        FormBalance FormBalanceInstance = new FormBalance();
         private void buttonBalance_Click(object sender, EventArgs e)
         {
-            FormBalance FormBalanceInstance = new FormBalance();
             FormBalanceInstance.Show();
+        }
+
+        FormEdit FormEditInstance = new FormEdit();
+        private void buttonEdit_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.ListView.SelectedListViewItemCollection lvTmp = listViewOpenOrders.SelectedItems;
+            if (lvTmp.Count > 0)
+            {
+                FormEditInstance.sSelected = lOpenOrdersIndex[lvTmp[0].Index];
+                string[] saPair = (lvTmp[0].Text).Split('/');
+
+                FormEditInstance.sBalanceUp2 = saPair[0].ToUpper();
+                FormEditInstance.sBalanceUp1 = saPair[1].ToUpper();
+                FormEditInstance.labelOldV.Text = lvTmp[0].SubItems[4].Text + " " + FormEditInstance.sBalanceUp1;
+                FormEditInstance.labelOldP.Text = lvTmp[0].SubItems[2].Text;
+                FormEditInstance.labelOldA.Text = lvTmp[0].SubItems[3].Text + " " + FormEditInstance.sBalanceUp2;
+                FormEditInstance.textNewV.Text = lvTmp[0].SubItems[4].Text;
+                FormEditInstance.textNewP.Text = lvTmp[0].SubItems[2].Text;
+                FormEditInstance.labelNewA.Text = (Convert.ToDouble(FormEditInstance.textNewV.Text) 
+                    / Convert.ToDouble(FormEditInstance.textNewP.Text))
+                    + " " + FormEditInstance.sBalanceUp2;
+                FormEditInstance.Show();
+            }
         }
     }
     public class WebApi

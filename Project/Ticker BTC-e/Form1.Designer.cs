@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series17 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series18 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series19 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series20 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series21 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series23 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series24 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1now = new System.Windows.Forms.Label();
             this.ChartMain = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonBuy = new System.Windows.Forms.Button();
@@ -65,8 +65,10 @@
             this.buttonBuyV18 = new System.Windows.Forms.Button();
             this.buttonSellV18 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelBuyProcent = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.buttonStopLoss = new System.Windows.Forms.Button();
+            this.labelSellProcent = new System.Windows.Forms.Label();
             this.checkBoxTop = new System.Windows.Forms.CheckBox();
             this.checkBoxOpacity = new System.Windows.Forms.CheckBox();
             this.checkBoxResize = new System.Windows.Forms.CheckBox();
@@ -97,8 +99,6 @@
             this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.labelBuyProcent = new System.Windows.Forms.Label();
-            this.labelSellProcent = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -118,100 +118,100 @@
             // ChartMain
             // 
             this.ChartMain.BorderlineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea3.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea3.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea3.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea3.AxisX.IsLabelAutoFit = false;
-            chartArea3.AxisX.IsStartedFromZero = false;
-            chartArea3.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea3.AxisX.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisX.LineWidth = 0;
-            chartArea3.AxisX.MajorGrid.Enabled = false;
-            chartArea3.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisX.MajorTickMark.Enabled = false;
-            chartArea3.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea3.AxisX2.IsStartedFromZero = false;
-            chartArea3.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea3.AxisY.IsLabelAutoFit = false;
-            chartArea3.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea3.AxisY.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea3.AxisY.LineWidth = 0;
-            chartArea3.AxisY.MajorGrid.Enabled = false;
-            chartArea3.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisY.MajorTickMark.Enabled = false;
-            chartArea3.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea3.AxisY2.IsLabelAutoFit = false;
-            chartArea3.AxisY2.IsStartedFromZero = false;
-            chartArea3.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea3.AxisY2.LineColor = System.Drawing.Color.Transparent;
-            chartArea3.AxisY2.LineWidth = 0;
-            chartArea3.AxisY2.MajorGrid.Enabled = false;
-            chartArea3.AxisY2.MajorTickMark.Enabled = false;
-            chartArea3.Name = "ChartArea1";
-            this.ChartMain.ChartAreas.Add(chartArea3);
+            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea1.AxisX.IsLabelAutoFit = false;
+            chartArea1.AxisX.IsStartedFromZero = false;
+            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.LineWidth = 0;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea1.AxisX2.IsStartedFromZero = false;
+            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea1.AxisY.IsLabelAutoFit = false;
+            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea1.AxisY.LineWidth = 0;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea1.AxisY2.IsLabelAutoFit = false;
+            chartArea1.AxisY2.IsStartedFromZero = false;
+            chartArea1.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea1.AxisY2.LineColor = System.Drawing.Color.Transparent;
+            chartArea1.AxisY2.LineWidth = 0;
+            chartArea1.AxisY2.MajorGrid.Enabled = false;
+            chartArea1.AxisY2.MajorTickMark.Enabled = false;
+            chartArea1.Name = "ChartArea1";
+            this.ChartMain.ChartAreas.Add(chartArea1);
             this.ChartMain.Location = new System.Drawing.Point(-3, 20);
             this.ChartMain.Name = "ChartMain";
             this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series17.ChartArea = "ChartArea1";
-            series17.Color = System.Drawing.Color.Lavender;
-            series17.Name = "Area";
-            series17.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series17.YValuesPerPoint = 2;
-            series18.ChartArea = "ChartArea1";
-            series18.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series18.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
-            series18.Name = "Candlestick";
-            series18.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series18.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series18.YValuesPerPoint = 4;
-            series19.ChartArea = "ChartArea1";
-            series19.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series19.Enabled = false;
-            series19.Name = "Line";
-            series19.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series19.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series20.ChartArea = "ChartArea1";
-            series20.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series20.Enabled = false;
-            series20.Name = "LineMA1";
-            series20.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series21.ChartArea = "ChartArea1";
-            series21.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series21.Enabled = false;
-            series21.Name = "LineMA2";
-            series21.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series22.ChartArea = "ChartArea1";
-            series22.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series22.Enabled = false;
-            series22.Name = "LineMA3";
-            series22.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series23.ChartArea = "ChartArea1";
-            series23.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series23.Enabled = false;
-            series23.Name = "LineMA4";
-            series23.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series24.BorderColor = System.Drawing.Color.Transparent;
-            series24.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            series24.BorderWidth = 2;
-            series24.ChartArea = "ChartArea1";
-            series24.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series24.Color = System.Drawing.Color.Gray;
-            series24.CustomProperties = "IsXAxisQuantitative=True";
-            series24.Name = "LineNow";
-            series24.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series24.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series24.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.ChartMain.Series.Add(series17);
-            this.ChartMain.Series.Add(series18);
-            this.ChartMain.Series.Add(series19);
-            this.ChartMain.Series.Add(series20);
-            this.ChartMain.Series.Add(series21);
-            this.ChartMain.Series.Add(series22);
-            this.ChartMain.Series.Add(series23);
-            this.ChartMain.Series.Add(series24);
+            series1.ChartArea = "ChartArea1";
+            series1.Color = System.Drawing.Color.Lavender;
+            series1.Name = "Area";
+            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series1.YValuesPerPoint = 2;
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series2.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
+            series2.Name = "Candlestick";
+            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series2.YValuesPerPoint = 4;
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series3.Enabled = false;
+            series3.Name = "Line";
+            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series3.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series4.ChartArea = "ChartArea1";
+            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series4.Enabled = false;
+            series4.Name = "LineMA1";
+            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series5.ChartArea = "ChartArea1";
+            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Enabled = false;
+            series5.Name = "LineMA2";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series6.Enabled = false;
+            series6.Name = "LineMA3";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series7.ChartArea = "ChartArea1";
+            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series7.Enabled = false;
+            series7.Name = "LineMA4";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.BorderColor = System.Drawing.Color.Transparent;
+            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series8.BorderWidth = 2;
+            series8.ChartArea = "ChartArea1";
+            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series8.Color = System.Drawing.Color.Gray;
+            series8.CustomProperties = "IsXAxisQuantitative=True";
+            series8.Name = "LineNow";
+            series8.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.ChartMain.Series.Add(series1);
+            this.ChartMain.Series.Add(series2);
+            this.ChartMain.Series.Add(series3);
+            this.ChartMain.Series.Add(series4);
+            this.ChartMain.Series.Add(series5);
+            this.ChartMain.Series.Add(series6);
+            this.ChartMain.Series.Add(series7);
+            this.ChartMain.Series.Add(series8);
             this.ChartMain.Size = new System.Drawing.Size(319, 118);
             this.ChartMain.TabIndex = 3;
             this.ChartMain.Text = "ChartMain";
@@ -535,6 +535,18 @@
             this.panel1.Size = new System.Drawing.Size(304, 69);
             this.panel1.TabIndex = 0;
             // 
+            // labelBuyProcent
+            // 
+            this.labelBuyProcent.AutoSize = true;
+            this.labelBuyProcent.BackColor = System.Drawing.Color.Honeydew;
+            this.labelBuyProcent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelBuyProcent.Location = new System.Drawing.Point(203, 24);
+            this.labelBuyProcent.Name = "labelBuyProcent";
+            this.labelBuyProcent.Size = new System.Drawing.Size(22, 13);
+            this.labelBuyProcent.TabIndex = 6;
+            this.labelBuyProcent.Text = "0%";
+            this.labelBuyProcent.Click += new System.EventHandler(this.label2_Click);
+            // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.MistyRose;
@@ -547,8 +559,8 @@
             // 
             // buttonStopLoss
             // 
-            this.buttonStopLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.buttonStopLoss.ForeColor = System.Drawing.Color.Maroon;
+            this.buttonStopLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStopLoss.ForeColor = System.Drawing.Color.Indigo;
             this.buttonStopLoss.Location = new System.Drawing.Point(232, 18);
             this.buttonStopLoss.Name = "buttonStopLoss";
             this.buttonStopLoss.Size = new System.Drawing.Size(72, 25);
@@ -556,6 +568,18 @@
             this.buttonStopLoss.Text = "STOP";
             this.buttonStopLoss.UseVisualStyleBackColor = true;
             this.buttonStopLoss.Click += new System.EventHandler(this.buttonStopLoss_Click);
+            // 
+            // labelSellProcent
+            // 
+            this.labelSellProcent.AutoSize = true;
+            this.labelSellProcent.BackColor = System.Drawing.Color.MistyRose;
+            this.labelSellProcent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.labelSellProcent.Location = new System.Drawing.Point(202, 24);
+            this.labelSellProcent.Name = "labelSellProcent";
+            this.labelSellProcent.Size = new System.Drawing.Size(22, 13);
+            this.labelSellProcent.TabIndex = 6;
+            this.labelSellProcent.Text = "0%";
+            this.labelSellProcent.Click += new System.EventHandler(this.label2_Click);
             // 
             // checkBoxTop
             // 
@@ -604,14 +628,15 @@
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonEdit.ForeColor = System.Drawing.Color.DarkCyan;
             this.buttonEdit.Location = new System.Drawing.Point(223, 316);
             this.buttonEdit.Name = "buttonEdit";
             this.buttonEdit.Size = new System.Drawing.Size(30, 26);
             this.buttonEdit.TabIndex = 9;
             this.buttonEdit.Text = "E";
             this.buttonEdit.UseVisualStyleBackColor = true;
-            this.buttonEdit.Click += new System.EventHandler(this.buttonCancelS_Click);
+            this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // buttonBalance
             // 
@@ -817,30 +842,6 @@
             // columnHeaderDepth
             // 
             this.columnHeaderDepth.Text = "Depth";
-            // 
-            // labelBuyProcent
-            // 
-            this.labelBuyProcent.AutoSize = true;
-            this.labelBuyProcent.BackColor = System.Drawing.Color.Honeydew;
-            this.labelBuyProcent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelBuyProcent.Location = new System.Drawing.Point(203, 24);
-            this.labelBuyProcent.Name = "labelBuyProcent";
-            this.labelBuyProcent.Size = new System.Drawing.Size(22, 13);
-            this.labelBuyProcent.TabIndex = 6;
-            this.labelBuyProcent.Text = "0%";
-            this.labelBuyProcent.Click += new System.EventHandler(this.label2_Click);
-            // 
-            // labelSellProcent
-            // 
-            this.labelSellProcent.AutoSize = true;
-            this.labelSellProcent.BackColor = System.Drawing.Color.MistyRose;
-            this.labelSellProcent.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelSellProcent.Location = new System.Drawing.Point(202, 24);
-            this.labelSellProcent.Name = "labelSellProcent";
-            this.labelSellProcent.Size = new System.Drawing.Size(22, 13);
-            this.labelSellProcent.TabIndex = 6;
-            this.labelSellProcent.Text = "0%";
-            this.labelSellProcent.Click += new System.EventHandler(this.label2_Click);
             // 
             // Form1
             // 
