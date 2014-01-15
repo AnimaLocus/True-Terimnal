@@ -990,6 +990,17 @@ namespace Ticker_BTC_e
             textBoxBuyP.Text = "0";
             textBoxSellP.Text = "0";
         }
+
+        private void buttonStopLoss_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonBalance_Click(object sender, EventArgs e)
+        {
+            FormBalance FormBalanceInstance = new FormBalance();
+            FormBalanceInstance.Show();
+        }
     }
     public class WebApi
     {

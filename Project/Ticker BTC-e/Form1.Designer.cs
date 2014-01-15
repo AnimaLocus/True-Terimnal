@@ -28,15 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series25 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series26 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series27 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series28 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series29 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series30 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series31 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series32 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.label1now = new System.Windows.Forms.Label();
             this.ChartMain = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.buttonBuy = new System.Windows.Forms.Button();
@@ -66,6 +66,11 @@
             this.buttonSellV18 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.checkBoxTop = new System.Windows.Forms.CheckBox();
+            this.checkBoxOpacity = new System.Windows.Forms.CheckBox();
+            this.checkBoxResize = new System.Windows.Forms.CheckBox();
+            this.buttonStopLoss = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
             this.listViewBid = new Ticker_BTC_e.ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -91,10 +96,9 @@
             this.columnHeaderPrice = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderVolume = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeaderDepth = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.checkBoxTop = new System.Windows.Forms.CheckBox();
-            this.checkBoxOpacity = new System.Windows.Forms.CheckBox();
-            this.checkBoxResize = new System.Windows.Forms.CheckBox();
+            this.buttonBalance = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).BeginInit();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1now
@@ -111,100 +115,100 @@
             // ChartMain
             // 
             this.ChartMain.BorderlineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
-            chartArea1.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea1.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
-            chartArea1.AxisX.IsLabelAutoFit = false;
-            chartArea1.AxisX.IsStartedFromZero = false;
-            chartArea1.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea1.AxisX.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.LineWidth = 0;
-            chartArea1.AxisX.MajorGrid.Enabled = false;
-            chartArea1.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX.MajorTickMark.Enabled = false;
-            chartArea1.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
-            chartArea1.AxisX2.IsStartedFromZero = false;
-            chartArea1.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
-            chartArea1.AxisY.IsLabelAutoFit = false;
-            chartArea1.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea1.AxisY.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
-            chartArea1.AxisY.LineWidth = 0;
-            chartArea1.AxisY.MajorGrid.Enabled = false;
-            chartArea1.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY.MajorTickMark.Enabled = false;
-            chartArea1.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
-            chartArea1.AxisY2.IsLabelAutoFit = false;
-            chartArea1.AxisY2.IsStartedFromZero = false;
-            chartArea1.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
-            chartArea1.AxisY2.LineColor = System.Drawing.Color.Transparent;
-            chartArea1.AxisY2.LineWidth = 0;
-            chartArea1.AxisY2.MajorGrid.Enabled = false;
-            chartArea1.AxisY2.MajorTickMark.Enabled = false;
-            chartArea1.Name = "ChartArea1";
-            this.ChartMain.ChartAreas.Add(chartArea1);
+            chartArea4.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea4.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
+            chartArea4.AxisX.IntervalOffsetType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea4.AxisX.IntervalType = System.Windows.Forms.DataVisualization.Charting.DateTimeIntervalType.Minutes;
+            chartArea4.AxisX.IsLabelAutoFit = false;
+            chartArea4.AxisX.IsStartedFromZero = false;
+            chartArea4.AxisX.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea4.AxisX.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.LineWidth = 0;
+            chartArea4.AxisX.MajorGrid.Enabled = false;
+            chartArea4.AxisX.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX.MajorTickMark.Enabled = false;
+            chartArea4.AxisX.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisX2.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.False;
+            chartArea4.AxisX2.IsStartedFromZero = false;
+            chartArea4.AxisY.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
+            chartArea4.AxisY.IsLabelAutoFit = false;
+            chartArea4.AxisY.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea4.AxisY.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.LineDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.NotSet;
+            chartArea4.AxisY.LineWidth = 0;
+            chartArea4.AxisY.MajorGrid.Enabled = false;
+            chartArea4.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY.MajorTickMark.Enabled = false;
+            chartArea4.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea4.AxisY2.IsLabelAutoFit = false;
+            chartArea4.AxisY2.IsStartedFromZero = false;
+            chartArea4.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F);
+            chartArea4.AxisY2.LineColor = System.Drawing.Color.Transparent;
+            chartArea4.AxisY2.LineWidth = 0;
+            chartArea4.AxisY2.MajorGrid.Enabled = false;
+            chartArea4.AxisY2.MajorTickMark.Enabled = false;
+            chartArea4.Name = "ChartArea1";
+            this.ChartMain.ChartAreas.Add(chartArea4);
             this.ChartMain.Location = new System.Drawing.Point(-3, 20);
             this.ChartMain.Name = "ChartMain";
             this.ChartMain.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
-            series1.ChartArea = "ChartArea1";
-            series1.Color = System.Drawing.Color.Lavender;
-            series1.Name = "Area";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series1.YValuesPerPoint = 2;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
-            series2.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
-            series2.Name = "Candlestick";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series2.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series2.YValuesPerPoint = 4;
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Enabled = false;
-            series3.Name = "Line";
-            series3.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series3.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series4.Enabled = false;
-            series4.Name = "LineMA1";
-            series4.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series5.Enabled = false;
-            series5.Name = "LineMA2";
-            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.Enabled = false;
-            series6.Name = "LineMA3";
-            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series7.ChartArea = "ChartArea1";
-            series7.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series7.Enabled = false;
-            series7.Name = "LineMA4";
-            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series8.BorderColor = System.Drawing.Color.Transparent;
-            series8.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            series8.BorderWidth = 2;
-            series8.ChartArea = "ChartArea1";
-            series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series8.Color = System.Drawing.Color.Gray;
-            series8.CustomProperties = "IsXAxisQuantitative=True";
-            series8.Name = "LineNow";
-            series8.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
-            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
-            this.ChartMain.Series.Add(series1);
-            this.ChartMain.Series.Add(series2);
-            this.ChartMain.Series.Add(series3);
-            this.ChartMain.Series.Add(series4);
-            this.ChartMain.Series.Add(series5);
-            this.ChartMain.Series.Add(series6);
-            this.ChartMain.Series.Add(series7);
-            this.ChartMain.Series.Add(series8);
+            series25.ChartArea = "ChartArea1";
+            series25.Color = System.Drawing.Color.Lavender;
+            series25.Name = "Area";
+            series25.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series25.YValuesPerPoint = 2;
+            series26.ChartArea = "ChartArea1";
+            series26.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Candlestick;
+            series26.CustomProperties = "PixelPointWidth=2, PriceDownColor=Red, PointWidth=1, PriceUpColor=Green";
+            series26.Name = "Candlestick";
+            series26.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series26.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series26.YValuesPerPoint = 4;
+            series27.ChartArea = "ChartArea1";
+            series27.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series27.Enabled = false;
+            series27.Name = "Line";
+            series27.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series27.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series28.ChartArea = "ChartArea1";
+            series28.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series28.Enabled = false;
+            series28.Name = "LineMA1";
+            series28.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series29.ChartArea = "ChartArea1";
+            series29.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series29.Enabled = false;
+            series29.Name = "LineMA2";
+            series29.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series30.ChartArea = "ChartArea1";
+            series30.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series30.Enabled = false;
+            series30.Name = "LineMA3";
+            series30.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series31.ChartArea = "ChartArea1";
+            series31.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series31.Enabled = false;
+            series31.Name = "LineMA4";
+            series31.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series32.BorderColor = System.Drawing.Color.Transparent;
+            series32.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
+            series32.BorderWidth = 2;
+            series32.ChartArea = "ChartArea1";
+            series32.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series32.Color = System.Drawing.Color.Gray;
+            series32.CustomProperties = "IsXAxisQuantitative=True";
+            series32.Name = "LineNow";
+            series32.XAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            series32.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series32.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
+            this.ChartMain.Series.Add(series25);
+            this.ChartMain.Series.Add(series26);
+            this.ChartMain.Series.Add(series27);
+            this.ChartMain.Series.Add(series28);
+            this.ChartMain.Series.Add(series29);
+            this.ChartMain.Series.Add(series30);
+            this.ChartMain.Series.Add(series31);
+            this.ChartMain.Series.Add(series32);
             this.ChartMain.Size = new System.Drawing.Size(319, 118);
             this.ChartMain.TabIndex = 3;
             this.ChartMain.Text = "ChartMain";
@@ -530,10 +534,79 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.MistyRose;
+            this.panel2.Controls.Add(this.buttonStopLoss);
             this.panel2.Location = new System.Drawing.Point(5, 228);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(304, 69);
             this.panel2.TabIndex = 0;
+            // 
+            // checkBoxTop
+            // 
+            this.checkBoxTop.AutoSize = true;
+            this.checkBoxTop.Checked = true;
+            this.checkBoxTop.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxTop.Location = new System.Drawing.Point(697, 529);
+            this.checkBoxTop.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxTop.Name = "checkBoxTop";
+            this.checkBoxTop.Size = new System.Drawing.Size(39, 16);
+            this.checkBoxTop.TabIndex = 11;
+            this.checkBoxTop.Text = "Top";
+            this.checkBoxTop.UseVisualStyleBackColor = true;
+            this.checkBoxTop.CheckedChanged += new System.EventHandler(this.checkBoxTop_CheckedChanged);
+            // 
+            // checkBoxOpacity
+            // 
+            this.checkBoxOpacity.AutoSize = true;
+            this.checkBoxOpacity.Checked = true;
+            this.checkBoxOpacity.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxOpacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxOpacity.Location = new System.Drawing.Point(641, 529);
+            this.checkBoxOpacity.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxOpacity.Name = "checkBoxOpacity";
+            this.checkBoxOpacity.Size = new System.Drawing.Size(56, 16);
+            this.checkBoxOpacity.TabIndex = 11;
+            this.checkBoxOpacity.Text = "Opacity";
+            this.checkBoxOpacity.UseVisualStyleBackColor = true;
+            this.checkBoxOpacity.CheckedChanged += new System.EventHandler(this.checkBoxOpacity_CheckedChanged);
+            // 
+            // checkBoxResize
+            // 
+            this.checkBoxResize.AutoSize = true;
+            this.checkBoxResize.Checked = true;
+            this.checkBoxResize.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBoxResize.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.checkBoxResize.Location = new System.Drawing.Point(588, 529);
+            this.checkBoxResize.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBoxResize.Name = "checkBoxResize";
+            this.checkBoxResize.Size = new System.Drawing.Size(53, 16);
+            this.checkBoxResize.TabIndex = 11;
+            this.checkBoxResize.Text = "Resize";
+            this.checkBoxResize.UseVisualStyleBackColor = true;
+            this.checkBoxResize.CheckedChanged += new System.EventHandler(this.checkBoxResize_CheckedChanged);
+            // 
+            // buttonStopLoss
+            // 
+            this.buttonStopLoss.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonStopLoss.ForeColor = System.Drawing.Color.Maroon;
+            this.buttonStopLoss.Location = new System.Drawing.Point(232, 18);
+            this.buttonStopLoss.Name = "buttonStopLoss";
+            this.buttonStopLoss.Size = new System.Drawing.Size(72, 25);
+            this.buttonStopLoss.TabIndex = 4;
+            this.buttonStopLoss.Text = "STOP";
+            this.buttonStopLoss.UseVisualStyleBackColor = true;
+            this.buttonStopLoss.Click += new System.EventHandler(this.buttonStopLoss_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonEdit.Location = new System.Drawing.Point(223, 316);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(30, 26);
+            this.buttonEdit.TabIndex = 9;
+            this.buttonEdit.Text = "E";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.buttonCancelS_Click);
             // 
             // listViewBid
             // 
@@ -593,6 +666,7 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Pair";
+            this.columnHeader4.Width = 63;
             // 
             // columnHeader15
             // 
@@ -602,10 +676,12 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "Price";
+            this.columnHeader5.Width = 79;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Volume";
+            this.columnHeader6.Width = 66;
             // 
             // columnHeader12
             // 
@@ -725,50 +801,17 @@
             // 
             this.columnHeaderDepth.Text = "Depth";
             // 
-            // checkBoxTop
+            // buttonBalance
             // 
-            this.checkBoxTop.AutoSize = true;
-            this.checkBoxTop.Checked = true;
-            this.checkBoxTop.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxTop.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBoxTop.Location = new System.Drawing.Point(697, 529);
-            this.checkBoxTop.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBoxTop.Name = "checkBoxTop";
-            this.checkBoxTop.Size = new System.Drawing.Size(39, 16);
-            this.checkBoxTop.TabIndex = 11;
-            this.checkBoxTop.Text = "Top";
-            this.checkBoxTop.UseVisualStyleBackColor = true;
-            this.checkBoxTop.CheckedChanged += new System.EventHandler(this.checkBoxTop_CheckedChanged);
-            // 
-            // checkBoxOpacity
-            // 
-            this.checkBoxOpacity.AutoSize = true;
-            this.checkBoxOpacity.Checked = true;
-            this.checkBoxOpacity.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxOpacity.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBoxOpacity.Location = new System.Drawing.Point(641, 529);
-            this.checkBoxOpacity.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBoxOpacity.Name = "checkBoxOpacity";
-            this.checkBoxOpacity.Size = new System.Drawing.Size(56, 16);
-            this.checkBoxOpacity.TabIndex = 11;
-            this.checkBoxOpacity.Text = "Opacity";
-            this.checkBoxOpacity.UseVisualStyleBackColor = true;
-            this.checkBoxOpacity.CheckedChanged += new System.EventHandler(this.checkBoxOpacity_CheckedChanged);
-            // 
-            // checkBoxResize
-            // 
-            this.checkBoxResize.AutoSize = true;
-            this.checkBoxResize.Checked = true;
-            this.checkBoxResize.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.checkBoxResize.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.checkBoxResize.Location = new System.Drawing.Point(588, 529);
-            this.checkBoxResize.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBoxResize.Name = "checkBoxResize";
-            this.checkBoxResize.Size = new System.Drawing.Size(53, 16);
-            this.checkBoxResize.TabIndex = 11;
-            this.checkBoxResize.Text = "Resize";
-            this.checkBoxResize.UseVisualStyleBackColor = true;
-            this.checkBoxResize.CheckedChanged += new System.EventHandler(this.checkBoxResize_CheckedChanged);
+            this.buttonBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.buttonBalance.ForeColor = System.Drawing.Color.Black;
+            this.buttonBalance.Location = new System.Drawing.Point(314, 524);
+            this.buttonBalance.Name = "buttonBalance";
+            this.buttonBalance.Size = new System.Drawing.Size(72, 25);
+            this.buttonBalance.TabIndex = 4;
+            this.buttonBalance.Text = "Balance";
+            this.buttonBalance.UseVisualStyleBackColor = true;
+            this.buttonBalance.Click += new System.EventHandler(this.buttonBalance_Click);
             // 
             // Form1
             // 
@@ -777,10 +820,12 @@
             this.BackColor = System.Drawing.Color.White;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(737, 547);
+            this.Controls.Add(this.buttonBalance);
             this.Controls.Add(this.checkBoxResize);
             this.Controls.Add(this.checkBoxOpacity);
             this.Controls.Add(this.checkBoxTop);
             this.Controls.Add(this.comboBoxPair);
+            this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonCancelS);
             this.Controls.Add(this.buttonCancelA);
             this.Controls.Add(this.listViewBid);
@@ -825,6 +870,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDoubleClick);
             ((System.ComponentModel.ISupportInitialize)(this.ChartMain)).EndInit();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -889,6 +935,9 @@
         private System.Windows.Forms.CheckBox checkBoxTop;
         private System.Windows.Forms.CheckBox checkBoxOpacity;
         private System.Windows.Forms.CheckBox checkBoxResize;
+        private System.Windows.Forms.Button buttonStopLoss;
+        private System.Windows.Forms.Button buttonEdit;
+        private System.Windows.Forms.Button buttonBalance;
     }
 }
 
