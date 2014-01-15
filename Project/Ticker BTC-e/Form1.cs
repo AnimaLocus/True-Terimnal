@@ -48,7 +48,9 @@ namespace Ticker_BTC_e
         public UInt32 nonce;
         public Dictionary<string, object> dTmp = new Dictionary<string, object>();
         public Dictionary<string, object> dUserInfo = new Dictionary<string, object>();
+        public Dictionary<string, double> dBalance = new Dictionary<string, double>();
         public Dictionary<string, object> dTradeHistory = new Dictionary<string, object>();
+        public static Dictionary<string, object> dTradeHistoryGrouped = new Dictionary<string, object>();
         public List<string> lOpenOrdersIndex = new List<string>();
         public Dictionary<string, object> dOpenOrders = new Dictionary<string, object>();
         public double dLastPrice = 0;
@@ -65,6 +67,35 @@ namespace Ticker_BTC_e
             int i = 0;
             Dictionary<string, object> dTmp2;
 
+            dBalance["usd"] = -1;
+            dBalance["btc"] = -1;
+            dBalance["ltc"] = -1;
+            dBalance["nmc"] = -1;
+            dBalance["rur"] = -1;
+            dBalance["eur"] = -1;
+            dBalance["nvc"] = -1;
+            dBalance["trc"] = -1;
+            dBalance["ppc"] = -1;
+            dBalance["ftc"] = -1;
+            dBalance["xpm"] = -1;
+            if (File.Exists("balance.db"))
+            {
+                string[] saLines = File.ReadAllLines("balance.db");
+                string sTmp = saLines[saLines.Length - 1];
+                //foreach (string sTmp in saLines)
+                //{
+                    string[] split = sTmp.Split(new char[] { '/' }, 12);
+                    //MessageBox.Show(split.Length.ToString());
+                    if (split.Length == 12)
+                    {
+                        for (int iTmp = 1; iTmp < split.Length; iTmp++)
+                        {
+                            string[] split2 = split[iTmp].Split(new char[] { ':' }, 2);
+                            dBalance[split2[0]] = Convert.ToDouble(split2[1]);
+                        }
+                    }
+                //}
+            }
             while (true)
             {
                 try
@@ -77,9 +108,29 @@ namespace Ticker_BTC_e
                         }
                         else
                         {
+                            dUserInfo = GetInfo();
+                            bool bBalanceNeedUpdate = false;
+                            foreach (KeyValuePair<string, object> kv in (Dictionary<string, object>)dUserInfo["funds"])
+                            {
+                                if (dBalance[kv.Key] != Convert.ToDouble(kv.Value))
+                                {
+                                    bBalanceNeedUpdate = true;
+                                    dBalance[kv.Key] = Convert.ToDouble(kv.Value);
+                                }
+                            }
+                            if (bBalanceNeedUpdate)
+                            {
+                                string sContent = DateTime.Now.ToString();
+                                foreach (KeyValuePair<string, double> kv in dBalance)
+                                {
+                                    sContent = sContent + "/" + kv.Key + ":" + kv.Value;
+                                }
+                                sContent = sContent + "\n";
+                                File.AppendAllText("balance.db", sContent);
+                            }
+
                             dOpenOrders = GetOpenOrders();
                             dTradeHistory = GetTradeHistory();
-                            dUserInfo = GetInfo();
                         }
                     this.Invoke((MethodInvoker)delegate
                     {
@@ -94,9 +145,10 @@ namespace Ticker_BTC_e
                                 dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
                                 if (dBalance2 < 0.0001) dBalance2 = 0;
 
-                                Dictionary<string, object> dTradeHistoryGrouped = new Dictionary<string, object>();
+                                dTradeHistoryGrouped = new Dictionary<string, object>();
                                 Dictionary<string, object> dLast = new Dictionary<string, object>();
                                 i = 0; dLast["pair"] = ""; dLast["type"] = ""; dLast["rate"] = 0; dLast["amount"] = 0;
+                                dLast["timestamp"] = 0;
                                 foreach (KeyValuePair<string, object> kv in dTradeHistory)
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
@@ -119,6 +171,7 @@ namespace Ticker_BTC_e
                                         dLast = new Dictionary<string, object>();
                                         dLast["pair"] = dTmp2["pair"]; dLast["type"] = dTmp2["type"];
                                         dLast["rate"] = dTmp2["rate"]; dLast["amount"] = dTmp2["amount"];
+                                        dLast["timestamp"] = dTmp2["timestamp"];
 
                                         i++;
                                     }

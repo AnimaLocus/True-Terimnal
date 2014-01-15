@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.listViewNF1 = new Ticker_BTC_e.ListViewNF();
+            this.listViewNFBalance = new Ticker_BTC_e.ListViewNF();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.button1d = new System.Windows.Forms.Button();
@@ -37,20 +37,20 @@
             this.button1h = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // listViewNF1
+            // listViewNFBalance
             // 
-            this.listViewNF1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.listViewNFBalance.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            this.listViewNF1.FullRowSelect = true;
-            this.listViewNF1.Location = new System.Drawing.Point(6, 41);
-            this.listViewNF1.Margin = new System.Windows.Forms.Padding(0);
-            this.listViewNF1.Name = "listViewNF1";
-            this.listViewNF1.ShowGroups = false;
-            this.listViewNF1.Size = new System.Drawing.Size(722, 497);
-            this.listViewNF1.TabIndex = 0;
-            this.listViewNF1.UseCompatibleStateImageBehavior = false;
-            this.listViewNF1.View = System.Windows.Forms.View.Details;
+            this.listViewNFBalance.FullRowSelect = true;
+            this.listViewNFBalance.Location = new System.Drawing.Point(6, 41);
+            this.listViewNFBalance.Margin = new System.Windows.Forms.Padding(0);
+            this.listViewNFBalance.Name = "listViewNFBalance";
+            this.listViewNFBalance.ShowGroups = false;
+            this.listViewNFBalance.Size = new System.Drawing.Size(722, 497);
+            this.listViewNFBalance.TabIndex = 0;
+            this.listViewNFBalance.UseCompatibleStateImageBehavior = false;
+            this.listViewNFBalance.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 
@@ -115,7 +115,7 @@
             this.Controls.Add(this.button1y);
             this.Controls.Add(this.button1m);
             this.Controls.Add(this.button1d);
-            this.Controls.Add(this.listViewNF1);
+            this.Controls.Add(this.listViewNFBalance);
             this.Name = "FormBalance";
             this.ShowIcon = false;
             this.Text = "True Terminal Balance";
@@ -126,7 +126,7 @@
 
         #endregion
 
-        private ListViewNF listViewNF1;
+        private ListViewNF listViewNFBalance;
         private System.Windows.Forms.Button button1d;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
