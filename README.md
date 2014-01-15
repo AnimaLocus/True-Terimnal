@@ -28,10 +28,8 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
-- Log file
 - Stop loss (in progress)
 - Editing open orders (in progress)
-- Alert if buy/sell price divergence with last price on more than 1%
 - Indicators: Depth, MA, MACD, Stoch, ROC
 
 Work in progress!
