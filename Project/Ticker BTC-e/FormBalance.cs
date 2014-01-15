@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Collections;
+using System.IO;
 
 namespace Ticker_BTC_e
 {
@@ -21,74 +22,37 @@ namespace Ticker_BTC_e
         public TimeSpan tsPeriod = new TimeSpan(24, 0, 0);
         private void FormBalance_Load(object sender, EventArgs e)
         {
-            Dictionary<string, object> dTmp;
             Dictionary<DateTime, object> dBalance = new Dictionary<DateTime, object>();
-            DateTime dtTick;
-            DateTime dtLastTick = new DateTime(666);
-            foreach (KeyValuePair<string, object> kv in Form1.dTradeHistoryGrouped)//.Reverse())
-            {
-                dTmp = (Dictionary<string, object>)kv.Value;
+            DateTime dtTick = new DateTime(666);
 
-                dtTick = ConvertFromUnixTimestamp(Convert.ToDouble(dTmp["timestamp"]));
-                dtTick = dtFloor(dtTick, tsPeriod);
-                //dTimestamp = dtTick.ToOADate();
-
-                if (!dBalance.ContainsKey(dtTick)) {
-                    dBalance[dtTick] = new Dictionary<string, object> 
-	                {
-	                    {"usd", 0},
-	                    {"rur", 0},
-	                    {"eur", 0},
-	                    {"btc", 0},
-	                    {"ltc", 0},
-	                    {"nmc", 0},
-	                    {"nvc", 0},
-	                    {"trc", 0},
-	                    {"ppc", 0},
-	                    {"ftc", 0},
-	                    {"xpm", 0}
-	                };
-                    //if (dtLastTick != new DateTime(666))
-                    //dBalance[dtTick] = dBalance[dtLastTick]; 
-                }
-
-                string[] saPair = ((string)dTmp["pair"]).Split('_');
-                double dTmpV = Convert.ToDouble(((Dictionary<string, object>)dBalance[dtTick])[saPair[0]]);
-                double dTmpV2 = Convert.ToDouble(((Dictionary<string, object>)dBalance[dtTick])[saPair[0]]);
-                if ((string)dTmp["type"] == "B")
-                {
-                    dTmpV = dTmpV + Convert.ToDouble(dTmp["amount"]);// *Convert.ToDouble(dTmp["rate"]);
-                    dTmpV2 = dTmpV2 - Convert.ToDouble(dTmp["amount"]) * Convert.ToDouble(dTmp["rate"]);
-                }
-                else if ((string)dTmp["type"] == "S")
-                {
-                    dTmpV = dTmpV - Convert.ToDouble(dTmp["amount"]);// * Convert.ToDouble(dTmp["rate"]);
-                    dTmpV2 = dTmpV2 + Convert.ToDouble(dTmp["amount"]) * Convert.ToDouble(dTmp["rate"]);
-                }
-
-                ((Dictionary<string, object>)dBalance[dtTick])[saPair[0]] = dTmpV;
-                ((Dictionary<string, object>)dBalance[dtTick])[saPair[1]] = dTmpV2;
-
-                dtLastTick = dtTick;
-            }
             listViewNFBalance.BeginUpdate();
             listViewNFBalance.Items.Clear();
-            int i = 0;
-            foreach (KeyValuePair<DateTime, object> kv in dBalance)//.Reverse())
+            if (File.Exists("balance.db"))
             {
-                listViewNFBalance.Items.Add(
-                    kv.Key.ToString(), i
-                );
-
-                string sTmp = "";
-                foreach (KeyValuePair<string, object> kv2 in (Dictionary<string, object>)kv.Value)
+                string[] saLines = File.ReadAllLines("balance.db");
+                int i = 0;
+                foreach (string sTmp in saLines)
                 {
-                    sTmp = sTmp + " / " + kv2.Key + ":" + kv2.Value;
+                    string[] split = sTmp.Split(new char[] { '/' }, 12);
+                    if (split.Length == 12)
+                    {
+                        for (int iTmp = 0; iTmp < split.Length; iTmp++)
+                        {
+                            if (iTmp == 0) {
+                                dtTick = DateTime.Parse(split[iTmp]);
+                                listViewNFBalance.Items.Add(
+                                    dtTick.ToString(), i
+                                );
+                                continue;
+                            }
+                            string[] split2 = split[iTmp].Split(new char[] { ':' }, 2);
+                            listViewNFBalance.Items[i].SubItems.Add(
+                                Convert.ToDouble(split2[1]).ToString()
+                            );
+                        }
+                        i++;
+                    }
                 }
-                listViewNFBalance.Items[i].SubItems.Add(
-                    sTmp
-                );
-                i++;
             }
             listViewNFBalance.EndUpdate();
         }

@@ -618,7 +618,6 @@
             this.buttonBalance.TabIndex = 4;
             this.buttonBalance.Text = "Balance";
             this.buttonBalance.UseVisualStyleBackColor = true;
-            this.buttonBalance.Visible = false;
             this.buttonBalance.Click += new System.EventHandler(this.buttonBalance_Click);
             // 
             // listViewBid
