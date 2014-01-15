@@ -13,6 +13,7 @@ Features:
 - Order book (price, volume, depth)
 - Open orders, cancellation
 - Group orders in history with similar price
+- Balance history
 - Changing pairs
 - Window stay on top with transparent, on focus opacity changing
 - Settings (config.ini file)
@@ -28,11 +29,9 @@ And on focus:
 
 ToDo:
 - Log file
-- Stop loss
-- Editing open orders
+- Stop loss (in progress)
+- Editing open orders (in progress)
 - Alert if buy/sell price divergence with last price on more than 1%
 - Indicators: Depth, MA, MACD, Stoch, ROC
-- Tracking orders
-- Trading statistic
 
 Work in progress!
