@@ -836,7 +836,14 @@ namespace Ticker_BTC_e
             }
 
             if (val != 0)
-            labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val * (1 - dFee), 2) + " " + sBalanceUp2;
+            {
+                labeBuyV.Text = Math.Round(Convert.ToDouble(textBoxBuyV.Text) / val * (1 - dFee), 2) + " " + sBalanceUp2;
+                labelBuyProcent.Text = ((val - dLastPrice) / dLastPrice * 100).ToString("+0.00;-0.00;0") + "%";
+            }
+            else
+            {
+                labelBuyProcent.Text = "0%";
+            }
         }
         private void textBoxBuyP_KeyDown(object sender, KeyEventArgs e)
         {
@@ -911,6 +918,15 @@ namespace Ticker_BTC_e
             }
 
             labelSellV.Text = Math.Round(Convert.ToDouble(textBoxSellV.Text) * val * (1 - dFee), 2) + " " + sBalanceUp1;
+
+            if (val != 0)
+            {
+                labelSellProcent.Text = ((val - dLastPrice) / dLastPrice * 100).ToString("+0.00;-0.00;0") + "%";
+            }
+            else
+            {
+                labelSellProcent.Text = "0%";
+            }
         }
         private void textBoxSellP_KeyDown(object sender, KeyEventArgs e)
         {
