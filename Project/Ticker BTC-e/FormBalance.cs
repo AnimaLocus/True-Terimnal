@@ -89,5 +89,15 @@ namespace Ticker_BTC_e
             tsPeriod = new TimeSpan(12 * 24 * 30, 0, 0);
             FormBalance_Load(sender, e);
         }
+
+        private void FormBalance_FormClosed(object sender, FormClosedEventArgs e)
+        {
+        }
+
+        private void FormBalance_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }

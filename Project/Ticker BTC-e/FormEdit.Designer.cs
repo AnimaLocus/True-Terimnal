@@ -129,6 +129,7 @@
             this.Name = "FormEdit";
             this.ShowIcon = false;
             this.Text = "True Terminal Edit";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormEdit_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
 

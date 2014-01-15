@@ -190,6 +190,8 @@
             this.Name = "FormBalance";
             this.ShowIcon = false;
             this.Text = "True Terminal Balance";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBalance_FormClosing);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBalance_FormClosed);
             this.Load += new System.EventHandler(this.FormBalance_Load);
             this.ResumeLayout(false);
 

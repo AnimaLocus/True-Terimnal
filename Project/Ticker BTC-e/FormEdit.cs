@@ -75,5 +75,11 @@ namespace Ticker_BTC_e
         {
             oldTextNewP = textNewP.Text;
         }
+
+        private void FormEdit_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+        }
     }
 }
