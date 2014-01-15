@@ -94,10 +94,39 @@ namespace Ticker_BTC_e
                                 dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
                                 if (dBalance2 < 0.0001) dBalance2 = 0;
 
-                                i = 0;
+                                Dictionary<string, object> dTradeHistoryGrouped = new Dictionary<string, object>();
+                                Dictionary<string, object> dLast = new Dictionary<string, object>();
+                                i = 0; dLast["pair"] = ""; dLast["type"] = ""; dLast["rate"] = 0; dLast["amount"] = 0;
+                                foreach (KeyValuePair<string, object> kv in dTradeHistory)
+                                {
+                                    dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                    if (dLast["pair"].ToString() == dTmp2["pair"].ToString()
+                                        && dLast["type"].ToString() == dTmp2["type"].ToString()
+                                        && dLast["rate"].ToString() == dTmp2["rate"].ToString())
+                                    {
+                                        dLast["amount"] =
+                                            Convert.ToDouble(dTmp2["amount"]) + Convert.ToDouble(dLast["amount"]);
+                                        continue;
+                                    }
+                                    else
+                                    {
+                                        if (dLast["rate"].ToString() != "0")
+                                        {
+                                            dTradeHistoryGrouped[i.ToString()] = dLast;
+                                        }
+
+                                        dLast = new Dictionary<string, object>();
+                                        dLast["pair"] = dTmp2["pair"]; dLast["type"] = dTmp2["type"];
+                                        dLast["rate"] = dTmp2["rate"]; dLast["amount"] = dTmp2["amount"];
+
+                                        i++;
+                                    }
+                                }
                                 listViewHistory.BeginUpdate();
                                 listViewHistory.Items.Clear();
-                                foreach (KeyValuePair<string, object> kv in dTradeHistory)
+                                i = 0;
+                                foreach (KeyValuePair<string, object> kv in dTradeHistoryGrouped)
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
 
@@ -704,11 +733,15 @@ namespace Ticker_BTC_e
         {
             this.Opacity = Setting.OpacityWithFocus;
             Size = new Size(745, 578);
+            Refresh();
+            Update();
         }
         private void Form1_Deactivate(object sender, EventArgs e)
         {
             if (checkBoxOpacity.Checked) this.Opacity = Setting.OpacityWithoutFocus;
             if (checkBoxResize.Checked) Size = new Size(311, 163);
+            Refresh();
+            Update();
         }
 
         // BUY Block /START
