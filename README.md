@@ -6,14 +6,14 @@ If you want trading: rename config.ini_example to config.ini and add you APIKey/
 
 Features:
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
-- Candlestick chart (candle = 1 min, last 60 minutes)
+- **Candlestick chart** (candle = 1 min, last 60 minutes)
 - Volumes
-- Profit steps
+- **Profit steps**
 - Trading interface
 - Order book (price, volume, depth)
-- Open orders, cancellation
+- **Open orders**, cancellation, **editing**
 - Group orders in history with similar price
-- Balance history
+- **Balance history**
 - Changing pairs
 - Window stay on top with transparent, on focus opacity changing
 - Settings (config.ini file)
@@ -29,7 +29,6 @@ And on focus:
 
 ToDo:
 - Stop loss (in progress)
-- Editing open orders (in progress)
 - Indicators: Depth, MA, MACD, Stoch, ROC
 
 Work in progress!
