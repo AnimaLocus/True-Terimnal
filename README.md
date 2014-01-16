@@ -29,8 +29,15 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
+- Take profit
 - Refactoring
 - Big resizable chart
 - Indicators: Depth, MA, MACD, Stoch, ROC
+
+Understanding Stop loss and Take profit
+===========
+This features work on client side and have inner balance.
+Example STOP: You want sell if price will be lesser than 100 - create Stop loss order and it will be created if price <= 100.
+Example TAKE: You want sell if price will be more than 1000 - create Take profit order and it will be created if price >= 1000.
 
 Work in progress!
