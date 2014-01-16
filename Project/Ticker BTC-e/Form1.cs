@@ -153,6 +153,8 @@ namespace Ticker_BTC_e
             listViewOpenOrders.BeginUpdate();
             listViewOpenOrders.Items.Clear();
             lOpenOrdersIndex = new List<string>();
+            dHighlightInDepthAsk = new List<double>();
+            dHighlightInDepthBid = new List<double>();
             foreach (KeyValuePair<string, object> kv in dOpenOrders)
             {
                 dTmp2 = (Dictionary<string, object>)kv.Value;
@@ -164,11 +166,13 @@ namespace Ticker_BTC_e
                 );
                 if ((string)dTmp2["type"] == "buy")
                 {
+                    dHighlightInDepthBid.Add(Convert.ToDouble(dTmp2["rate"]));
                     listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
                     dTmp2["type"] = "BUY";
                 }
                 else if ((string)dTmp2["type"] == "sell")
                 {
+                    dHighlightInDepthAsk.Add(Convert.ToDouble(dTmp2["rate"]));
                     listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
                     dTmp2["type"] = "SELL";
                 }
@@ -547,9 +551,12 @@ namespace Ticker_BTC_e
 
         public double dDepthMinBold = 9999999999999999999;
         public double dLastDepth = 9999999999999999999;
+        public List<double> dHighlightInDepthAsk = new List<double>();
+        public List<double> dHighlightInDepthBid = new List<double>();
         public void UpdateDepth()
         {
             double dDepth = 0;
+            double dTmpRate = 0;
 
             listViewAsk.BeginUpdate();
             listViewAsk.Items.Clear();
@@ -562,12 +569,22 @@ namespace Ticker_BTC_e
                         ((List<object>)lAsks[i])[1]
                     );
 
-                listViewAsk.Items.Add(
-                    Convert.ToDouble
+                dTmpRate = Convert.ToDouble
                     (
                         ((List<object>)lAsks[i])[0]
-                    ).ToString()
+                    );
+                listViewAsk.Items.Add(
+                    dTmpRate.ToString()
                 );
+
+                foreach (double dTmp in dHighlightInDepthAsk)
+                {
+                    if (dTmpRate == dTmp)
+                    {
+                        listViewAsk.Items[i].BackColor = Color.Gainsboro;
+                    }
+                }
+
                 if (Convert.ToDouble(((List<object>)lAsks[i])[1]) > dDepthMinBold)
                     listViewAsk.Items[i].Font = new Font(listViewAsk.Items[i].Font, FontStyle.Bold);
                 listViewAsk.Items[i].SubItems.Add(
@@ -591,12 +608,22 @@ namespace Ticker_BTC_e
                         ((List<object>)lBids[i])[1]
                     );
 
-                listViewBid.Items.Add(
-                    Convert.ToDouble
+                dTmpRate = Convert.ToDouble
                     (
                         ((List<object>)lBids[i])[0]
-                    ).ToString()
+                    );
+                listViewBid.Items.Add(
+                    dTmpRate.ToString()
                 );
+
+                foreach (double dTmp in dHighlightInDepthBid)
+                {
+                    if (dTmpRate == dTmp)
+                    {
+                        listViewBid.Items[i].BackColor = Color.Gainsboro;
+                    }
+                }
+
                 if (Convert.ToDouble(((List<object>)lBids[i])[1]) > dDepthMinBold)
                     listViewBid.Items[i].Font = new Font(listViewBid.Items[i].Font, FontStyle.Bold);
                 listViewBid.Items[i].SubItems.Add(
