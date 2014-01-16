@@ -9,9 +9,10 @@ Features:
 - **Candlestick chart** (candle = 1 min, last 60 minutes)
 - Volumes
 - **Profit steps**
+- Stop loss (work only with running program and on active pair) // in progress: canceling, editing
 - Trading interface
 - Order book (price, volume, depth)
-- **Open orders**, cancellation, **editing**
+- **Open orders**, cancellation, **editing** // in progress: editing sell orders
 - Group orders in history with similar price
 - **Balance history**
 - Changing pairs
@@ -28,7 +29,8 @@ And on focus:
 ![Alt text](ScreenshotMax.png "Screenshot")
 
 ToDo:
-- Stop loss (in progress)
+- Refactoring
+- Big resizable chart
 - Indicators: Depth, MA, MACD, Stoch, ROC
 
 Work in progress!
