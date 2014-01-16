@@ -62,6 +62,7 @@ namespace Ticker_BTC_e
         public string sBalanceUp1 = "USD";
         public string sBalanceUp2 = "BTC";
         public double dFee = 0.002;
+        public double dSecLag = 0;
         void NewThread()
         {
             Random rnd = new Random();
@@ -99,6 +100,7 @@ namespace Ticker_BTC_e
             }
             while (true)
             {
+                dSecLag = UnixTime.Now;
                 try
                 {
                     UpdateHistory(Setting.TradingPair, 500);
@@ -139,6 +141,10 @@ namespace Ticker_BTC_e
                             Math.Round(dBalance2 * dLastPrice * (1 - dFee), 2) + " " + sBalanceUp1 + ")";
 
                         UpdateChartMain();
+
+                        dSecLag = UnixTime.Now - dSecLag;
+                        labelLag.Text = "Lag: " + Math.Round(Convert.ToDouble(Setting.UpdateInterval) / 1000, 2)
+                            + "+" + dSecLag + " s.";
                     });
                 }
                 catch (Exception e)
