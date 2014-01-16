@@ -269,7 +269,9 @@ namespace Ticker_BTC_e
 
                                     i++;
                                 }
-                                foreach (KeyValuePair<string, object> kv in dStopLosses)
+                                Dictionary<string, object> dStopLossesCopy =
+                                    dStopLosses.ToDictionary(entry => entry.Key, entry => entry.Value);
+                                foreach (KeyValuePair<string, object> kv in dStopLossesCopy)
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
 
@@ -1002,10 +1004,25 @@ namespace Ticker_BTC_e
             System.Windows.Forms.ListView.SelectedListViewItemCollection lvTmp = listViewOpenOrders.SelectedItems;
             if (lvTmp.Count > 0)
             {
-                //MessageBox.Show(lvTmp[0].Index.ToString()); return;
-                string sSelected = lOpenOrdersIndex[lvTmp[0].Index];
-                CancelOrder(sSelected);
-                //MessageBox.Show(sSelected);
+                if (lvTmp[0].SubItems[1].Text == "STOP")
+                {
+                    Dictionary<string, object> dStopLossesCopy = 
+                        dStopLosses.ToDictionary(entry => entry.Key, entry => entry.Value);
+                    foreach (KeyValuePair<string, object> kv in dStopLossesCopy)
+                    {
+                        Dictionary<string, object> dTmp2 = (Dictionary<string, object>)kv.Value;
+                        if (lvTmp[0].SubItems[2].Text == dTmp2["rate"].ToString()
+                            && lvTmp[0].SubItems[3].Text == dTmp2["amount"].ToString())
+                        {
+                            dStopLosses.Remove(kv.Key);
+                        }
+                    }
+                }
+                else // Regular Buy/Sell
+                {
+                    string sSelected = lOpenOrdersIndex[lvTmp[0].Index];
+                    CancelOrder(sSelected);
+                }
             }
         }
         private void buttonCancelA_Click(object sender, EventArgs e)
@@ -1018,7 +1035,7 @@ namespace Ticker_BTC_e
         }
 
 
-        // CANCEL Orde Block END/
+        // CANCEL Order Block END/
 
 
         private void comboBoxPair_SelectedIndexChanged(object sender, EventArgs e)

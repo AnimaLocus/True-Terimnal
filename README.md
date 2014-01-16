@@ -11,7 +11,7 @@ Features:
 - Trading interface
 - **Profit steps**
 - Order book (price, volume, depth)
-- **Stop loss** (work only with running program and on active pair) // in progress: canceling, editing
+- **Stop loss** (work only with running program and on active pair) // in progress: editing
 - Open orders, cancellation, **editing**
 - Group orders in history with similar price
 - **Balance history**
