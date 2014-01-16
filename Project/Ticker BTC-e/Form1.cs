@@ -1145,20 +1145,28 @@ namespace Ticker_BTC_e
             System.Windows.Forms.ListView.SelectedListViewItemCollection lvTmp = listViewOpenOrders.SelectedItems;
             if (lvTmp.Count > 0)
             {
-                FormEditInstance.sSelected = lOpenOrdersIndex[lvTmp[0].Index];
+                if (lvTmp[0].SubItems[1].Text == "STOP")
+                {
+                }
+                else
+                {
+                    FormEditInstance.sSelected = lOpenOrdersIndex[lvTmp[0].Index];
+                }
                 string[] saPair = (lvTmp[0].Text).Split('/');
 
                 FormEditInstance.sBalanceUp2 = saPair[0].ToUpper();
                 FormEditInstance.sBalanceUp1 = saPair[1].ToUpper();
                 FormEditInstance.sType = lvTmp[0].SubItems[1].Text.ToLower();
+
                 FormEditInstance.labelOldV.Text = lvTmp[0].SubItems[4].Text + " " + FormEditInstance.sBalanceUp1;
                 FormEditInstance.labelOldP.Text = lvTmp[0].SubItems[2].Text;
                 FormEditInstance.labelOldA.Text = lvTmp[0].SubItems[3].Text + " " + FormEditInstance.sBalanceUp2;
                 FormEditInstance.textNewV.Text = lvTmp[0].SubItems[4].Text;
                 FormEditInstance.textNewP.Text = lvTmp[0].SubItems[2].Text;
-                FormEditInstance.labelNewA.Text = (Convert.ToDouble(FormEditInstance.textNewV.Text) 
+                FormEditInstance.labelNewA.Text = (Convert.ToDouble(FormEditInstance.textNewV.Text)
                     / Convert.ToDouble(FormEditInstance.textNewP.Text))
                     + " " + FormEditInstance.sBalanceUp2;
+
                 FormEditInstance.Show();
             }
         }

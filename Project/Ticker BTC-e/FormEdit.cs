@@ -24,10 +24,42 @@ namespace Ticker_BTC_e
         private void buttonEdit_Click(object sender, EventArgs e)
         {
             var Form1Instance = Application.OpenForms.OfType<Form1>().Single();
-            Form1Instance.CancelOrder(sSelected);
 
-            Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), sType, Convert.ToDouble(textNewP.Text),
-                Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
+            if (sType == "stop")
+            {
+                Dictionary<string, object> dStopLossesCopy =
+                    Form1Instance.dStopLosses.ToDictionary(entry => entry.Key, entry => entry.Value);
+                foreach (KeyValuePair<string, object> kv in dStopLossesCopy)
+                {
+                    Dictionary<string, object> dTmp2 = (Dictionary<string, object>)kv.Value;
+                    if (labelOldP.Text == dTmp2["rate"].ToString()
+                        && labelOldA.Text.Replace(" " + sBalanceUp2, "") == dTmp2["amount"].ToString())
+                    {
+                        Form1Instance.dStopLosses.Remove(kv.Key);
+                    }
+                }
+
+                Dictionary<string, object> dTmpStopLoss = new Dictionary<string, object>();
+                dTmpStopLoss["pair"] = sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower();
+                dTmpStopLoss["rate"] = Convert.ToDouble(textNewP.Text);
+                dTmpStopLoss["amount"] = 
+                    Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000;
+                if (Form1Instance.dBalance2 - Convert.ToDouble(dTmpStopLoss["amount"]) < 0
+                    || Convert.ToDouble(dTmpStopLoss["rate"]) <= 0
+                    || Convert.ToDouble(dTmpStopLoss["amount"]) <= 0)
+                {
+                    return;
+                }
+                Form1Instance.dStopLosses.Add(Form1Instance.dStopLosses.Count.ToString(), dTmpStopLoss);
+            }
+            else
+            {
+                Form1Instance.CancelOrder(sSelected);
+
+                Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), sType, 
+                    Convert.ToDouble(textNewP.Text),
+                    Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
+            }
 
             Hide();
         }
