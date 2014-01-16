@@ -4,7 +4,8 @@ Ticker/Terminal for BTC-e (Bitcoin market).
 
 If you want trading: rename config.ini_example to config.ini and add you APIKey/Secret.
 
-Features:
+Features
+-----------
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
 - **Candlestick chart** (candle = 1 min, last 60 minutes)
 - Volumes
@@ -28,16 +29,21 @@ And on focus:
 
 ![Alt text](ScreenshotMax.png "Screenshot")
 
-ToDo:
+Understanding Stop loss and Take profit
+-----------
+**This features work on client side and have inner balance. Will be work only if program running and network ok.**
+
+Example 1: You want sell if price <= 100 - create **Stop loss** order and regular order will be created if price <= 100.
+
+Example 2: You want sell if price >= 1000 - create **Take profit** order and regular order will be created if price >= 1000.
+
+
+ToDo
+-----------
 - Take profit
 - Refactoring
 - Big resizable chart
 - Indicators: Depth, MA, MACD, Stoch, ROC
 
-Understanding Stop loss and Take profit
-===========
-This features work on client side and have inner balance.
-Example STOP: You want sell if price will be lesser than 100 - create Stop loss order and it will be created if price <= 100.
-Example TAKE: You want sell if price will be more than 1000 - create Take profit order and it will be created if price >= 1000.
-
 Work in progress!
+-----------
