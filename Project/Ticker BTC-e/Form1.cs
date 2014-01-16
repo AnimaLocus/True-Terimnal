@@ -822,6 +822,7 @@ namespace Ticker_BTC_e
 
         private void Form1_Activated(object sender, EventArgs e)
         {
+            checkBoxTop_CheckedChanged(sender, e);
             this.Opacity = Setting.OpacityWithFocus;
             Size = new Size(745, 578);
             Refresh();
@@ -829,6 +830,7 @@ namespace Ticker_BTC_e
         }
         private void Form1_Deactivate(object sender, EventArgs e)
         {
+            checkBoxTop_CheckedChanged(sender, e);
             if (checkBoxOpacity.Checked) this.Opacity = Setting.OpacityWithoutFocus;
             if (checkBoxResize.Checked) Size = new Size(311, 163);
             Refresh();
