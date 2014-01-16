@@ -109,27 +109,6 @@ namespace Ticker_BTC_e
                     }
                     else
                     {
-                        dUserInfo = GetInfo();
-                        bool bBalanceNeedUpdate = false;
-                        foreach (KeyValuePair<string, object> kv in (Dictionary<string, object>)dUserInfo["funds"])
-                        {
-                            if (dBalance[kv.Key] != Convert.ToDouble(kv.Value))
-                            {
-                                bBalanceNeedUpdate = true;
-                                dBalance[kv.Key] = Convert.ToDouble(kv.Value);
-                            }
-                        }
-                        if (bBalanceNeedUpdate)
-                        {
-                            string sContent = DateTime.Now.ToString();
-                            foreach (KeyValuePair<string, double> kv in dBalance)
-                            {
-                                sContent = sContent + "/" + kv.Key + ":" + kv.Value;
-                            }
-                            sContent = sContent + "\n";
-                            File.AppendAllText("balance.db", sContent);
-                        }
-
                         dOpenOrders = GetOpenOrders();
                         dTradeHistory = GetTradeHistory();
                     }
@@ -141,172 +120,8 @@ namespace Ticker_BTC_e
 
                         if (!bOnlyTicker)
                         {
-                            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
-                            if (dBalance1 < 0.0001) dBalance1 = 0;
-                            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
-                            if (dBalance2 < 0.0001) dBalance2 = 0;
-
-                            dTradeHistoryGrouped = new Dictionary<string, object>();
-                            Dictionary<string, object> dLast = new Dictionary<string, object>();
-                            i = 0; dLast["pair"] = ""; dLast["type"] = ""; dLast["rate"] = 0; dLast["amount"] = 0;
-                            dLast["timestamp"] = 0;
-                            foreach (KeyValuePair<string, object> kv in dTradeHistory)
-                            {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
-
-                                if (dLast["pair"].ToString() == dTmp2["pair"].ToString()
-                                    && dLast["type"].ToString() == dTmp2["type"].ToString()
-                                    && dLast["rate"].ToString() == dTmp2["rate"].ToString())
-                                {
-                                    dLast["amount"] =
-                                        Convert.ToDouble(dTmp2["amount"]) + Convert.ToDouble(dLast["amount"]);
-                                    continue;
-                                }
-                                else
-                                {
-                                    if (dLast["rate"].ToString() != "0")
-                                    {
-                                        dTradeHistoryGrouped[i.ToString()] = dLast;
-                                    }
-
-                                    dLast = new Dictionary<string, object>();
-                                    dLast["pair"] = dTmp2["pair"]; dLast["type"] = dTmp2["type"];
-                                    dLast["rate"] = dTmp2["rate"]; dLast["amount"] = dTmp2["amount"];
-                                    dLast["timestamp"] = dTmp2["timestamp"];
-
-                                    i++;
-                                }
-                            }
-                            listViewHistory.BeginUpdate();
-                            listViewHistory.Items.Clear();
-                            i = 0;
-                            foreach (KeyValuePair<string, object> kv in dTradeHistoryGrouped)
-                            {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
-
-                                listViewHistory.Items.Add(
-                                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                                );
-
-                                if ((string)dTmp2["type"] == "buy")
-                                {
-                                    listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
-                                    dTmp2["type"] = "BUY";
-                                }
-                                else if ((string)dTmp2["type"] == "sell")
-                                {
-                                    listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
-                                    dTmp2["type"] = "SELL";
-                                }
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (string)dTmp2["type"]
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["rate"]).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["amount"]).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
-                                );
-                                double dTmpRate = Convert.ToDouble(dTmp2["rate"]);
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (dTmpRate * (1 + dFee + dFee)).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (dTmpRate * (1.01 + dFee + dFee)).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (dTmpRate * (1.02 + dFee + dFee)).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (dTmpRate * (1.04 + dFee + dFee)).ToString()
-                                );
-                                listViewHistory.Items[i].SubItems.Add(
-                                    (dTmpRate * (1.08 + dFee + dFee)).ToString()
-                                );
-
-                                i++;
-                            }
-                            listViewHistory.EndUpdate();
-
-
-                            i = 0;
-                            listViewOpenOrders.BeginUpdate();
-                            listViewOpenOrders.Items.Clear();
-                            lOpenOrdersIndex = new List<string>();
-                            foreach (KeyValuePair<string, object> kv in dOpenOrders)
-                            {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
-
-                                lOpenOrdersIndex.Add(kv.Key);
-
-                                listViewOpenOrders.Items.Add(
-                                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                                );
-                                if ((string)dTmp2["type"] == "buy")
-                                {
-                                    listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
-                                    dTmp2["type"] = "BUY";
-                                }
-                                else if ((string)dTmp2["type"] == "sell")
-                                {
-                                    listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
-                                    dTmp2["type"] = "SELL";
-                                }
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    (string)dTmp2["type"]
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["rate"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["amount"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
-                                );
-
-                                i++;
-                            }
-                            Dictionary<string, object> dStopLossesCopy =
-                                dStopLosses.ToDictionary(entry => entry.Key, entry => entry.Value);
-                            foreach (KeyValuePair<string, object> kv in dStopLossesCopy)
-                            {
-                                dTmp2 = (Dictionary<string, object>)kv.Value;
-
-                                if ((string)dTmp2["pair"] == Setting.TradingPair)
-                                {
-                                    if (dLastPrice <= Convert.ToDouble(dTmp2["rate"]))
-                                    {
-                                        Trade((string)dTmp2["pair"], "sell", Convert.ToDouble(dTmp2["rate"]),
-                                            Convert.ToDouble(dTmp2["amount"]));
-                                        dStopLosses.Remove(kv.Key);
-                                        continue;
-                                    }
-                                    dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
-                                }
-
-                                listViewOpenOrders.Items.Add(
-                                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                                );
-                                listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 75, 0, 130);
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    "STOP"
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["rate"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    Convert.ToDouble(dTmp2["amount"]).ToString()
-                                );
-                                listViewOpenOrders.Items[i].SubItems.Add(
-                                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
-                                );
-                                i++;
-                            }
-                            listViewOpenOrders.EndUpdate();
+                            UpdateTradeHistory();
+                            UpdateOpenOrders();
                         }
 
                         /*
@@ -329,6 +144,204 @@ namespace Ticker_BTC_e
 
                 }
                 System.Threading.Thread.Sleep(Setting.UpdateInterval);
+            }
+        }
+        public void UpdateOpenOrders()
+        {
+            Dictionary<string, object> dTmp2 = new Dictionary<string, object>();
+            int i = 0;
+            listViewOpenOrders.BeginUpdate();
+            listViewOpenOrders.Items.Clear();
+            lOpenOrdersIndex = new List<string>();
+            foreach (KeyValuePair<string, object> kv in dOpenOrders)
+            {
+                dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                lOpenOrdersIndex.Add(kv.Key);
+
+                listViewOpenOrders.Items.Add(
+                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                );
+                if ((string)dTmp2["type"] == "buy")
+                {
+                    listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
+                    dTmp2["type"] = "BUY";
+                }
+                else if ((string)dTmp2["type"] == "sell")
+                {
+                    listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
+                    dTmp2["type"] = "SELL";
+                }
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    (string)dTmp2["type"]
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                );
+
+                i++;
+            }
+            Dictionary<string, object> dStopLossesCopy =
+                dStopLosses.ToDictionary(entry => entry.Key, entry => entry.Value);
+            foreach (KeyValuePair<string, object> kv in dStopLossesCopy)
+            {
+                dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                if ((string)dTmp2["pair"] == Setting.TradingPair)
+                {
+                    if (dLastPrice <= Convert.ToDouble(dTmp2["rate"]))
+                    {
+                        Trade((string)dTmp2["pair"], "sell", Convert.ToDouble(dTmp2["rate"]),
+                            Convert.ToDouble(dTmp2["amount"]));
+                        dStopLosses.Remove(kv.Key);
+                        continue;
+                    }
+                    dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
+                }
+
+                listViewOpenOrders.Items.Add(
+                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                );
+                listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 75, 0, 130);
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    "STOP"
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                );
+                i++;
+            }
+            listViewOpenOrders.EndUpdate();
+        }
+        public void UpdateTradeHistory()
+        {
+            UpdateBalance();
+
+            Dictionary<string, object>  dTmp2 = new Dictionary<string, object>();
+
+            dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
+            if (dBalance1 < 0.0001) dBalance1 = 0;
+            dBalance2 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance2]);
+            if (dBalance2 < 0.0001) dBalance2 = 0;
+
+            dTradeHistoryGrouped = new Dictionary<string, object>();
+            Dictionary<string, object> dLast = new Dictionary<string, object>();
+            int i = 0; dLast["pair"] = ""; dLast["type"] = ""; dLast["rate"] = 0; dLast["amount"] = 0;
+            dLast["timestamp"] = 0;
+            foreach (KeyValuePair<string, object> kv in dTradeHistory)
+            {
+                dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                if (dLast["pair"].ToString() == dTmp2["pair"].ToString()
+                    && dLast["type"].ToString() == dTmp2["type"].ToString()
+                    && dLast["rate"].ToString() == dTmp2["rate"].ToString())
+                {
+                    dLast["amount"] =
+                        Convert.ToDouble(dTmp2["amount"]) + Convert.ToDouble(dLast["amount"]);
+                    continue;
+                }
+                else
+                {
+                    if (dLast["rate"].ToString() != "0")
+                    {
+                        dTradeHistoryGrouped[i.ToString()] = dLast;
+                    }
+
+                    dLast = new Dictionary<string, object>();
+                    dLast["pair"] = dTmp2["pair"]; dLast["type"] = dTmp2["type"];
+                    dLast["rate"] = dTmp2["rate"]; dLast["amount"] = dTmp2["amount"];
+                    dLast["timestamp"] = dTmp2["timestamp"];
+
+                    i++;
+                }
+            }
+            listViewHistory.BeginUpdate();
+            listViewHistory.Items.Clear();
+            i = 0;
+            foreach (KeyValuePair<string, object> kv in dTradeHistoryGrouped)
+            {
+                dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                listViewHistory.Items.Add(
+                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                );
+
+                if ((string)dTmp2["type"] == "buy")
+                {
+                    listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
+                    dTmp2["type"] = "BUY";
+                }
+                else if ((string)dTmp2["type"] == "sell")
+                {
+                    listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
+                    dTmp2["type"] = "SELL";
+                }
+                listViewHistory.Items[i].SubItems.Add(
+                    (string)dTmp2["type"]
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                );
+                double dTmpRate = Convert.ToDouble(dTmp2["rate"]);
+                listViewHistory.Items[i].SubItems.Add(
+                    (dTmpRate * (1 + dFee + dFee)).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    (dTmpRate * (1.01 + dFee + dFee)).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    (dTmpRate * (1.02 + dFee + dFee)).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    (dTmpRate * (1.04 + dFee + dFee)).ToString()
+                );
+                listViewHistory.Items[i].SubItems.Add(
+                    (dTmpRate * (1.08 + dFee + dFee)).ToString()
+                );
+
+                i++;
+            }
+            listViewHistory.EndUpdate();
+        }
+        public void UpdateBalance()
+        {
+            dUserInfo = GetInfo();
+            bool bBalanceNeedUpdate = false;
+            foreach (KeyValuePair<string, object> kv in (Dictionary<string, object>)dUserInfo["funds"])
+            {
+                if (dBalance[kv.Key] != Convert.ToDouble(kv.Value))
+                {
+                    bBalanceNeedUpdate = true;
+                    dBalance[kv.Key] = Convert.ToDouble(kv.Value);
+                }
+            }
+            if (bBalanceNeedUpdate)
+            {
+                string sContent = DateTime.Now.ToString();
+                foreach (KeyValuePair<string, double> kv in dBalance)
+                {
+                    sContent = sContent + "/" + kv.Key + ":" + kv.Value;
+                }
+                sContent = sContent + "\n";
+                File.AppendAllText("balance.db", sContent);
             }
         }
         static DateTime ConvertFromUnixTimestamp(double timestamp)
@@ -915,6 +928,9 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text) * 100000000) / 100000000);
             textBoxBuyV.Text = "0";
             textBoxBuyP.Text = "0";
+
+            UpdateOpenOrders();
+            UpdateTradeHistory();
         }
         // BUY Block END/
 
@@ -999,6 +1015,9 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxSellV.Text) * 100000000) / 100000000);
             textBoxSellP.Text = "0";
             textBoxSellV.Text = "0";
+
+            UpdateOpenOrders();
+            UpdateTradeHistory();
         }
         // SELL Block END/
 
@@ -1028,6 +1047,8 @@ namespace Ticker_BTC_e
                     CancelOrder(sSelected);
                 }
             }
+
+            UpdateOpenOrders();
         }
         private void buttonCancelA_Click(object sender, EventArgs e)
         {
@@ -1036,6 +1057,8 @@ namespace Ticker_BTC_e
             {
                 CancelOrder(sSelected);
             }
+
+            UpdateOpenOrders();
         }
 
 
@@ -1135,6 +1158,8 @@ namespace Ticker_BTC_e
             dStopLosses.Add(dStopLosses.Count.ToString(), dTmpStopLoss);
             textBoxSellV.Text = "0";
             textBoxSellP.Text = "0";
+
+            UpdateOpenOrders();
         }
 
         FormBalance FormBalanceInstance = new FormBalance();

@@ -30,6 +30,7 @@ namespace Ticker_BTC_e
             if (File.Exists("balance.db"))
             {
                 string[] saLines = File.ReadAllLines("balance.db");
+                Array.Reverse(saLines);
                 int i = 0;
                 foreach (string sTmp in saLines)
                 {

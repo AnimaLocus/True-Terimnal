@@ -61,6 +61,8 @@ namespace Ticker_BTC_e
                     Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
             }
 
+            Form1Instance.UpdateOpenOrders();
+            Form1Instance.UpdateTradeHistory();
             Hide();
         }
 
