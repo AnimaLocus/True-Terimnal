@@ -42,7 +42,7 @@ namespace Ticker_BTC_e
                 Dictionary<string, object> dTmpStopLoss = new Dictionary<string, object>();
                 dTmpStopLoss["pair"] = sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower();
                 dTmpStopLoss["rate"] = Convert.ToDouble(textNewP.Text);
-                dTmpStopLoss["amount"] = 
+                dTmpStopLoss["amount"] =
                     Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000;
                 if (Form1Instance.dBalance2 - Convert.ToDouble(dTmpStopLoss["amount"]) < 0
                     || Convert.ToDouble(dTmpStopLoss["rate"]) <= 0
@@ -56,7 +56,7 @@ namespace Ticker_BTC_e
             {
                 Form1Instance.CancelOrder(sSelected);
 
-                Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), sType, 
+                Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), sType,
                     Convert.ToDouble(textNewP.Text),
                     Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
             }
@@ -79,7 +79,7 @@ namespace Ticker_BTC_e
             }
 
             if (textNewP.Text != "0")
-                labelNewA.Text = Math.Round(val / Convert.ToDouble(textNewP.Text) 
+                labelNewA.Text = Math.Round(val / Convert.ToDouble(textNewP.Text)
                     * (1 - Form1Instance.dFee), 9) + " " + sBalanceUp2;
         }
         private void textNewP_KeyDown(object sender, KeyEventArgs e)
@@ -101,8 +101,8 @@ namespace Ticker_BTC_e
             }
 
             if (val != 0)
-            labelNewA.Text = Math.Round(Convert.ToDouble(textNewV.Text) / val 
-                * (1 - Form1Instance.dFee), 9) + " " + sBalanceUp1;
+                labelNewA.Text = Math.Round(Convert.ToDouble(textNewV.Text) / val
+                    * (1 - Form1Instance.dFee), 9) + " " + sBalanceUp1;
         }
         private void textNewV_KeyDown(object sender, KeyEventArgs e)
         {

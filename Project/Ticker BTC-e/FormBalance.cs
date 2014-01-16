@@ -38,7 +38,8 @@ namespace Ticker_BTC_e
                     {
                         for (int iTmp = 0; iTmp < split.Length; iTmp++)
                         {
-                            if (iTmp == 0) {
+                            if (iTmp == 0)
+                            {
                                 dtTick = DateTime.Parse(split[iTmp]);
                                 listViewNFBalance.Items.Add(
                                     dtTick.ToString(), i
@@ -61,7 +62,8 @@ namespace Ticker_BTC_e
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(timestamp);
         }
-        public static DateTime dtFloor(DateTime date, TimeSpan span) {
+        public static DateTime dtFloor(DateTime date, TimeSpan span)
+        {
             long ticks = (date.Ticks / span.Ticks);
             return new DateTime(ticks * span.Ticks);
         }
