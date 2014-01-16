@@ -109,6 +109,8 @@ namespace Ticker_BTC_e
                     }
                     else
                     {
+                        UpdateBalance();
+
                         dOpenOrders = GetOpenOrders();
                         dTradeHistory = GetTradeHistory();
                     }
@@ -231,8 +233,6 @@ namespace Ticker_BTC_e
         }
         public void UpdateTradeHistory()
         {
-            UpdateBalance();
-
             Dictionary<string, object>  dTmp2 = new Dictionary<string, object>();
 
             dBalance1 = Convert.ToDouble(((Dictionary<string, object>)dUserInfo["funds"])[sBalance1]);
@@ -488,7 +488,17 @@ namespace Ticker_BTC_e
             };
             var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
             if ((long)result["success"] == 0)
-                throw new Exception((string)result["error"]);
+            {
+                string[] split = ((string)result["error"]).Split(new char[] { ';' }, 2);
+                if (split[0] == "invalid nonce parameter")
+                {
+                    CancelOrder(orderId);
+                }
+                else
+                {
+                    throw new Exception((string)result["error"]);
+                }
+            }
             return (Dictionary<string, object>)result["return"];
         }
         public Dictionary<string, object> Trade(string pair, string type, double rate, double amount)
@@ -503,7 +513,17 @@ namespace Ticker_BTC_e
             };
             var result = Json.Deserialize(Query(args)) as Dictionary<string, object>;
             if ((long)result["success"] == 0)
-                throw new Exception((string)result["error"]);
+            {
+                string[] split = ((string)result["error"]).Split(new char[] { ';' }, 2);
+                if (split[0] == "invalid nonce parameter")
+                {
+                    Trade(pair, type, rate, amount);
+                }
+                else
+                {
+                    throw new Exception((string)result["error"]);
+                }
+            }
             return (Dictionary<string, object>)result["return"];
         }
         static string ByteArrayToString(byte[] ba)
@@ -955,9 +975,6 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text) * 100000000) / 100000000);
             textBoxBuyV.Text = "0";
             textBoxBuyP.Text = "0";
-
-            UpdateOpenOrders();
-            UpdateTradeHistory();
         }
         // BUY Block END/
 
@@ -1042,9 +1059,6 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxSellV.Text) * 100000000) / 100000000);
             textBoxSellP.Text = "0";
             textBoxSellV.Text = "0";
-
-            UpdateOpenOrders();
-            UpdateTradeHistory();
         }
         // SELL Block END/
 

@@ -51,6 +51,8 @@ namespace Ticker_BTC_e
                     return;
                 }
                 Form1Instance.dStopLosses.Add(Form1Instance.dStopLosses.Count.ToString(), dTmpStopLoss);
+
+                Form1Instance.UpdateOpenOrders();
             }
             else
             {
@@ -60,9 +62,6 @@ namespace Ticker_BTC_e
                     Convert.ToDouble(textNewP.Text),
                     Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
             }
-
-            Form1Instance.UpdateOpenOrders();
-            Form1Instance.UpdateTradeHistory();
             Hide();
         }
 
