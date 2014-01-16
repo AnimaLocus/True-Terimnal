@@ -8,11 +8,11 @@ Features:
 - Best simplest solution for monitoring/trading Bitcoin and other crypto coins!
 - **Candlestick chart** (candle = 1 min, last 60 minutes)
 - Volumes
-- **Profit steps**
-- Stop loss (work only with running program and on active pair) // in progress: canceling, editing
 - Trading interface
+- **Profit steps**
 - Order book (price, volume, depth)
-- **Open orders**, cancellation, **editing** // in progress: editing sell orders
+- **Stop loss** (work only with running program and on active pair) // in progress: canceling, editing
+- Open orders, cancellation, **editing**
 - Group orders in history with similar price
 - **Balance history**
 - Changing pairs

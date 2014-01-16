@@ -15,6 +15,7 @@ namespace Ticker_BTC_e
         public string sBalanceUp1 = "";
         public string sBalanceUp2 = "";
         public string sSelected = "";
+        public string sType = "";
         public FormEdit()
         {
             InitializeComponent();
@@ -25,7 +26,7 @@ namespace Ticker_BTC_e
             var Form1Instance = Application.OpenForms.OfType<Form1>().Single();
             Form1Instance.CancelOrder(sSelected);
 
-            Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), "buy", Convert.ToDouble(textNewP.Text),
+            Form1Instance.Trade(sBalanceUp2.ToLower() + "_" + sBalanceUp1.ToLower(), sType, Convert.ToDouble(textNewP.Text),
                 Math.Floor(Convert.ToDouble(textNewV.Text) / Convert.ToDouble(textNewP.Text) * 100000000) / 100000000);
 
             Hide();

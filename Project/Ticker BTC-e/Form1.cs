@@ -273,7 +273,6 @@ namespace Ticker_BTC_e
                                 {
                                     dTmp2 = (Dictionary<string, object>)kv.Value;
 
-                                    MessageBox.Show((string)dTmp2["pair"] + " - " + Setting.TradingPair);
                                     if ((string)dTmp2["pair"] == Setting.TradingPair)
                                     {
                                         if (dLastPrice <= Convert.ToDouble(dTmp2["rate"]))
@@ -991,7 +990,7 @@ namespace Ticker_BTC_e
         private void buttonSell_Click(object sender, EventArgs e)
         {
             Trade(Setting.TradingPair, "sell", Convert.ToDouble(textBoxSellP.Text),
-                Convert.ToDouble(textBoxSellV.Text));
+                Math.Floor(Convert.ToDouble(textBoxSellV.Text) * 100000000) / 100000000);
             textBoxSellP.Text = "0";
             textBoxSellV.Text = "0";
         }
@@ -1134,6 +1133,7 @@ namespace Ticker_BTC_e
 
                 FormEditInstance.sBalanceUp2 = saPair[0].ToUpper();
                 FormEditInstance.sBalanceUp1 = saPair[1].ToUpper();
+                FormEditInstance.sType = lvTmp[0].SubItems[1].Text.ToLower();
                 FormEditInstance.labelOldV.Text = lvTmp[0].SubItems[4].Text + " " + FormEditInstance.sBalanceUp1;
                 FormEditInstance.labelOldP.Text = lvTmp[0].SubItems[2].Text;
                 FormEditInstance.labelOldA.Text = lvTmp[0].SubItems[3].Text + " " + FormEditInstance.sBalanceUp2;
