@@ -190,12 +190,12 @@ namespace Ticker_BTC_e
                                     if ((string)dTmp2["type"] == "buy")
                                     {
                                         listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
-                                        dTmp2["type"] = "B";
+                                        dTmp2["type"] = "BUY";
                                     }
                                     else if ((string)dTmp2["type"] == "sell")
                                     {
                                         listViewHistory.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
-                                        dTmp2["type"] = "S";
+                                        dTmp2["type"] = "SELL";
                                     }
                                     listViewHistory.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
@@ -247,12 +247,12 @@ namespace Ticker_BTC_e
                                     if ((string)dTmp2["type"] == "buy")
                                     {
                                         listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 0, 128, 0);
-                                        dTmp2["type"] = "B";
+                                        dTmp2["type"] = "BUY";
                                     }
                                     else if ((string)dTmp2["type"] == "sell")
                                     {
                                         listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 128, 0, 0);
-                                        dTmp2["type"] = "S";
+                                        dTmp2["type"] = "SELL";
                                     }
                                     listViewOpenOrders.Items[i].SubItems.Add(
                                         (string)dTmp2["type"]
@@ -267,6 +267,41 @@ namespace Ticker_BTC_e
                                         (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
                                     );
 
+                                    i++;
+                                }
+                                foreach (KeyValuePair<string, object> kv in dStopLosses)
+                                {
+                                    dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                                    MessageBox.Show((string)dTmp2["pair"] + " - " + Setting.TradingPair);
+                                    if ((string)dTmp2["pair"] == Setting.TradingPair)
+                                    {
+                                        if (dLastPrice <= Convert.ToDouble(dTmp2["rate"]))
+                                        {
+                                            Trade((string)dTmp2["pair"], "sell", Convert.ToDouble(dTmp2["rate"]),
+                                                Convert.ToDouble(dTmp2["amount"]));
+                                            dStopLosses.Remove(kv.Key);
+                                            continue;
+                                        }
+                                        dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
+                                    }
+
+                                    listViewOpenOrders.Items.Add(
+                                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                                    );
+                                    listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 75, 0, 130);
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        "STOP"
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["rate"]).ToString()
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        Convert.ToDouble(dTmp2["amount"]).ToString()
+                                    );
+                                    listViewOpenOrders.Items[i].SubItems.Add(
+                                        (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                                    );
                                     i++;
                                 }
                                 listViewOpenOrders.EndUpdate();
@@ -968,6 +1003,7 @@ namespace Ticker_BTC_e
             System.Windows.Forms.ListView.SelectedListViewItemCollection lvTmp = listViewOpenOrders.SelectedItems;
             if (lvTmp.Count > 0)
             {
+                //MessageBox.Show(lvTmp[0].Index.ToString()); return;
                 string sSelected = lOpenOrdersIndex[lvTmp[0].Index];
                 CancelOrder(sSelected);
                 //MessageBox.Show(sSelected);
@@ -975,6 +1011,7 @@ namespace Ticker_BTC_e
         }
         private void buttonCancelA_Click(object sender, EventArgs e)
         {
+            dStopLosses = new Dictionary<string, object>();
             foreach (string sSelected in lOpenOrdersIndex)
             {
                 CancelOrder(sSelected);
@@ -1056,13 +1093,28 @@ namespace Ticker_BTC_e
 
         private void Form1_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            textBoxBuyV.Text = "0";
+            textBoxSellV.Text = "0";
             textBoxBuyP.Text = "0";
             textBoxSellP.Text = "0";
         }
 
+        public Dictionary<string, object> dStopLosses = new Dictionary<string, object>();
         private void buttonStopLoss_Click(object sender, EventArgs e)
         {
-
+            Dictionary<string, object> dTmpStopLoss = new Dictionary<string, object>();
+            dTmpStopLoss["pair"] = Setting.TradingPair;
+            dTmpStopLoss["rate"] = Convert.ToDouble(textBoxSellP.Text);
+            dTmpStopLoss["amount"] = Convert.ToDouble(textBoxSellV.Text);
+            if (dBalance2 - Convert.ToDouble(dTmpStopLoss["amount"]) < 0
+                || Convert.ToDouble(dTmpStopLoss["rate"]) <= 0
+                || Convert.ToDouble(dTmpStopLoss["amount"]) <= 0)
+            {
+                return;
+            }
+            dStopLosses.Add(dStopLosses.Count.ToString(), dTmpStopLoss);
+            textBoxSellV.Text = "0";
+            textBoxSellP.Text = "0";
         }
 
         FormBalance FormBalanceInstance = new FormBalance();
