@@ -14,6 +14,7 @@ Features
 - Order book (price, volume, depth)
 - **Stop loss** (work only on active pair)
 - Open orders, cancellation, **editing**
+- **Indicators**: MA
 - Group orders in history with similar price
 - **Balance history**
 - Changing pairs
@@ -29,7 +30,7 @@ And on focus:
 
 ![Alt text](ScreenshotMax.png "Screenshot")
 
-Understanding Stop loss and Take profit
+Understanding Stop loss ~~and Take profit~~
 -----------
 This features work on client side and have inner balance.
 **Will be work only if program running and network ok.**
@@ -37,15 +38,14 @@ After restart client this type of orders will be removed.
 
 Examples:
 - You want sell if price <= 100 - create **Stop loss** order and regular order will be created if price <= 100.
-- You want sell if price >= 1000 - create **Take profit** order and regular order will be created if price >= 1000.
+~~- You want sell if price >= 1000 - create **Take profit** order and regular order will be created if price >= 1000.~~
 
 
 ToDo
 -----------
-- Take profit
 - Refactoring
 - Big resizable chart
-- Indicators: Depth, MA, MACD, Stoch, ROC
+- Indicators: Depth, MACD, Stoch, ROC
 
 Work in progress!
 -----------

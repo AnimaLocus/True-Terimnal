@@ -1250,19 +1250,31 @@ namespace Ticker_BTC_e
             {
                 FormBigChartInstance.ChartMain.Series["Area"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
+
+            int i = 0;
+            foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points.AddXY(dp.XValue, dp.YValues[0]);
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[1] = dp.YValues[1];
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[2] = dp.YValues[2];
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[3] = dp.YValues[3];
+                i++;
+            }
+
             foreach (DataPoint dp in ChartMain.Series["LineNow"].Points)
             {
                 FormBigChartInstance.ChartMain.Series["LineNow"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
-            FormBigChartInstance.ChartMain.Series["Candlestick"] = ChartMain.Series["Candlestick"];
-            FormBigChartInstance.ChartMain.Series["LineMA1"] = ChartMain.Series["LineMA1"];
-            FormBigChartInstance.ChartMain.Series["LineMA2"] = ChartMain.Series["LineMA2"];
-            /*
-            foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
+
+            foreach (DataPoint dp in ChartMain.Series["LineMA1"].Points)
             {
-                FormBigChartInstance.ChartMain.Series["Candlestick"].Points.AddXY(dp.XValue, dp.YValues);
+                FormBigChartInstance.ChartMain.Series["LineMA1"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
-            */
+            foreach (DataPoint dp in ChartMain.Series["LineMA2"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["LineMA2"].Points.AddXY(dp.XValue, dp.YValues[0]);
+            }
+
             FormBigChartInstance.Show();
         }
     }
