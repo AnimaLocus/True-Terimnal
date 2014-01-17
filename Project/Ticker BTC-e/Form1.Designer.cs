@@ -180,11 +180,12 @@
             series4.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series5.ChartArea = "ChartArea1";
             series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series5.Color = System.Drawing.Color.DarkViolet;
+            series5.CustomProperties = "IsXAxisQuantitative=True";
             series5.Name = "LineMA2";
             series5.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series6.BorderColor = System.Drawing.Color.Transparent;
             series6.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Dot;
-            series6.BorderWidth = 2;
             series6.ChartArea = "ChartArea1";
             series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
             series6.Color = System.Drawing.Color.Gray;

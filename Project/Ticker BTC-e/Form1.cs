@@ -809,7 +809,10 @@ namespace Ticker_BTC_e
             ChartMain.Series["Area"].Points.Clear();
             ChartMain.Series["LineNow"].Points.Clear();
 
-            foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
+            var dCandlestickDataSorted = from pair in dCandlestickData
+                        orderby pair.Key ascending
+                        select pair;
+            foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickDataSorted)
             {
                 if (dVolumeData.ContainsKey(kv.Key))
                 {
@@ -820,7 +823,7 @@ namespace Ticker_BTC_e
                     ChartMain.Series["Area"].Points.AddXY(kv.Key, 0);
                 }
 
-                ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low) / 2);
+                ChartMain.Series["Line"].Points.AddXY(kv.Key, kv.Value.Close);
 
                 ChartMain.Series["LineNow"].Points.AddXY(kv.Key, dLastPrice);
 
@@ -832,13 +835,13 @@ namespace Ticker_BTC_e
                 i++;
             }
 
-            if (i > 5)
+            if (i > 7)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "5", "Line:Y", "LineMA1:Y");
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "7", "Line:Y", "LineMA1:Y");
             }
-            if (i > 10)
+            if (i > 14)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "10", "Line:Y", "LineMA2:Y");
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "14", "Line:Y", "LineMA2:Y");
             }
         }
 
@@ -1246,23 +1249,41 @@ namespace Ticker_BTC_e
         FormBigChart FormBigChartInstance = new FormBigChart();
         private void buttonBigChart_Click(object sender, EventArgs e)
         {
+            FormBigChartInstance.ChartMain.Series["Area"].Points.Clear();
+            FormBigChartInstance.ChartMain.Series["Candlestick"].Points.Clear();
+            FormBigChartInstance.ChartMain.Series["LineNow"].Points.Clear();
+            FormBigChartInstance.ChartMain.Series["LineMA1"].Points.Clear();
+            FormBigChartInstance.ChartMain.Series["LineMA2"].Points.Clear();
+            
             foreach (DataPoint dp in ChartMain.Series["Area"].Points)
             {
                 FormBigChartInstance.ChartMain.Series["Area"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
+
+            int i = 0;
+            foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points.AddXY(dp.XValue, dp.YValues[0]);
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[1] = dp.YValues[1];
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[2] = dp.YValues[2];
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points[i].YValues[3] = dp.YValues[3];
+                i++;
+            }
+
             foreach (DataPoint dp in ChartMain.Series["LineNow"].Points)
             {
                 FormBigChartInstance.ChartMain.Series["LineNow"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
-            FormBigChartInstance.ChartMain.Series["Candlestick"] = ChartMain.Series["Candlestick"];
-            FormBigChartInstance.ChartMain.Series["LineMA1"] = ChartMain.Series["LineMA1"];
-            FormBigChartInstance.ChartMain.Series["LineMA2"] = ChartMain.Series["LineMA2"];
-            /*
-            foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
+
+            foreach (DataPoint dp in ChartMain.Series["LineMA1"].Points)
             {
-                FormBigChartInstance.ChartMain.Series["Candlestick"].Points.AddXY(dp.XValue, dp.YValues);
+                FormBigChartInstance.ChartMain.Series["LineMA1"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
-            */
+            foreach (DataPoint dp in ChartMain.Series["LineMA2"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["LineMA2"].Points.AddXY(dp.XValue, dp.YValues[0]);
+            }
+
             FormBigChartInstance.Show();
         }
     }
