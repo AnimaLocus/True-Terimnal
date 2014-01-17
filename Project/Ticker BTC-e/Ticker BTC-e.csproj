@@ -73,6 +73,12 @@
     <Compile Include="FormBalance.Designer.cs">
       <DependentUpon>FormBalance.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormBigChart.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBigChart.Designer.cs">
+      <DependentUpon>FormBigChart.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormEdit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormBalance.resx">
       <DependentUpon>FormBalance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormBigChart.resx">
+      <DependentUpon>FormBigChart.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormEdit.resx">
       <DependentUpon>FormEdit.cs</DependentUpon>

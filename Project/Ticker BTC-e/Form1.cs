@@ -803,47 +803,72 @@ namespace Ticker_BTC_e
             int i = 0;
             //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
             ChartMain.Series["Line"].Points.Clear();
+            ChartMain.Series["TmpLineMA1"].Points.Clear();
+            ChartMain.Series["TmpLineMA2"].Points.Clear();
+            ChartMain.Series["LineMA1"].Points.Clear();
+            ChartMain.Series["LineMA2"].Points.Clear();
             ChartMain.Series["Candlestick"].Points.Clear();
             ChartMain.Series["Area"].Points.Clear();
+            ChartMain.Series["LineNow"].Points.Clear();
 
             foreach (KeyValuePair<double, double> kv in dVolumeData)
             {
                 ChartMain.Series["Area"].Points.AddXY(kv.Key, kv.Value);
             }
-            CandlestickData csdLast = new CandlestickData(0, 0, 0, 0, 0);
+
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
                 ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low) / 2);
+
+                ChartMain.Series["LineNow"].Points.AddXY(kv.Key, dLastPrice);
+
                 ChartMain.Series["Candlestick"].Points.AddXY(kv.Key, kv.Value.High);
                 ChartMain.Series["Candlestick"].Points[i].YValues[1] = kv.Value.Low;
                 ChartMain.Series["Candlestick"].Points[i].YValues[2] = kv.Value.Open;
                 ChartMain.Series["Candlestick"].Points[i].YValues[3] = kv.Value.Close;
 
-                csdLast = kv.Value;
-
                 i++;
             }
-            ChartMain.Series["LineNow"].Points.Clear();
-            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date, dLastPrice);
-            ChartMain.Series["LineNow"].Points.AddXY(csdLast.Date - 60, dLastPrice);
-            /*
+
+            int i2 = 0;
             if (i > 5)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "5", "Line:Y", "LineMA1:Y");
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "7", "Line:Y", "TmpLineMA1:Y");
+                i = 0;
+                foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
+                {
+                    if (i < 7)
+                    {
+                        ChartMain.Series["LineMA1"].Points.AddXY(kv.Key, ChartMain.Series["Line"].Points[i].YValues[0]);
+                        i2 = -1;
+                    }
+                    else
+                    {
+                        ChartMain.Series["LineMA1"].Points.AddXY(kv.Key, ChartMain.Series["TmpLineMA1"].Points[i2].YValues[0]);
+                    }
+                    i2++;
+                    i++;
+                }
             }
             if (i > 10)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "10", "Line:Y", "LineMA2:Y");
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "14", "Line:Y", "TmpLineMA2:Y");
+                i = 0;
+                foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
+                {
+                    if (i < 14)
+                    {
+                        ChartMain.Series["LineMA2"].Points.AddXY(kv.Key, ChartMain.Series["Line"].Points[i].YValues[0]);
+                        i2 = -1;
+                    }
+                    else
+                    {
+                        ChartMain.Series["LineMA2"].Points.AddXY(kv.Key, ChartMain.Series["TmpLineMA2"].Points[i2].YValues[0]);
+                    }
+                    i2++;
+                    i++;
+                }
             }
-            if (i > 20)
-            {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "20", "Line:Y", "LineMA3:Y");
-            }
-            if (i > 40)
-            {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "40", "Line:Y", "LineMA4:Y");
-            }
-             * */
         }
 
         private void label1change_Click(object sender, EventArgs e)
@@ -1245,6 +1270,27 @@ namespace Ticker_BTC_e
 
                 FormEditInstance.Show();
             }
+        }
+
+        FormBigChart FormBigChartInstance = new FormBigChart();
+        private void buttonBigChart_Click(object sender, EventArgs e)
+        {
+            foreach (DataPoint dp in ChartMain.Series["Area"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["Area"].Points.AddXY(dp.XValue, dp.YValues[0]);
+            }
+            foreach (DataPoint dp in ChartMain.Series["LineNow"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["LineNow"].Points.AddXY(dp.XValue, dp.YValues[0]);
+            }
+            FormBigChartInstance.ChartMain.Series["Candlestick"] = ChartMain.Series["Candlestick"];
+            /*
+            foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
+            {
+                FormBigChartInstance.ChartMain.Series["Candlestick"].Points.AddXY(dp.XValue, dp.YValues);
+            }
+            */
+            FormBigChartInstance.Show();
         }
     }
     public class WebApi
