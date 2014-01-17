@@ -33,7 +33,7 @@ And on focus:
 
 Understanding Stop loss ~~and Take profit~~
 -----------
-This features work on client side and have inner balance.
+This features work on client side ~~and have inner balance~~.
 **Will be work only if program running and network ok.**
 After restart client this type of orders will be removed.
 

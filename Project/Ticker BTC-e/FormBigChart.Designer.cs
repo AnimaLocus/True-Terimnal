@@ -50,6 +50,7 @@
             // 
             // ChartMain
             // 
+            this.ChartMain.BackColor = System.Drawing.Color.Transparent;
             this.ChartMain.BorderlineColor = System.Drawing.Color.Gainsboro;
             chartArea1.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea1.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
@@ -137,12 +138,13 @@
             this.ChartMain.Series.Add(series4);
             this.ChartMain.Series.Add(series5);
             this.ChartMain.Series.Add(series6);
-            this.ChartMain.Size = new System.Drawing.Size(800, 360);
+            this.ChartMain.Size = new System.Drawing.Size(800, 295);
             this.ChartMain.TabIndex = 4;
-            this.ChartMain.Text = "ChartMain";
+            this.ChartMain.Text = "Chart";
             // 
             // ChartMACD
             // 
+            this.ChartMACD.BackColor = System.Drawing.Color.Transparent;
             this.ChartMACD.BorderlineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisX.Enabled = System.Windows.Forms.DataVisualization.Charting.AxisEnabled.True;
             chartArea2.AxisX.IntervalAutoMode = System.Windows.Forms.DataVisualization.Charting.IntervalAutoMode.VariableCount;
@@ -171,35 +173,42 @@
             chartArea2.AxisY.MajorGrid.LineColor = System.Drawing.Color.Gainsboro;
             chartArea2.AxisY.MajorTickMark.Enabled = false;
             chartArea2.AxisY.MajorTickMark.LineColor = System.Drawing.Color.Gainsboro;
+            chartArea2.AxisY2.InterlacedColor = System.Drawing.Color.Transparent;
             chartArea2.AxisY2.IsLabelAutoFit = false;
             chartArea2.AxisY2.IsStartedFromZero = false;
             chartArea2.AxisY2.LabelStyle.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
+            chartArea2.AxisY2.LabelStyle.ForeColor = System.Drawing.Color.Transparent;
             chartArea2.AxisY2.LineColor = System.Drawing.Color.Transparent;
             chartArea2.AxisY2.LineWidth = 0;
             chartArea2.AxisY2.MajorGrid.Enabled = false;
             chartArea2.AxisY2.MajorTickMark.Enabled = false;
             chartArea2.Name = "ChartArea1";
             this.ChartMACD.ChartAreas.Add(chartArea2);
-            this.ChartMACD.Location = new System.Drawing.Point(0, 360);
+            this.ChartMACD.Location = new System.Drawing.Point(0, 295);
             this.ChartMACD.Margin = new System.Windows.Forms.Padding(0);
             this.ChartMACD.Name = "ChartMACD";
             this.ChartMACD.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Bright;
             series7.ChartArea = "ChartArea1";
             series7.Color = System.Drawing.Color.Gainsboro;
             series7.Name = "Historgam";
+            series7.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             series7.YValuesPerPoint = 2;
             series8.ChartArea = "ChartArea1";
             series8.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series8.Enabled = false;
+            series8.Color = System.Drawing.Color.Transparent;
             series8.Name = "Line";
+            series8.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
+            series8.YAxisType = System.Windows.Forms.DataVisualization.Charting.AxisType.Secondary;
             series9.ChartArea = "ChartArea1";
             series9.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series9.Color = System.Drawing.Color.DarkRed;
             series9.Enabled = false;
             series9.Name = "EMA1";
+            series9.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             series10.ChartArea = "ChartArea1";
             series10.Enabled = false;
             series10.Name = "EMA2";
+            series10.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             series11.ChartArea = "ChartArea1";
             series11.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series11.Color = System.Drawing.Color.DarkSlateBlue;
@@ -209,6 +218,7 @@
             series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
             series12.Color = System.Drawing.Color.Red;
             series12.Name = "Signal";
+            series12.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Time;
             this.ChartMACD.Series.Add(series7);
             this.ChartMACD.Series.Add(series8);
             this.ChartMACD.Series.Add(series9);
@@ -217,14 +227,14 @@
             this.ChartMACD.Series.Add(series12);
             this.ChartMACD.Size = new System.Drawing.Size(800, 121);
             this.ChartMACD.TabIndex = 4;
-            this.ChartMACD.Text = "ChartMACD";
+            this.ChartMACD.Text = "MACD";
             // 
             // FormBigChart
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(792, 490);
+            this.ClientSize = new System.Drawing.Size(792, 654);
             this.Controls.Add(this.ChartMACD);
             this.Controls.Add(this.ChartMain);
             this.Name = "FormBigChart";
