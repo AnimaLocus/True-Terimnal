@@ -14,7 +14,8 @@ Features
 - Order book (price, volume, depth)
 - **Stop loss** (work only on active pair)
 - Open orders, cancellation, **editing**
-- **Indicators**: MA
+- Big resizable chart
+- **Indicators**: MA, MACD
 - Group orders in history with similar price
 - **Balance history**
 - Changing pairs
@@ -43,9 +44,9 @@ Examples:
 
 ToDo
 -----------
+- Get history chart
 - Refactoring
-- Big resizable chart
-- Indicators: Depth, MACD, Stoch, ROC
+- Indicators: Depth, Stoch, ROC
 
 Work in progress!
 -----------

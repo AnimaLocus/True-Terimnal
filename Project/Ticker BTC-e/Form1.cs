@@ -1284,6 +1284,38 @@ namespace Ticker_BTC_e
                 FormBigChartInstance.ChartMain.Series["LineMA2"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
 
+
+            FormBigChartInstance.ChartMACD.Series["Line"].Points.Clear();
+            FormBigChartInstance.ChartMACD.Series["EMA1"].Points.Clear();
+            FormBigChartInstance.ChartMACD.Series["EMA2"].Points.Clear();
+            FormBigChartInstance.ChartMACD.Series["MACD"].Points.Clear();
+            FormBigChartInstance.ChartMACD.Series["Signal"].Points.Clear();
+            FormBigChartInstance.ChartMACD.Series["Historgam"].Points.Clear();
+            foreach (DataPoint dp in ChartMain.Series["Line"].Points)
+            {
+                FormBigChartInstance.ChartMACD.Series["Line"].Points.AddXY(dp.XValue, dp.YValues[0]);
+            }
+            FormBigChartInstance.ChartMACD.DataManipulator.FinancialFormula(
+                FinancialFormula.ExponentialMovingAverage, "12", "Line:Y", "EMA1:Y"); // For MACD Line
+            FormBigChartInstance.ChartMACD.DataManipulator.FinancialFormula(
+                FinancialFormula.ExponentialMovingAverage, "26", "Line:Y", "EMA2:Y"); // For MACD Line
+            i = 0;
+            foreach (DataPoint dp in FormBigChartInstance.ChartMACD.Series["EMA2"].Points)
+            {
+                FormBigChartInstance.ChartMACD.Series["MACD"].Points.AddXY(dp.XValue,
+                    FormBigChartInstance.ChartMACD.Series["EMA1"].Points[i].YValues[0] - dp.YValues[0]);
+                i++;
+            }
+            FormBigChartInstance.ChartMACD.DataManipulator.FinancialFormula(
+                FinancialFormula.ExponentialMovingAverage, "9", "MACD:Y", "Signal:Y"); // Signal MACD Line
+            i = 0;
+            foreach (DataPoint dp in FormBigChartInstance.ChartMACD.Series["Signal"].Points)
+            {
+                FormBigChartInstance.ChartMACD.Series["Historgam"].Points.AddXY(dp.XValue,
+                    FormBigChartInstance.ChartMACD.Series["MACD"].Points[i].YValues[0] - dp.YValues[0]);
+                i++;
+            }
+
             FormBigChartInstance.Show();
         }
     }

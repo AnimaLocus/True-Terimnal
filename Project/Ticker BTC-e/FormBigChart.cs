@@ -32,6 +32,9 @@ namespace Ticker_BTC_e
         private void Resize()
         {
             ChartMain.Size = new Size(Size.Width, (int)Math.Round(Size.Height * 0.8));
+
+            ChartMACD.Size = new Size(Size.Width, (int)Math.Round(Size.Height * 0.2));
+            ChartMACD.Location = new Point(0, (int)Math.Round(Size.Height * 0.75));
         }
     }
 }
