@@ -803,21 +803,23 @@ namespace Ticker_BTC_e
             int i = 0;
             //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
             ChartMain.Series["Line"].Points.Clear();
-            ChartMain.Series["TmpLineMA1"].Points.Clear();
-            ChartMain.Series["TmpLineMA2"].Points.Clear();
             ChartMain.Series["LineMA1"].Points.Clear();
             ChartMain.Series["LineMA2"].Points.Clear();
             ChartMain.Series["Candlestick"].Points.Clear();
             ChartMain.Series["Area"].Points.Clear();
             ChartMain.Series["LineNow"].Points.Clear();
 
-            foreach (KeyValuePair<double, double> kv in dVolumeData)
-            {
-                ChartMain.Series["Area"].Points.AddXY(kv.Key, kv.Value);
-            }
-
             foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
             {
+                if (dVolumeData.ContainsKey(kv.Key))
+                {
+                    ChartMain.Series["Area"].Points.AddXY(kv.Key, dVolumeData[kv.Key]);
+                }
+                else
+                {
+                    ChartMain.Series["Area"].Points.AddXY(kv.Key, 0);
+                }
+
                 ChartMain.Series["Line"].Points.AddXY(kv.Key, (kv.Value.High + kv.Value.Low) / 2);
 
                 ChartMain.Series["LineNow"].Points.AddXY(kv.Key, dLastPrice);
@@ -830,44 +832,13 @@ namespace Ticker_BTC_e
                 i++;
             }
 
-            int i2 = 0;
             if (i > 5)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "7", "Line:Y", "TmpLineMA1:Y");
-                i = 0;
-                foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
-                {
-                    if (i < 7)
-                    {
-                        ChartMain.Series["LineMA1"].Points.AddXY(kv.Key, ChartMain.Series["Line"].Points[i].YValues[0]);
-                        i2 = -1;
-                    }
-                    else
-                    {
-                        ChartMain.Series["LineMA1"].Points.AddXY(kv.Key, ChartMain.Series["TmpLineMA1"].Points[i2].YValues[0]);
-                    }
-                    i2++;
-                    i++;
-                }
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "5", "Line:Y", "LineMA1:Y");
             }
             if (i > 10)
             {
-                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "14", "Line:Y", "TmpLineMA2:Y");
-                i = 0;
-                foreach (KeyValuePair<double, CandlestickData> kv in dCandlestickData)
-                {
-                    if (i < 14)
-                    {
-                        ChartMain.Series["LineMA2"].Points.AddXY(kv.Key, ChartMain.Series["Line"].Points[i].YValues[0]);
-                        i2 = -1;
-                    }
-                    else
-                    {
-                        ChartMain.Series["LineMA2"].Points.AddXY(kv.Key, ChartMain.Series["TmpLineMA2"].Points[i2].YValues[0]);
-                    }
-                    i2++;
-                    i++;
-                }
+                ChartMain.DataManipulator.FinancialFormula(FinancialFormula.MovingAverage, "10", "Line:Y", "LineMA2:Y");
             }
         }
 
@@ -1284,6 +1255,8 @@ namespace Ticker_BTC_e
                 FormBigChartInstance.ChartMain.Series["LineNow"].Points.AddXY(dp.XValue, dp.YValues[0]);
             }
             FormBigChartInstance.ChartMain.Series["Candlestick"] = ChartMain.Series["Candlestick"];
+            FormBigChartInstance.ChartMain.Series["LineMA1"] = ChartMain.Series["LineMA1"];
+            FormBigChartInstance.ChartMain.Series["LineMA2"] = ChartMain.Series["LineMA2"];
             /*
             foreach (DataPoint dp in ChartMain.Series["Candlestick"].Points)
             {
