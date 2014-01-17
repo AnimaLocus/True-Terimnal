@@ -15,13 +15,11 @@ Features
 - **Stop loss** (work only on active pair)
 - Open orders, cancellation, **editing**
 - Big resizable chart
-- **Indicators**: MA, MACD
+- **Indicators**: SMA, MACD
 - Group orders in history with similar price
 - **Balance history**
-- Changing pairs
-- Window stay on top with transparent, on focus opacity changing
-- Settings (config.ini file)
-- Checkboxes for resize, opacity, top
+- Support all pairs
+- Window stay on top with transparent, on focus opacity and size changing
 
 On top (ticker):
 
@@ -44,9 +42,11 @@ Examples:
 
 ToDo
 -----------
-- Get history chart
+- Saving settings to config.ini
 - Refactoring
-- Indicators: Depth, Stoch, ROC
+- Get chart history
+- Selecting/changing indicators
+- Indicators: Stochastic, ROC (Rate of Change, Momentum), RSI (Relative Strength Index), Williams %R
 
 Work in progress!
 -----------
