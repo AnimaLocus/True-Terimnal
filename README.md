@@ -42,7 +42,7 @@ Examples:
 
 ToDo
 -----------
-- Redisign price divergence and all buy/sell panel, add Take profit and inner balance
+- Redesign price divergence and all buy/sell panel, add Take profit and inner balance
 - Saving settings to config.ini
 - Refactoring
 - Get chart history
