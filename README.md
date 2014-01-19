@@ -42,6 +42,7 @@ Examples:
 
 ToDo
 -----------
+- Fix bug with black Bid list
 - Redesign price divergence and all buy/sell panel, add Take profit and inner balance
 - Saving settings to config.ini
 - Refactoring
