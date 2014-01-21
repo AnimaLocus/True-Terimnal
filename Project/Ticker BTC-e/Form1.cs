@@ -1318,6 +1318,11 @@ namespace Ticker_BTC_e
 
             FormBigChartInstance.Show();
         }
+
+        private void buttonTake_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     public class WebApi
     {
