@@ -12,7 +12,7 @@ Features
 - Trading interface
 - **Profit steps**
 - Order book (price, volume, depth)
-- **Stop loss** (work only on active pair)
+- **Stop loss** and **Take profit** (work only on active pair)
 - Open orders, cancellation, **editing**
 - Big resizable chart
 - **Indicators**: SMA, MACD
@@ -31,20 +31,19 @@ And on focus:
 
 Understanding Stop loss ~~and Take profit~~
 -----------
-This features work on client side ~~and have inner balance~~.
+This features work on client side.
 **Will be work only if program running and network ok.**
 After restart client this type of orders will be removed.
 
 Examples:
 - You want sell if price <= 100 - create **Stop loss** order and regular order will be created if price <= 100.
-~~- You want sell if price >= 1000 - create **Take profit** order and regular order will be created if price >= 1000.~~
+- You want sell if price >= 1000 - create **Take profit** order and regular order will be created if price >= 1000.
 
 
 ToDo
 -----------
 - Exeptions: Buy, Sell, Stop, Canceling, Editing, Selecting
 - Fix bug with black Bid list
-- Redesign price divergence and all buy/sell panel, add Take profit and inner balance
 - Saving settings to config.ini
 - Refactoring
 - Get chart history

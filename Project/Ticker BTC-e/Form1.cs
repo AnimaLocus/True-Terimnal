@@ -214,7 +214,7 @@ namespace Ticker_BTC_e
                         dStopLosses.Remove(kv.Key);
                         continue;
                     }
-                    dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
+                    //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
                 }
 
                 listViewOpenOrders.Items.Add(
@@ -223,6 +223,42 @@ namespace Ticker_BTC_e
                 listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 75, 0, 130);
                 listViewOpenOrders.Items[i].SubItems.Add(
                     "STOP"
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["rate"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    Convert.ToDouble(dTmp2["amount"]).ToString()
+                );
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    (Convert.ToDouble(dTmp2["rate"]) * Convert.ToDouble(dTmp2["amount"])).ToString()
+                );
+                i++;
+            }
+            Dictionary<string, object> dTakeProfitCopy =
+                dTakeProfit.ToDictionary(entry => entry.Key, entry => entry.Value);
+            foreach (KeyValuePair<string, object> kv in dTakeProfitCopy)
+            {
+                dTmp2 = (Dictionary<string, object>)kv.Value;
+
+                if ((string)dTmp2["pair"] == Setting.TradingPair)
+                {
+                    if (dLastPrice >= Convert.ToDouble(dTmp2["rate"]))
+                    {
+                        Trade((string)dTmp2["pair"], "sell", Convert.ToDouble(dTmp2["rate"]),
+                            Convert.ToDouble(dTmp2["amount"]));
+                        dTakeProfit.Remove(kv.Key);
+                        continue;
+                    }
+                    //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
+                }
+
+                listViewOpenOrders.Items.Add(
+                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                );
+                listViewOpenOrders.Items[i].ForeColor = Color.MediumVioletRed;
+                listViewOpenOrders.Items[i].SubItems.Add(
+                    "TAKE"
                 );
                 listViewOpenOrders.Items[i].SubItems.Add(
                     Convert.ToDouble(dTmp2["rate"]).ToString()
@@ -1204,8 +1240,23 @@ namespace Ticker_BTC_e
             dStopLosses.Add(dStopLosses.Count.ToString(), dTmpStopLoss);
             textBoxSellV.Text = "0";
             textBoxSellP.Text = "0";
-
-            UpdateOpenOrders();
+        }
+        public Dictionary<string, object> dTakeProfit = new Dictionary<string, object>();
+        private void buttonTake_Click(object sender, EventArgs e)
+        {
+            Dictionary<string, object> dTmpTakeProfit = new Dictionary<string, object>();
+            dTmpTakeProfit["pair"] = Setting.TradingPair;
+            dTmpTakeProfit["rate"] = Convert.ToDouble(textBoxSellP.Text);
+            dTmpTakeProfit["amount"] = Convert.ToDouble(textBoxSellV.Text);
+            if (dBalance2 - Convert.ToDouble(dTmpTakeProfit["amount"]) < 0
+                || Convert.ToDouble(dTmpTakeProfit["rate"]) <= 0
+                || Convert.ToDouble(dTmpTakeProfit["amount"]) <= 0)
+            {
+                return;
+            }
+            dTakeProfit.Add(dTakeProfit.Count.ToString(), dTmpTakeProfit);
+            textBoxSellV.Text = "0";
+            textBoxSellP.Text = "0";
         }
 
         FormBalance FormBalanceInstance = new FormBalance();
@@ -1317,11 +1368,6 @@ namespace Ticker_BTC_e
             }
 
             FormBigChartInstance.Show();
-        }
-
-        private void buttonTake_Click(object sender, EventArgs e)
-        {
-
         }
     }
     public class WebApi
