@@ -1123,6 +1123,20 @@ namespace Ticker_BTC_e
                         }
                     }
                 }
+                else if (lvTmp[0].SubItems[1].Text == "TAKE")
+                {
+                    Dictionary<string, object> dTakeProfitCopy =
+                        dTakeProfit.ToDictionary(entry => entry.Key, entry => entry.Value);
+                    foreach (KeyValuePair<string, object> kv in dTakeProfitCopy)
+                    {
+                        Dictionary<string, object> dTmp2 = (Dictionary<string, object>)kv.Value;
+                        if (lvTmp[0].SubItems[2].Text == dTmp2["rate"].ToString()
+                            && lvTmp[0].SubItems[3].Text == dTmp2["amount"].ToString())
+                        {
+                            dTakeProfit.Remove(kv.Key);
+                        }
+                    }
+                }
                 else // Regular Buy/Sell
                 {
                     string sSelected = lOpenOrdersIndex[lvTmp[0].Index];
@@ -1135,6 +1149,7 @@ namespace Ticker_BTC_e
         private void buttonCancelA_Click(object sender, EventArgs e)
         {
             dStopLosses = new Dictionary<string, object>();
+            dTakeProfit = new Dictionary<string, object>();
             foreach (string sSelected in lOpenOrdersIndex)
             {
                 CancelOrder(sSelected);
@@ -1272,6 +1287,9 @@ namespace Ticker_BTC_e
             if (lvTmp.Count > 0)
             {
                 if (lvTmp[0].SubItems[1].Text == "STOP")
+                {
+                }
+                else if (lvTmp[0].SubItems[1].Text == "TAKE")
                 {
                 }
                 else
