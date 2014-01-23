@@ -1028,6 +1028,7 @@ namespace Ticker_BTC_e
         {
             textBoxBuyP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["asks"])[0])[0]).ToString();
         }
+        private int oldIndexBoxBuyPCI = 0;
         private string oldTextBoxBuyP = String.Empty;
         private void textBoxP_TextChanged(object sender, EventArgs e)
         {
@@ -1037,6 +1038,7 @@ namespace Ticker_BTC_e
                 textBoxBuyP.TextChanged -= textBoxP_TextChanged;
                 textBoxBuyP.Text = oldTextBoxBuyP;
 
+                textBoxBuyP.SelectionStart = oldIndexBoxBuyPCI;
                 textBoxBuyP.TextChanged += textBoxP_TextChanged;
             }
 
@@ -1052,8 +1054,10 @@ namespace Ticker_BTC_e
         }
         private void textBoxBuyP_KeyDown(object sender, KeyEventArgs e)
         {
+            oldIndexBoxBuyPCI = textBoxBuyP.SelectionStart;
             oldTextBoxBuyP = textBoxBuyP.Text;
         }
+        private int oldIndexBoxBuyVCI = 0;
         private string oldTextBoxBuyV = String.Empty;
         private void textBoxV_TextChanged(object sender, EventArgs e)
         {
@@ -1063,6 +1067,7 @@ namespace Ticker_BTC_e
                 textBoxBuyV.TextChanged -= textBoxV_TextChanged;
                 textBoxBuyV.Text = oldTextBoxBuyV;
 
+                textBoxBuyV.SelectionStart = oldIndexBoxBuyVCI;
                 textBoxBuyV.TextChanged += textBoxV_TextChanged;
             }
 
@@ -1071,6 +1076,7 @@ namespace Ticker_BTC_e
         }
         private void textBoxBuyV_KeyDown(object sender, KeyEventArgs e)
         {
+            oldIndexBoxBuyVCI = textBoxBuyV.SelectionStart;
             oldTextBoxBuyV = textBoxBuyV.Text;
         }
         private void buttonBuy_Click(object sender, EventArgs e)
@@ -1108,7 +1114,7 @@ namespace Ticker_BTC_e
         {
             textBoxSellP.Text = Convert.ToDouble(((List<object>)((List<object>)dDepthData["bids"])[0])[0]).ToString();
         }
-        //private int oldIndexBoxSellP = 0;
+        private int oldIndexBoxSellPCI = 0;
         private string oldTextBoxSellP = String.Empty;
         private void textBoxSellP_TextChanged(object sender, EventArgs e)
         {
@@ -1118,7 +1124,7 @@ namespace Ticker_BTC_e
                 textBoxSellP.TextChanged -= textBoxSellP_TextChanged;
                 textBoxSellP.Text = oldTextBoxSellP;
 
-                //textBoxSellP.CaretIndex = oldIndexBoxSellP;
+                textBoxSellP.SelectionStart = oldIndexBoxSellPCI;
                 textBoxSellP.TextChanged += textBoxSellP_TextChanged;
             }
 
@@ -1135,9 +1141,10 @@ namespace Ticker_BTC_e
         }
         private void textBoxSellP_KeyDown(object sender, KeyEventArgs e)
         {
-            //oldIndexBoxSellP = textBoxSellP.CaretIndex;
+            oldIndexBoxSellPCI = textBoxSellP.SelectionStart;
             oldTextBoxSellP = textBoxSellP.Text;
         }
+        private int oldIndexBoxSellVCI = 0;
         private string oldTextBoxSellV = String.Empty;
         private void textBoxSellV_TextChanged(object sender, EventArgs e)
         {
@@ -1147,6 +1154,7 @@ namespace Ticker_BTC_e
                 textBoxSellV.TextChanged -= textBoxSellV_TextChanged;
                 textBoxSellV.Text = oldTextBoxSellV;
 
+                textBoxSellV.SelectionStart = oldIndexBoxSellVCI;
                 textBoxSellV.TextChanged += textBoxSellV_TextChanged;
             }
 
@@ -1154,6 +1162,7 @@ namespace Ticker_BTC_e
         }
         private void textBoxSellV_KeyDown(object sender, KeyEventArgs e)
         {
+            oldIndexBoxSellVCI = textBoxSellV.SelectionStart;
             oldTextBoxSellV = textBoxSellV.Text;
         }
         private void buttonSell_Click(object sender, EventArgs e)
