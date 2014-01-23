@@ -84,10 +84,7 @@ namespace Ticker_BTC_e
             {
                 string[] saLines = File.ReadAllLines("balance.db");
                 string sTmp = saLines[saLines.Length - 1];
-                //foreach (string sTmp in saLines)
-                //{
                 string[] split = sTmp.Split(new char[] { '/' }, 12);
-                //MessageBox.Show(split.Length.ToString());
                 if (split.Length == 12)
                 {
                     for (int iTmp = 1; iTmp < split.Length; iTmp++)
@@ -96,11 +93,10 @@ namespace Ticker_BTC_e
                         dBalance[split2[0]] = Convert.ToDouble(split2[1]);
                     }
                 }
-                //}
             }
             while (true)
             {
-                dSecLag = UnixTime.Now;
+                dSecLag = ConvertToUnixMicroTimestamp(DateTime.Now);
                 try
                 {
                     UpdateHistory(Setting.TradingPair, 500);
@@ -128,13 +124,6 @@ namespace Ticker_BTC_e
                             UpdateOpenOrders();
                         }
 
-                        /*
-                        DataManipulator myDataManip = chart1.DataManipulator;
-                        myDataManip.Filter(CompareMethod.LessThanOrEqualTo,
-                            (dtTick.AddMinutes(-30)).ToOADate(),
-                            "SeriesLine,SeriesLineVol", "SeriesLine,SeriesLineVol", "X");
-                        */
-
                         labelBuyHave.Text = Math.Round(dBalance1, 2) + " " + sBalanceUp1 + " (" +
                             Math.Round(dBalance1 / dLastPrice * (1 - dFee), 2) + " " + sBalanceUp2 + ")";
                         labelSellHave.Text = Math.Round(dBalance2, 2) + " " + sBalanceUp2 + " (" +
@@ -142,9 +131,9 @@ namespace Ticker_BTC_e
 
                         UpdateChartMain();
 
-                        dSecLag = UnixTime.Now - dSecLag;
+                        dSecLag = ConvertToUnixMicroTimestamp(DateTime.Now) - dSecLag;
                         labelLag.Text = "Lag: " + Math.Round(Convert.ToDouble(Setting.UpdateInterval) / 1000, 2)
-                            + "+" + dSecLag + " s.";
+                            + "+" + Math.Round(dSecLag, 2) + " s.";
                     });
                 }
                 catch (Exception e)
@@ -231,7 +220,6 @@ namespace Ticker_BTC_e
                         dStopLosses.Remove(kv.Key);
                         continue;
                     }
-                    //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
                 }
 
                 if (bUpdateFull)
@@ -274,7 +262,6 @@ namespace Ticker_BTC_e
                         dTakeProfit.Remove(kv.Key);
                         continue;
                     }
-                    //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
                 }
 
                 if (bUpdateFull)
@@ -441,6 +428,12 @@ namespace Ticker_BTC_e
         {
             DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
             return origin.AddSeconds(timestamp);
+        }
+        static double ConvertToUnixMicroTimestamp(DateTime date)
+        {
+            DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+            TimeSpan diff = date - origin;
+            return (double)diff.TotalSeconds;
         }
         public static DateTime dtFloor(DateTime date, TimeSpan span)
         {
@@ -910,7 +903,6 @@ namespace Ticker_BTC_e
         public void UpdateChartMain()
         {
             int i = 0;
-            //To remove the first point in the series: Chart1.Series[0].Points.RemoveAt(0);
             ChartMain.Series["Line"].Points.Clear();
             ChartMain.Series["LineMA1"].Points.Clear();
             ChartMain.Series["LineMA2"].Points.Clear();
@@ -1045,7 +1037,6 @@ namespace Ticker_BTC_e
                 textBoxBuyP.TextChanged -= textBoxP_TextChanged;
                 textBoxBuyP.Text = oldTextBoxBuyP;
 
-                //textBoxBuyP.CaretIndex = oldIndex;
                 textBoxBuyP.TextChanged += textBoxP_TextChanged;
             }
 
@@ -1072,7 +1063,6 @@ namespace Ticker_BTC_e
                 textBoxBuyV.TextChanged -= textBoxV_TextChanged;
                 textBoxBuyV.Text = oldTextBoxBuyV;
 
-                //textBoxBuyV.CaretIndex = oldIndex;
                 textBoxBuyV.TextChanged += textBoxV_TextChanged;
             }
 
@@ -1157,7 +1147,6 @@ namespace Ticker_BTC_e
                 textBoxSellV.TextChanged -= textBoxSellV_TextChanged;
                 textBoxSellV.Text = oldTextBoxSellV;
 
-                //textBoxSellV.CaretIndex = oldIndex;
                 textBoxSellV.TextChanged += textBoxSellV_TextChanged;
             }
 
@@ -1165,7 +1154,6 @@ namespace Ticker_BTC_e
         }
         private void textBoxSellV_KeyDown(object sender, KeyEventArgs e)
         {
-            //oldIndex = textBoxSellV.CaretIndex;
             oldTextBoxSellV = textBoxSellV.Text;
         }
         private void buttonSell_Click(object sender, EventArgs e)
@@ -1259,6 +1247,7 @@ namespace Ticker_BTC_e
 
             ChartMain.Focus();
 
+            bUpdateFull = true;
             UpdateHistory(Setting.TradingPair, 2000);
         }
 
