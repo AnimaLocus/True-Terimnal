@@ -97,7 +97,7 @@ namespace Ticker_BTC_e
         {
         }
 
-        private void FormBalance_FormClosing(object sender, FormClosingEventArgs e)
+        private void FormBalance_FormClosing_1(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
             Hide();

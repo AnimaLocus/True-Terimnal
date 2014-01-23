@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.listViewNFBalance = new Ticker_BTC_e.ListViewNF();
-            this.button1d = new System.Windows.Forms.Button();
-            this.button1m = new System.Windows.Forms.Button();
-            this.button1y = new System.Windows.Forms.Button();
-            this.button1h = new System.Windows.Forms.Button();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -45,6 +41,10 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.button1d = new System.Windows.Forms.Button();
+            this.button1m = new System.Windows.Forms.Button();
+            this.button1y = new System.Windows.Forms.Button();
+            this.button1h = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // listViewNFBalance
@@ -62,7 +62,6 @@
             this.columnHeader10,
             this.columnHeader11,
             this.columnHeader12});
-
             this.listViewNFBalance.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.listViewNFBalance.FullRowSelect = true;
             this.listViewNFBalance.Location = new System.Drawing.Point(6, 41);
@@ -73,50 +72,6 @@
             this.listViewNFBalance.TabIndex = 0;
             this.listViewNFBalance.UseCompatibleStateImageBehavior = false;
             this.listViewNFBalance.View = System.Windows.Forms.View.Details;
-            // 
-            // button1d
-            // 
-            this.button1d.Location = new System.Drawing.Point(87, 9);
-            this.button1d.Margin = new System.Windows.Forms.Padding(0);
-            this.button1d.Name = "button1d";
-            this.button1d.Size = new System.Drawing.Size(75, 23);
-            this.button1d.TabIndex = 1;
-            this.button1d.Text = "1 Day";
-            this.button1d.UseVisualStyleBackColor = true;
-            this.button1d.Click += new System.EventHandler(this.button1d_Click);
-            // 
-            // button1m
-            // 
-            this.button1m.Location = new System.Drawing.Point(168, 9);
-            this.button1m.Margin = new System.Windows.Forms.Padding(0);
-            this.button1m.Name = "button1m";
-            this.button1m.Size = new System.Drawing.Size(75, 23);
-            this.button1m.TabIndex = 1;
-            this.button1m.Text = "1 Month";
-            this.button1m.UseVisualStyleBackColor = true;
-            this.button1m.Click += new System.EventHandler(this.button1m_Click);
-            // 
-            // button1y
-            // 
-            this.button1y.Location = new System.Drawing.Point(249, 9);
-            this.button1y.Margin = new System.Windows.Forms.Padding(0);
-            this.button1y.Name = "button1y";
-            this.button1y.Size = new System.Drawing.Size(75, 23);
-            this.button1y.TabIndex = 1;
-            this.button1y.Text = "1 Year";
-            this.button1y.UseVisualStyleBackColor = true;
-            this.button1y.Click += new System.EventHandler(this.button1y_Click);
-            // 
-            // button1h
-            // 
-            this.button1h.Location = new System.Drawing.Point(6, 9);
-            this.button1h.Margin = new System.Windows.Forms.Padding(0);
-            this.button1h.Name = "button1h";
-            this.button1h.Size = new System.Drawing.Size(75, 23);
-            this.button1h.TabIndex = 1;
-            this.button1h.Text = "1 Hour";
-            this.button1h.UseVisualStyleBackColor = true;
-            this.button1h.Click += new System.EventHandler(this.button1h_Click);
             // 
             // columnHeader1
             // 
@@ -178,6 +133,50 @@
             this.columnHeader12.Text = "XPM";
             this.columnHeader12.Width = 55;
             // 
+            // button1d
+            // 
+            this.button1d.Location = new System.Drawing.Point(87, 9);
+            this.button1d.Margin = new System.Windows.Forms.Padding(0);
+            this.button1d.Name = "button1d";
+            this.button1d.Size = new System.Drawing.Size(75, 23);
+            this.button1d.TabIndex = 1;
+            this.button1d.Text = "1 Day";
+            this.button1d.UseVisualStyleBackColor = true;
+            this.button1d.Click += new System.EventHandler(this.button1d_Click);
+            // 
+            // button1m
+            // 
+            this.button1m.Location = new System.Drawing.Point(168, 9);
+            this.button1m.Margin = new System.Windows.Forms.Padding(0);
+            this.button1m.Name = "button1m";
+            this.button1m.Size = new System.Drawing.Size(75, 23);
+            this.button1m.TabIndex = 1;
+            this.button1m.Text = "1 Month";
+            this.button1m.UseVisualStyleBackColor = true;
+            this.button1m.Click += new System.EventHandler(this.button1m_Click);
+            // 
+            // button1y
+            // 
+            this.button1y.Location = new System.Drawing.Point(249, 9);
+            this.button1y.Margin = new System.Windows.Forms.Padding(0);
+            this.button1y.Name = "button1y";
+            this.button1y.Size = new System.Drawing.Size(75, 23);
+            this.button1y.TabIndex = 1;
+            this.button1y.Text = "1 Year";
+            this.button1y.UseVisualStyleBackColor = true;
+            this.button1y.Click += new System.EventHandler(this.button1y_Click);
+            // 
+            // button1h
+            // 
+            this.button1h.Location = new System.Drawing.Point(6, 9);
+            this.button1h.Margin = new System.Windows.Forms.Padding(0);
+            this.button1h.Name = "button1h";
+            this.button1h.Size = new System.Drawing.Size(75, 23);
+            this.button1h.TabIndex = 1;
+            this.button1h.Text = "1 Hour";
+            this.button1h.UseVisualStyleBackColor = true;
+            this.button1h.Click += new System.EventHandler(this.button1h_Click);
+            // 
             // FormBalance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -191,6 +190,7 @@
             this.Name = "FormBalance";
             this.ShowIcon = false;
             this.Text = "True Terminal Balance";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormBalance_FormClosing_1);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormBalance_FormClosed);
             this.Load += new System.EventHandler(this.FormBalance_Load);
             this.ResumeLayout(false);
