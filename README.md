@@ -42,7 +42,7 @@ Examples:
 
 ToDo
 -----------
-- Exeptions: Buy, Sell, Stop, Canceling, Editing, Selecting
+- Exeptions: Buy, Sell, Stop, Canceling, Editing
 - Fix bug with black Bid list
 - Saving settings to config.ini
 - Refactoring
