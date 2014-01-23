@@ -151,15 +151,25 @@ namespace Ticker_BTC_e
                 {
 
                 }
+
+                bUpdateFull = false;
                 System.Threading.Thread.Sleep(Setting.UpdateInterval);
             }
         }
         public void UpdateOpenOrders()
         {
+            if (dOpenOrders.Count + dStopLosses.Count + dTakeProfit.Count != listViewOpenOrders.Items.Count)
+            {
+                bUpdateFull = true;
+            }
+
             Dictionary<string, object> dTmp2 = new Dictionary<string, object>();
             int i = 0;
             listViewOpenOrders.BeginUpdate();
-            listViewOpenOrders.Items.Clear();
+            if (bUpdateFull)
+            {
+                listViewOpenOrders.Items.Clear();
+            }
             lOpenOrdersIndex = new List<string>();
             dHighlightInDepthAsk = new List<double>();
             dHighlightInDepthBid = new List<double>();
@@ -169,9 +179,16 @@ namespace Ticker_BTC_e
 
                 lOpenOrdersIndex.Add(kv.Key);
 
-                listViewOpenOrders.Items.Add(
-                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                );
+                if (bUpdateFull)
+                {
+                    listViewOpenOrders.Items.Add(
+                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                    );
+                }
+                else
+                {
+                    listViewOpenOrders.Items[i].Text = (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper();
+                }
                 if ((string)dTmp2["type"] == "buy")
                 {
                     dHighlightInDepthBid.Add(Convert.ToDouble(dTmp2["rate"]));
@@ -217,9 +234,16 @@ namespace Ticker_BTC_e
                     //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
                 }
 
-                listViewOpenOrders.Items.Add(
-                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                );
+                if (bUpdateFull)
+                {
+                    listViewOpenOrders.Items.Add(
+                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                    );
+                }
+                else
+                {
+                    listViewOpenOrders.Items[i].Text = (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper();
+                }
                 listViewOpenOrders.Items[i].ForeColor = Color.FromArgb(0, 75, 0, 130);
                 listViewOpenOrders.Items[i].SubItems.Add(
                     "STOP"
@@ -253,9 +277,16 @@ namespace Ticker_BTC_e
                     //dBalance2 -= Convert.ToDouble(dTmp2["amount"]);
                 }
 
-                listViewOpenOrders.Items.Add(
-                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                );
+                if (bUpdateFull)
+                {
+                    listViewOpenOrders.Items.Add(
+                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                    );
+                }
+                else
+                {
+                    listViewOpenOrders.Items[i].Text = (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper();
+                }
                 listViewOpenOrders.Items[i].ForeColor = Color.MediumVioletRed;
                 listViewOpenOrders.Items[i].SubItems.Add(
                     "TAKE"
@@ -313,16 +344,32 @@ namespace Ticker_BTC_e
                     i++;
                 }
             }
+
+            if (dTradeHistoryGrouped.Count != listViewHistory.Items.Count)
+            {
+                bUpdateFull = true;
+            }
+
             listViewHistory.BeginUpdate();
-            listViewHistory.Items.Clear();
+            if (bUpdateFull)
+            {
+                listViewHistory.Items.Clear();
+            }
             i = 0;
             foreach (KeyValuePair<string, object> kv in dTradeHistoryGrouped)
             {
                 dTmp2 = (Dictionary<string, object>)kv.Value;
 
-                listViewHistory.Items.Add(
-                    (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
-                );
+                if (bUpdateFull)
+                {
+                    listViewHistory.Items.Add(
+                        (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper(), i
+                    );
+                }
+                else
+                {
+                    listViewHistory.Items[i].Text = (((string)dTmp2["pair"]).Replace("_", "/")).ToUpper();
+                }
 
                 if ((string)dTmp2["type"] == "buy")
                 {
@@ -615,13 +662,17 @@ namespace Ticker_BTC_e
         public double dLastDepth = 9999999999999999999;
         public List<double> dHighlightInDepthAsk = new List<double>();
         public List<double> dHighlightInDepthBid = new List<double>();
+        public bool bUpdateFull = true;
         public void UpdateDepth()
         {
             double dDepth = 0;
             double dTmpRate = 0;
 
             listViewAsk.BeginUpdate();
-            listViewAsk.Items.Clear();
+            if (bUpdateFull)
+            {
+                listViewAsk.Items.Clear();
+            }
             var lAsks = (List<object>)dDepthData["asks"];
             dDepthMinBold = dLastDepth / lAsks.Count;
             for (int i = 0; i < lAsks.Count; i++)
@@ -635,10 +686,19 @@ namespace Ticker_BTC_e
                     (
                         ((List<object>)lAsks[i])[0]
                     );
-                listViewAsk.Items.Add(
-                    dTmpRate.ToString()
-                );
 
+                if (bUpdateFull)
+                {
+                    listViewAsk.Items.Add(
+                        dTmpRate.ToString()
+                    );
+                }
+                else
+                {
+                    listViewAsk.Items[i].Text = dTmpRate.ToString();
+                }
+
+                listViewAsk.Items[i].BackColor = Color.Transparent;
                 foreach (double dTmp in dHighlightInDepthAsk)
                 {
                     if (dTmpRate == dTmp)
@@ -647,6 +707,7 @@ namespace Ticker_BTC_e
                     }
                 }
 
+                listViewAsk.Items[i].Font = new Font(listViewAsk.Items[i].Font, FontStyle.Regular);
                 if (Convert.ToDouble(((List<object>)lAsks[i])[1]) > dDepthMinBold)
                     listViewAsk.Items[i].Font = new Font(listViewAsk.Items[i].Font, FontStyle.Bold);
                 listViewAsk.Items[i].SubItems.Add(
@@ -661,7 +722,10 @@ namespace Ticker_BTC_e
 
             dDepth = 0;
             listViewBid.BeginUpdate();
-            listViewBid.Items.Clear();
+            if (bUpdateFull)
+            {
+                listViewBid.Items.Clear();
+            }
             var lBids = (List<object>)dDepthData["bids"];
             for (int i = 0; i < lBids.Count; i++)
             {
@@ -674,10 +738,18 @@ namespace Ticker_BTC_e
                     (
                         ((List<object>)lBids[i])[0]
                     );
-                listViewBid.Items.Add(
-                    dTmpRate.ToString()
-                );
+                if (bUpdateFull)
+                {
+                    listViewBid.Items.Add(
+                        dTmpRate.ToString()
+                    );
+                }
+                else
+                {
+                    listViewBid.Items[i].Text = dTmpRate.ToString();
+                }
 
+                listViewBid.Items[i].BackColor = Color.Transparent;
                 foreach (double dTmp in dHighlightInDepthBid)
                 {
                     if (dTmpRate == dTmp)
@@ -686,6 +758,7 @@ namespace Ticker_BTC_e
                     }
                 }
 
+                listViewBid.Items[i].Font = new Font(listViewBid.Items[i].Font, FontStyle.Regular);
                 if (Convert.ToDouble(((List<object>)lBids[i])[1]) > dDepthMinBold)
                     listViewBid.Items[i].Font = new Font(listViewBid.Items[i].Font, FontStyle.Bold);
                 listViewBid.Items[i].SubItems.Add(
@@ -1016,6 +1089,7 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxBuyV.Text) / Convert.ToDouble(textBoxBuyP.Text) * 100000000) / 100000000);
             textBoxBuyV.Text = "0";
             textBoxBuyP.Text = "0";
+            bUpdateFull = true;
         }
         // BUY Block END/
 
@@ -1100,6 +1174,7 @@ namespace Ticker_BTC_e
                 Math.Floor(Convert.ToDouble(textBoxSellV.Text) * 100000000) / 100000000);
             textBoxSellP.Text = "0";
             textBoxSellV.Text = "0";
+            bUpdateFull = true;
         }
         // SELL Block END/
 
@@ -1144,6 +1219,7 @@ namespace Ticker_BTC_e
                 }
             }
 
+            bUpdateFull = true;
             UpdateOpenOrders();
         }
         private void buttonCancelA_Click(object sender, EventArgs e)
@@ -1155,6 +1231,7 @@ namespace Ticker_BTC_e
                 CancelOrder(sSelected);
             }
 
+            bUpdateFull = true;
             UpdateOpenOrders();
         }
 
@@ -1255,6 +1332,7 @@ namespace Ticker_BTC_e
             dStopLosses.Add(dStopLosses.Count.ToString(), dTmpStopLoss);
             textBoxSellV.Text = "0";
             textBoxSellP.Text = "0";
+            bUpdateFull = true;
         }
         public Dictionary<string, object> dTakeProfit = new Dictionary<string, object>();
         private void buttonTake_Click(object sender, EventArgs e)
@@ -1272,6 +1350,7 @@ namespace Ticker_BTC_e
             dTakeProfit.Add(dTakeProfit.Count.ToString(), dTmpTakeProfit);
             textBoxSellV.Text = "0";
             textBoxSellP.Text = "0";
+            bUpdateFull = true;
         }
 
         FormBalance FormBalanceInstance = new FormBalance();
