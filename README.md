@@ -29,7 +29,7 @@ And on focus:
 
 ![Alt text](ScreenshotMax.png "Screenshot")
 
-Understanding Stop loss ~~and Take profit~~
+Understanding Stop loss and Take profit
 -----------
 This features work on client side.
 **Will be work only if program running and network ok.**
